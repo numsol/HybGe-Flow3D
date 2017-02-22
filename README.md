@@ -2,7 +2,9 @@
 
 HybGe-Flow3D is a multiscale solver for laminar fluid flow in complex, uncertain 3D and 2D geometries.
 
-This software was developed under the partial support of the National Science
+This software is developed and maintained by Numerical Solutions, Inc.
+
+The first version of this software was developed under the partial support of the National Science
 Foundation on the projects NSF DMS-1115827 "Hybrid modeling in porous media" (PI: M. Peszynska)
 and NFS DMS-1522734 "Phase transitions in porous media across multiple scales" (PI: M. Peszynska).
 
@@ -12,7 +14,7 @@ Consult the included User Manual for installation and use tutorials.
 
 ### License ###
 
-HybGe-Flow3D Copyright (C) Timothy B. Costa.
+HybGe-Flow3D Copyright (C) Numerical Solutions, Inc.
 
 This problem is free software; you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 
@@ -27,8 +29,8 @@ can also be found at http://www.gnu.org/licenses/.
 Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:
 
     Costa, T., "HybGe-Flow3D", Package Version 2.0.0,
-    http://github.com/costat/HybGe-Flow3D.
+    http://github.com/numsol/HybGe-Flow3D.
 
 ### Contact ###
 
-Timothy B. Costa, costat@math.oregonstate.edu
+Timothy B. Costa, timothy.costa@numericalsolutions.org
