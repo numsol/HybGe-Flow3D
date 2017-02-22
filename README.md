@@ -10,7 +10,7 @@ and NFS DMS-1522734 "Phase transitions in porous media across multiple scales" (
 
 ### Documentation ###
 
-Please find detailed documentation at www.numericalsolutions.org/hybge-flow3d
+Please find detailed documentation at www.numericalsolutions.org/doc/hybge-flow3d
 
 ### License ###
 
