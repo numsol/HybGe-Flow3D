@@ -1,6 +1,6 @@
 # HybGe-Flow3D #
 
-HybGe-Flow3D is a multiscale solver for laminar fluid flow in complex, uncertain 3D and 2D geometries.
+HybGe-Flow3D is a library designed for solving multiscale fluid flow problems in complex, uncertain 3D and 2D geometries.
 
 This software is developed and maintained by Numerical Solutions, Inc.
 
