@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['voxel',['voxel',['../classhgf_1_1mesh_1_1voxel.html',1,'hgf::mesh']]]
+  ['degree_5fof_5ffreedom',['degree_of_freedom',['../structdegree__of__freedom.html',1,'']]],
+  ['dof_5funstructured',['dof_unstructured',['../structdof__unstructured.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stokes',['stokes',['../classhgf_1_1models_1_1stokes.html',1,'hgf::models']]]
+  ['array_5fcoo',['array_coo',['../structarray__coo.html',1,'']]]
 ];
