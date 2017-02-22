@@ -1,4 +1,9 @@
-/* an example source */
+/* Example computes the upscaled permeability tensor from the solution to Stokes and prints
+   the tensor to console. The x-flow solution is saved for visualization. Build with included
+   CMakeLists.txt, and use:
+     permeability <path/to/problemfolder>
+   Some example problem folders are included at examples/geometries.
+*/
 
 // system includes
 #include <vector>
@@ -89,6 +94,7 @@ main( int argc, const char* argv[] )
   y_stks.solution_build();
   if (par.dimension == 3) z_stks.solution_build();
 
+  // compute permeability and print to console
   std::vector< double > permeability;
   hgf::multiscale::flow::compute_permeability_tensor( par, \
     x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, \
@@ -103,12 +109,14 @@ main( int argc, const char* argv[] )
   }
   std::cout << "\n";
 
+  // save the x-flow solution for visualization
   std::string file_name = "Solution_x";
   x_stks.output_vtk(par, msh, file_name);
 
   postp_time = omp_get_wtime() - rebegin;
   total_time = omp_get_wtime() - begin;
 
+  // print timings
   std::cout << "\n\n//------------------ Stokes Finished! Time reports ------------------//\n";
   std::cout << "Parameter setup time: " << para_time << "\n";
   std::cout << "Mesh time: " << mesh_time << "\n";
