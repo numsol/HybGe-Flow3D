@@ -8,9 +8,9 @@ The first version of this software was developed under the partial support of th
 Foundation on the projects NSF DMS-1115827 "Hybrid modeling in porous media" (PI: M. Peszynska)
 and NFS DMS-1522734 "Phase transitions in porous media across multiple scales" (PI: M. Peszynska).
 
-### Use ###
+### Documentation ###
 
-Consult the included User Manual for installation and use tutorials.
+Please find detailed documentation at www.numericalsolutions.org/hybge-flow3d
 
 ### License ###
 
