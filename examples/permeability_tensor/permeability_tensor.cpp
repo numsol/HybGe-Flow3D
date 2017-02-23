@@ -31,9 +31,9 @@ main( int argc, const char* argv[] )
 
   //--- mesh ---//
   // First we check mesh sanity, and remove dead pores
-  hgf::geo_sanity(par);
+  hgf::mesh::geo_sanity(par);
   int pores_removed = 0;
-  pores_removed = hgf::remove_dead_pores(par);
+  pores_removed = hgf::mesh::remove_dead_pores(par);
   if (pores_removed > 0) std::cout << "\n" << pores_removed << " dead pores removed.\n";
   // build the mesh
   hgf::mesh::voxel msh;

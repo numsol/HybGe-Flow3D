@@ -132,12 +132,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a468cbbb709253dcd938cef5b635bdaa5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#a468cbbb709253dcd938cef5b635bdaa5">unique_array</a> (std::vector&lt; <a class="el" href="structarray__coo.html">array_coo</a> &gt; &amp;array)</td></tr>
 <tr class="memdesc:a468cbbb709253dcd938cef5b635bdaa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create unique COO array. Array sorted and then values associated to repeat indexes are summed, and extras removed.  <a href="#a468cbbb709253dcd938cef5b635bdaa5">More...</a><br /></td></tr>
 <tr class="separator:a468cbbb709253dcd938cef5b635bdaa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadf6556a5150a77717b8c000edf60af0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#aadf6556a5150a77717b8c000edf60af0">geo_sanity</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par)</td></tr>
-<tr class="memdesc:aadf6556a5150a77717b8c000edf60af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function removes cells from a mesh that are boundaries in opposite directions. Returns number of cells removed.  <a href="#aadf6556a5150a77717b8c000edf60af0">More...</a><br /></td></tr>
-<tr class="separator:aadf6556a5150a77717b8c000edf60af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ad53e59a031ac10950c7ca098930f66"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#a3ad53e59a031ac10950c7ca098930f66">remove_dead_pores</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par)</td></tr>
-<tr class="memdesc:a3ad53e59a031ac10950c7ca098930f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove dead pores from a complex geometry. Returns number of pores removed.  <a href="#a3ad53e59a031ac10950c7ca098930f66">More...</a><br /></td></tr>
-<tr class="separator:a3ad53e59a031ac10950c7ca098930f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>HGF is a library designed to solve multiscale flow problems in complex domains. </p>
@@ -206,32 +200,6 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">problem_path</td><td>- path to problem folder containing Parameters.dat and Geometry.dat files. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>- name of the file being sought. </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">file_path</td><td>- path to file found. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aadf6556a5150a77717b8c000edf60af0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadf6556a5150a77717b8c000edf60af0">&#9670;&nbsp;</a></span>geo_sanity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hgf::geo_sanity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>par</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Function removes cells from a mesh that are boundaries in opposite directions. Returns number of cells removed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">par</td><td>- parameters file containing mesh information. </td></tr>
   </table>
   </dd>
 </dl>
@@ -369,32 +337,6 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">par</td><td>- parameters struct, function prints values from this struct. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3ad53e59a031ac10950c7ca098930f66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ad53e59a031ac10950c7ca098930f66">&#9670;&nbsp;</a></span>remove_dead_pores()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hgf::remove_dead_pores </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>par</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Remove dead pores from a complex geometry. Returns number of pores removed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">par</td><td>- parameters struct containing geometry information. </td></tr>
   </table>
   </dd>
 </dl>

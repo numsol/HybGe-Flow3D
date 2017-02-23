@@ -332,7 +332,7 @@ hgf::unique_array(std::vector< array_coo >& array)
  * @param[in] par - parameters file containing mesh information.
  */
 int 
-hgf::geo_sanity(parameters& par)
+hgf::mesh::geo_sanity(parameters& par)
 {
   int totalChanged = 0;
   int nChanged;
@@ -488,7 +488,7 @@ cleanup:
  * @param[in,out] par - parameters struct containing geometry information.
  */
 int
-hgf::remove_dead_pores(parameters& par)
+hgf::mesh::remove_dead_pores(parameters& par)
 {
   std::vector<unsigned long> voxel_geometry_cpy(par.voxel_geometry);
   std::vector<unsigned long> search_queue;

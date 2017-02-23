@@ -81,7 +81,8 @@ $(document).ready(function(){initNavTree('namespacehgf_1_1mesh.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">hgf::mesh Namespace Reference</div>  </div>
 </div><!--header-->
@@ -95,10 +96,72 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhgf_1_1mesh_1_1voxel.html">voxel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class creates quadrilateral and hexagonal meshes from voxel input files.  <a href="classhgf_1_1mesh_1_1voxel.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa322d02e2545e3574cc6ade2d4c4a38b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf_1_1mesh.html#aa322d02e2545e3574cc6ade2d4c4a38b">geo_sanity</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par)</td></tr>
+<tr class="memdesc:aa322d02e2545e3574cc6ade2d4c4a38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function removes cells from a mesh that are boundaries in opposite directions. Returns number of cells removed.  <a href="#aa322d02e2545e3574cc6ade2d4c4a38b">More...</a><br /></td></tr>
+<tr class="separator:aa322d02e2545e3574cc6ade2d4c4a38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8bd0517b62b6119ea43139ca26a392"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf_1_1mesh.html#aef8bd0517b62b6119ea43139ca26a392">remove_dead_pores</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par)</td></tr>
+<tr class="memdesc:aef8bd0517b62b6119ea43139ca26a392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove dead pores from a complex geometry. Returns number of pores removed.  <a href="#aef8bd0517b62b6119ea43139ca26a392">More...</a><br /></td></tr>
+<tr class="separator:aef8bd0517b62b6119ea43139ca26a392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains functions and classes related to meshing multiscale flow problems. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa322d02e2545e3574cc6ade2d4c4a38b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa322d02e2545e3574cc6ade2d4c4a38b">&#9670;&nbsp;</a></span>geo_sanity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hgf::mesh::geo_sanity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>par</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function removes cells from a mesh that are boundaries in opposite directions. Returns number of cells removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">par</td><td>- parameters file containing mesh information. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aef8bd0517b62b6119ea43139ca26a392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8bd0517b62b6119ea43139ca26a392">&#9670;&nbsp;</a></span>remove_dead_pores()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hgf::mesh::remove_dead_pores </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>par</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove dead pores from a complex geometry. Returns number of pores removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">par</td><td>- parameters struct containing geometry information. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
