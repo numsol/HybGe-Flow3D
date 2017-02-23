@@ -87,22 +87,86 @@ $(document).ready(function(){initNavTree('structedge.html','');});
 <div class="title">edge Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Mesh edge struct.  
+ <a href="structedge.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="types_8hpp_source.html">types.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a33c3e11448e0a31131e86f31a4c7d526"><td class="memItemLeft" align="right" valign="top"><a id="a33c3e11448e0a31131e86f31a4c7d526"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>vns</b> [2]</td></tr>
+<tr class="memitem:a33c3e11448e0a31131e86f31a4c7d526"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structedge.html#a33c3e11448e0a31131e86f31a4c7d526">vns</a> [2]</td></tr>
 <tr class="separator:a33c3e11448e0a31131e86f31a4c7d526"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78f74f3ce17520cab383c5f1f98fbefe"><td class="memItemLeft" align="right" valign="top"><a id="a78f74f3ce17520cab383c5f1f98fbefe"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>gnum</b></td></tr>
+<tr class="memitem:a78f74f3ce17520cab383c5f1f98fbefe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structedge.html#a78f74f3ce17520cab383c5f1f98fbefe">gnum</a></td></tr>
 <tr class="separator:a78f74f3ce17520cab383c5f1f98fbefe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46bce384776085af7de502bb85b4a5a2"><td class="memItemLeft" align="right" valign="top"><a id="a46bce384776085af7de502bb85b4a5a2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>neighbor</b></td></tr>
+<tr class="memitem:a46bce384776085af7de502bb85b4a5a2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structedge.html#a46bce384776085af7de502bb85b4a5a2">neighbor</a></td></tr>
 <tr class="separator:a46bce384776085af7de502bb85b4a5a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b2c236dcddf6e714c0cdcf8e821d7d3"><td class="memItemLeft" align="right" valign="top"><a id="a6b2c236dcddf6e714c0cdcf8e821d7d3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>bctype</b></td></tr>
+<tr class="memitem:a6b2c236dcddf6e714c0cdcf8e821d7d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structedge.html#a6b2c236dcddf6e714c0cdcf8e821d7d3">bctype</a></td></tr>
 <tr class="separator:a6b2c236dcddf6e714c0cdcf8e821d7d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Mesh edge struct. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6b2c236dcddf6e714c0cdcf8e821d7d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b2c236dcddf6e714c0cdcf8e821d7d3">&#9670;&nbsp;</a></span>bctype</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int edge::bctype</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>For 2d problems, integer specifying the boundary type for the edge. 0: interior, 1: dirichlet, 2: neumann. </p>
+
+</div>
+</div>
+<a id="a78f74f3ce17520cab383c5f1f98fbefe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78f74f3ce17520cab383c5f1f98fbefe">&#9670;&nbsp;</a></span>gnum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int edge::gnum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integer specifying the global edge number for this edge. </p>
+
+</div>
+</div>
+<a id="a46bce384776085af7de502bb85b4a5a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bce384776085af7de502bb85b4a5a2">&#9670;&nbsp;</a></span>neighbor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int edge::neighbor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>For 2d problems, integer specifying the global cell number for the cell sharing this edge. -1 for boundary edge. </p>
+
+</div>
+</div>
+<a id="a33c3e11448e0a31131e86f31a4c7d526"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33c3e11448e0a31131e86f31a4c7d526">&#9670;&nbsp;</a></span>vns</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int edge::vns[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array giving the local vertex numbers connected by the edge. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/include/<a class="el" href="types_8hpp_source.html">types.hpp</a></li>
 </ul>

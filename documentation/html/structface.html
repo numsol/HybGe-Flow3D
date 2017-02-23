@@ -87,22 +87,86 @@ $(document).ready(function(){initNavTree('structface.html','');});
 <div class="title">face Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Mesh face struct.  
+ <a href="structface.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="types_8hpp_source.html">types.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a60bfeb391af2ec97de20bb92381f9f95"><td class="memItemLeft" align="right" valign="top"><a id="a60bfeb391af2ec97de20bb92381f9f95"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>vns</b> [4]</td></tr>
+<tr class="memitem:a60bfeb391af2ec97de20bb92381f9f95"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structface.html#a60bfeb391af2ec97de20bb92381f9f95">vns</a> [4]</td></tr>
 <tr class="separator:a60bfeb391af2ec97de20bb92381f9f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1502152053182c7ee034082658432bb2"><td class="memItemLeft" align="right" valign="top"><a id="a1502152053182c7ee034082658432bb2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>gnum</b></td></tr>
+<tr class="memitem:a1502152053182c7ee034082658432bb2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structface.html#a1502152053182c7ee034082658432bb2">gnum</a></td></tr>
 <tr class="separator:a1502152053182c7ee034082658432bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af852cf97f4be5e7af536fac6cd173a74"><td class="memItemLeft" align="right" valign="top"><a id="af852cf97f4be5e7af536fac6cd173a74"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>neighbor</b></td></tr>
+<tr class="memitem:af852cf97f4be5e7af536fac6cd173a74"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structface.html#af852cf97f4be5e7af536fac6cd173a74">neighbor</a></td></tr>
 <tr class="separator:af852cf97f4be5e7af536fac6cd173a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c54f0ea4e673faa5e02dc71f885d766"><td class="memItemLeft" align="right" valign="top"><a id="a3c54f0ea4e673faa5e02dc71f885d766"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>bctype</b></td></tr>
+<tr class="memitem:a3c54f0ea4e673faa5e02dc71f885d766"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structface.html#a3c54f0ea4e673faa5e02dc71f885d766">bctype</a></td></tr>
 <tr class="separator:a3c54f0ea4e673faa5e02dc71f885d766"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Mesh face struct. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3c54f0ea4e673faa5e02dc71f885d766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c54f0ea4e673faa5e02dc71f885d766">&#9670;&nbsp;</a></span>bctype</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int face::bctype</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integer specifying the boundary type for the face. 0: interior, 1: dirichlet, 2: neumann. </p>
+
+</div>
+</div>
+<a id="a1502152053182c7ee034082658432bb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1502152053182c7ee034082658432bb2">&#9670;&nbsp;</a></span>gnum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int face::gnum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integer specifying the global face number for this face. </p>
+
+</div>
+</div>
+<a id="af852cf97f4be5e7af536fac6cd173a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af852cf97f4be5e7af536fac6cd173a74">&#9670;&nbsp;</a></span>neighbor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int face::neighbor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integer specifying the global cell number for the cell sharing this face. -1 for a boundary face. </p>
+
+</div>
+</div>
+<a id="a60bfeb391af2ec97de20bb92381f9f95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60bfeb391af2ec97de20bb92381f9f95">&#9670;&nbsp;</a></span>vns</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int face::vns[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array giving the local vertex numbers connected by the face. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/include/<a class="el" href="types_8hpp_source.html">types.hpp</a></li>
 </ul>

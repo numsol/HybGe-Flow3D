@@ -87,14 +87,23 @@ $(document).ready(function(){initNavTree('structby_yby_xby_z.html','');});
 <div class="title">byYbyXbyZ Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Struct for sorting an array of degrees of freedom by y-coordinate, then by x-coordinate, then by z-coordinate.  
+ <a href="structby_yby_xby_z.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="types_8hpp_source.html">types.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a825f613d9a643389393862600ff68a63"><td class="memItemLeft" align="right" valign="top"><a id="a825f613d9a643389393862600ff68a63"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (<a class="el" href="structdegree__of__freedom.html">degree_of_freedom</a> const &amp;one, <a class="el" href="structdegree__of__freedom.html">degree_of_freedom</a> const &amp;two)</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structby_yby_xby_z.html#a825f613d9a643389393862600ff68a63">operator()</a> (<a class="el" href="structdegree__of__freedom.html">degree_of_freedom</a> const &amp;one, <a class="el" href="structdegree__of__freedom.html">degree_of_freedom</a> const &amp;two)</td></tr>
+<tr class="memdesc:a825f613d9a643389393862600ff68a63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator returns true if y coordinate of first argument is less than that of second, or if the y coordinates are equal and the x coordinate of the first argument is less than that of the second, or if the y and x coordinates are equal and the z coordinate of the first argument ie less than that of the second. <br /></td></tr>
 <tr class="separator:a825f613d9a643389393862600ff68a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Struct for sorting an array of degrees of freedom by y-coordinate, then by x-coordinate, then by z-coordinate. </p>
+<p>z-coordinate increases fastest, then x-coordinate, then y-coordinate. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/include/<a class="el" href="types_8hpp_source.html">types.hpp</a></li>
 </ul>
 </div><!-- contents -->

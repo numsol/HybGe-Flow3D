@@ -87,25 +87,104 @@ $(document).ready(function(){initNavTree('structdof__unstructured.html','');});
 <div class="title">dof_unstructured Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Struct describing a degree of freedom in an unstructured model.  
+ <a href="structdof__unstructured.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="types_8hpp_source.html">types.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aadb15bdde37d24bfda39b29cde16a210"><td class="memItemLeft" align="right" valign="top"><a id="aadb15bdde37d24bfda39b29cde16a210"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>doftype</b></td></tr>
+<tr class="memitem:aadb15bdde37d24bfda39b29cde16a210"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdof__unstructured.html#aadb15bdde37d24bfda39b29cde16a210">doftype</a></td></tr>
 <tr class="separator:aadb15bdde37d24bfda39b29cde16a210"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7a8e1325c7471164c51bc404d0bc257"><td class="memItemLeft" align="right" valign="top"><a id="ad7a8e1325c7471164c51bc404d0bc257"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>coords</b> [3]</td></tr>
+<tr class="memitem:ad7a8e1325c7471164c51bc404d0bc257"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdof__unstructured.html#ad7a8e1325c7471164c51bc404d0bc257">coords</a> [3]</td></tr>
 <tr class="separator:ad7a8e1325c7471164c51bc404d0bc257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3614f70085154a9aecadd620b38ca602"><td class="memItemLeft" align="right" valign="top"><a id="a3614f70085154a9aecadd620b38ca602"></a>
-std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>normals</b></td></tr>
+<tr class="memitem:a3614f70085154a9aecadd620b38ca602"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdof__unstructured.html#a3614f70085154a9aecadd620b38ca602">normals</a></td></tr>
 <tr class="separator:a3614f70085154a9aecadd620b38ca602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ce70d833d61f465db1cd7a8821d7118"><td class="memItemLeft" align="right" valign="top"><a id="a3ce70d833d61f465db1cd7a8821d7118"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>cell_numbers</b></td></tr>
+<tr class="memitem:a3ce70d833d61f465db1cd7a8821d7118"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdof__unstructured.html#a3ce70d833d61f465db1cd7a8821d7118">cell_numbers</a></td></tr>
 <tr class="separator:a3ce70d833d61f465db1cd7a8821d7118"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af222464a3fb6b58f7470fc6bc950b8e6"><td class="memItemLeft" align="right" valign="top"><a id="af222464a3fb6b58f7470fc6bc950b8e6"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>neighbors</b></td></tr>
+<tr class="memitem:af222464a3fb6b58f7470fc6bc950b8e6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdof__unstructured.html#af222464a3fb6b58f7470fc6bc950b8e6">neighbors</a></td></tr>
 <tr class="separator:af222464a3fb6b58f7470fc6bc950b8e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Struct describing a degree of freedom in an unstructured model. </p>
+<p>To account for the lack of structure std::vectors are used in place of static arrays. Structure models should use <a class="el" href="structdegree__of__freedom.html" title="Struct describing a degree of freedom in a structured model. ">degree_of_freedom</a> instead. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3ce70d833d61f465db1cd7a8821d7118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ce70d833d61f465db1cd7a8821d7118">&#9670;&nbsp;</a></span>cell_numbers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;int&gt; dof_unstructured::cell_numbers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array of mesh cell numbers containing the degree of freedom. </p>
+
+</div>
+</div>
+<a id="ad7a8e1325c7471164c51bc404d0bc257"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a8e1325c7471164c51bc404d0bc257">&#9670;&nbsp;</a></span>coords</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double dof_unstructured::coords[3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array of coordinates of the degree of freedom. coords[0] gives the x coordinate, coords[1] gives the y coordinate, and coords[2] gives the z coordinate. </p>
+
+</div>
+</div>
+<a id="aadb15bdde37d24bfda39b29cde16a210"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadb15bdde37d24bfda39b29cde16a210">&#9670;&nbsp;</a></span>doftype</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dof_unstructured::doftype</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integer specifiying the type of degree of freedom: 0 for interior, 1 for edge, 2 for face. </p>
+
+</div>
+</div>
+<a id="af222464a3fb6b58f7470fc6bc950b8e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af222464a3fb6b58f7470fc6bc950b8e6">&#9670;&nbsp;</a></span>neighbors</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;int&gt; dof_unstructured::neighbors</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array listing the global number of neighboring degrees of freedom, i.e. DOFs which interact with this DOF in the model. </p>
+
+</div>
+</div>
+<a id="a3614f70085154a9aecadd620b38ca602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3614f70085154a9aecadd620b38ca602">&#9670;&nbsp;</a></span>normals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;double&gt; dof_unstructured::normals</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array containing normal direction vectors for faces (3d) or edges (2d). </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/include/<a class="el" href="types_8hpp_source.html">types.hpp</a></li>
 </ul>

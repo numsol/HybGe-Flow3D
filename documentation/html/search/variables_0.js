@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['coo_5farray',['coo_array',['../classhgf_1_1models_1_1uniform__porenetwork.html#a3fe9d47bef9b9e0b80802de7673c7696',1,'hgf::models::uniform_porenetwork::coo_array()'],['../classhgf_1_1models_1_1stokes.html#a2d483349f879909dafa742096bc939d1',1,'hgf::models::stokes::coo_array()']]]
+  ['bctype',['bctype',['../structedge.html#a6b2c236dcddf6e714c0cdcf8e821d7d3',1,'edge::bctype()'],['../structface.html#a3c54f0ea4e673faa5e02dc71f885d766',1,'face::bctype()']]]
 ];

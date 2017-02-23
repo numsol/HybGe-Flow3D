@@ -87,22 +87,86 @@ $(document).ready(function(){initNavTree('structdegree__of__freedom.html','');})
 <div class="title">degree_of_freedom Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Struct describing a degree of freedom in a structured model.  
+ <a href="structdegree__of__freedom.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="types_8hpp_source.html">types.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a7fc7d9a2ddbf763176336c8266bd3c2c"><td class="memItemLeft" align="right" valign="top"><a id="a7fc7d9a2ddbf763176336c8266bd3c2c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>doftype</b></td></tr>
+<tr class="memitem:a7fc7d9a2ddbf763176336c8266bd3c2c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdegree__of__freedom.html#a7fc7d9a2ddbf763176336c8266bd3c2c">doftype</a></td></tr>
 <tr class="separator:a7fc7d9a2ddbf763176336c8266bd3c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e50a3546f40f4e8dad8838aae212424"><td class="memItemLeft" align="right" valign="top"><a id="a3e50a3546f40f4e8dad8838aae212424"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>coords</b> [3]</td></tr>
+<tr class="memitem:a3e50a3546f40f4e8dad8838aae212424"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdegree__of__freedom.html#a3e50a3546f40f4e8dad8838aae212424">coords</a> [3]</td></tr>
 <tr class="separator:a3e50a3546f40f4e8dad8838aae212424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12fd00e14f11f5d7d0f360bfac059496"><td class="memItemLeft" align="right" valign="top"><a id="a12fd00e14f11f5d7d0f360bfac059496"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>cell_numbers</b> [2]</td></tr>
+<tr class="memitem:a12fd00e14f11f5d7d0f360bfac059496"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdegree__of__freedom.html#a12fd00e14f11f5d7d0f360bfac059496">cell_numbers</a> [2]</td></tr>
 <tr class="separator:a12fd00e14f11f5d7d0f360bfac059496"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d83cf39f6f5596b0d344d3142745c07"><td class="memItemLeft" align="right" valign="top"><a id="a3d83cf39f6f5596b0d344d3142745c07"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>neighbors</b> [6]</td></tr>
+<tr class="memitem:a3d83cf39f6f5596b0d344d3142745c07"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdegree__of__freedom.html#a3d83cf39f6f5596b0d344d3142745c07">neighbors</a> [6]</td></tr>
 <tr class="separator:a3d83cf39f6f5596b0d344d3142745c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Struct describing a degree of freedom in a structured model. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a12fd00e14f11f5d7d0f360bfac059496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12fd00e14f11f5d7d0f360bfac059496">&#9670;&nbsp;</a></span>cell_numbers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int degree_of_freedom::cell_numbers[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array of mesh cell numbers containing the degree of freedom. </p>
+
+</div>
+</div>
+<a id="a3e50a3546f40f4e8dad8838aae212424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e50a3546f40f4e8dad8838aae212424">&#9670;&nbsp;</a></span>coords</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double degree_of_freedom::coords[3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array of coordinates of the degree of freedom. coords[0] gives the x coordinate, coords[1] gives the y coordinate, and coords[2] gives the z coordinate. </p>
+
+</div>
+</div>
+<a id="a7fc7d9a2ddbf763176336c8266bd3c2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fc7d9a2ddbf763176336c8266bd3c2c">&#9670;&nbsp;</a></span>doftype</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int degree_of_freedom::doftype</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integer specifiying the type of degree of freedom: 0 for interior, 1 for edge, 2 for face. </p>
+
+</div>
+</div>
+<a id="a3d83cf39f6f5596b0d344d3142745c07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d83cf39f6f5596b0d344d3142745c07">&#9670;&nbsp;</a></span>neighbors</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int degree_of_freedom::neighbors[6]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array listing the global number of neighboring degrees of freedom, i.e. DOFs which interact with this DOF in the model. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/include/<a class="el" href="types_8hpp_source.html">types.hpp</a></li>
 </ul>
