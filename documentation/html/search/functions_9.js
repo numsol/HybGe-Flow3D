@@ -6,5 +6,5 @@ var searchData=
   ['solution_5fbuild',['solution_build',['../classhgf_1_1models_1_1stokes.html#aa65a0826d15ee2f8b3e13c4af4ff54b0',1,'hgf::models::stokes']]],
   ['solve',['solve',['../namespacehgf_1_1solve_1_1paralution.html#abc4282778f617f4590657585c8c5901d',1,'hgf::solve::paralution']]],
   ['solve_5fps_5fflow',['solve_ps_flow',['../namespacehgf_1_1solve_1_1paralution.html#a7a00a24f752b2db127073ef379a10bc1',1,'hgf::solve::paralution']]],
-  ['sort_5farray',['sort_array',['../namespacehgf.html#a0b8ec6a76809416d552d4be86d3ff268',1,'hgf']]]
+  ['sort_5farray',['sort_array',['../namespacehgf_1_1utility.html#a32ba9dc21a9a8459f862221fe3445700',1,'hgf::utility']]]
 ];

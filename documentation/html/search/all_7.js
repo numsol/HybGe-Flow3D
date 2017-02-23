@@ -7,5 +7,6 @@ var searchData=
   ['models',['models',['../namespacehgf_1_1models.html',1,'hgf']]],
   ['multiscale',['multiscale',['../namespacehgf_1_1multiscale.html',1,'hgf']]],
   ['paralution',['paralution',['../namespacehgf_1_1solve_1_1paralution.html',1,'hgf::solve']]],
-  ['solve',['solve',['../namespacehgf_1_1solve.html',1,'hgf']]]
+  ['solve',['solve',['../namespacehgf_1_1solve.html',1,'hgf']]],
+  ['utility',['utility',['../namespacehgf_1_1utility.html',1,'hgf']]]
 ];

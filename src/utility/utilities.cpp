@@ -29,13 +29,13 @@ hgf::init_parameters(parameters& par, const std::string& problem_path)
   par.problem_path = problem_path;
   std::string param = "Parameters.dat";
   bfs::path Parameters;
-  bool isParam = hgf::find_file(par.problem_path, param, Parameters);
+  bool isParam = hgf::utility::find_file(par.problem_path, param, Parameters);
   if (!isParam) {
 	  std::cout << "\nParameter file not present in problem folder. Exiting\n";
 	  exit(0);
   }
-  hgf::load_parameters(par, Parameters);
-  hgf::import_voxel_geometry(par, par.problem_path);
+  hgf::utility::load_parameters(par, Parameters);
+  hgf::utility::import_voxel_geometry(par, par.problem_path);
   par.verbose = 0;
 }
 
@@ -47,7 +47,7 @@ hgf::init_parameters(parameters& par, const std::string& problem_path)
  *
  */
 bool
-hgf::find_file(const bfs::path& problem_path, \
+hgf::utility::find_file(const bfs::path& problem_path, \
   const std::string& file_name, \
   bfs::path& file_path)
 {
@@ -55,7 +55,7 @@ hgf::find_file(const bfs::path& problem_path, \
   bfs::directory_iterator end_itr;
   for (bfs::directory_iterator itr(problem_path); itr != end_itr; ++itr) {
     if (bfs::is_directory(itr->status())) {
-      if (hgf::find_file(itr->path(), file_name, file_path)) return true;
+      if (hgf::utility::find_file(itr->path(), file_name, file_path)) return true;
     }
     else if (itr->path().leaf() == file_name) {
       file_path = itr->path();
@@ -71,7 +71,7 @@ hgf::find_file(const bfs::path& problem_path, \
  * @param[in] problem_path - path containing Parameters.dat.
  */
 void
-hgf::load_parameters(parameters& par, const bfs::path& problem_path)
+hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
 {
   std::string line;
   std::string str;
@@ -115,7 +115,7 @@ hgf::load_parameters(parameters& par, const bfs::path& problem_path)
  * @param[in] par - parameters struct, function prints values from this struct.
  */
 void
-hgf::print_parameters(parameters& par)
+hgf::utility::print_parameters(parameters& par)
 {
   std::cout << "Viscosity= " << par.viscosity << "\n";
   std::cout << "Dimension= " << par.dimension << "\n";
@@ -132,11 +132,11 @@ hgf::print_parameters(parameters& par)
  * @param[in] problem_path - path containing Parameters.dat and Geometry.dat for this problem.
  */
 void
-hgf::import_voxel_geometry(parameters& par, const bfs::path& problem_path)
+hgf::utility::import_voxel_geometry(parameters& par, const bfs::path& problem_path)
 {
   std::string geometry_file = "Geometry.dat";
   bfs::path geo;
-  bool isGeo = find_file(problem_path, geometry_file, geo);
+  bool isGeo = hgf::utility::find_file(problem_path, geometry_file, geo);
 
   // error and exit if geometry file is missing
   if (!isGeo) {
@@ -227,11 +227,11 @@ hgf::import_voxel_geometry(parameters& par, const bfs::path& problem_path)
  * @param[in] array - coordinate sparse matrix input that is checked for symmetry.
  */
 bool
-hgf::check_symmetry(std::vector< array_coo >& array)
+hgf::utility::check_symmetry(std::vector< array_coo >& array)
 {
 
   std::vector< array_coo > temp_array(array);
-  hgf::unique_array(temp_array);
+  hgf::utility::unique_array(temp_array);
   std::vector< array_coo > array_trans(temp_array);
   std::sort(array_trans.begin(), array_trans.end(), byJbyI());
 
@@ -249,7 +249,7 @@ hgf::check_symmetry(std::vector< array_coo >& array)
  * @param[in,out] array - coordinate sparse matrix input that is sorted and returned.
  */
 void
-hgf::sort_array(std::vector< array_coo >& array)
+hgf::utility::sort_array(std::vector< array_coo >& array)
 {
 
   std::sort(array.begin(), array.end(), byIbyJ());
@@ -261,7 +261,7 @@ hgf::sort_array(std::vector< array_coo >& array)
  * @param[in,out] array - coordinate sparse matrix input that is unique'd and returned.
  */
 void
-hgf::unique_array(std::vector< array_coo >& array)
+hgf::utility::unique_array(std::vector< array_coo >& array)
 {
 
   std::sort(array.begin(), array.end(), byIbyJ());

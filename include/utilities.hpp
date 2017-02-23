@@ -15,29 +15,35 @@ namespace hgf
 {
   void
   init_parameters(parameters& par, const std::string& problem_path);
-  
-  bool
-  find_file( const bfs::path& problem_path, \
-             const std::string& file_name, \
-             bfs::path& file_path);
 
-  void
-  load_parameters(parameters& par, const bfs::path& problem_path);
+  /** \brief Contains utility functions.
+   *
+   */
+  namespace utility
+  { 
+    bool
+    find_file( const bfs::path& problem_path, \
+               const std::string& file_name, \
+               bfs::path& file_path);
 
-  void
-  print_parameters(parameters& par);
+    void
+    load_parameters(parameters& par, const bfs::path& problem_path);
 
-  void
-  import_voxel_geometry(parameters& par, const bfs::path& problem_path);
+    void
+    print_parameters(parameters& par);
 
-  bool
-  check_symmetry(std::vector< array_coo >& array);
+    void
+    import_voxel_geometry(parameters& par, const bfs::path& problem_path);
 
-  void
-  sort_array(std::vector< array_coo >& array);
+    bool
+    check_symmetry(std::vector< array_coo >& array);
 
-  void
-  unique_array(std::vector< array_coo >& array);
+    void
+    sort_array(std::vector< array_coo >& array);
+
+    void
+    unique_array(std::vector< array_coo >& array);
+  }
 
   namespace mesh
   {

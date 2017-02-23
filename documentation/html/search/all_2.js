@@ -1,7 +1,7 @@
 var searchData=
 [
   ['cell_5fnumbers',['cell_numbers',['../structdegree__of__freedom.html#a12fd00e14f11f5d7d0f360bfac059496',1,'degree_of_freedom::cell_numbers()'],['../structdof__unstructured.html#a3ce70d833d61f465db1cd7a8821d7118',1,'dof_unstructured::cell_numbers()']]],
-  ['check_5fsymmetry',['check_symmetry',['../namespacehgf.html#ae2b731ab492931b3bf4a92c4579ef890',1,'hgf']]],
+  ['check_5fsymmetry',['check_symmetry',['../namespacehgf_1_1utility.html#a9f6a0b8c4ee2e97712363fa17717547a',1,'hgf::utility']]],
   ['compute_5fpermeability_5ftensor',['compute_permeability_tensor',['../namespacehgf_1_1multiscale_1_1flow.html#a14ced89a672f494bf1931879572056a6',1,'hgf::multiscale::flow']]],
   ['compute_5fpermeability_5fx',['compute_permeability_x',['../namespacehgf_1_1multiscale_1_1flow.html#a35b05ff4cbb6f3eb67b23399f60d9bf7',1,'hgf::multiscale::flow']]],
   ['compute_5fpermeability_5fy',['compute_permeability_y',['../namespacehgf_1_1multiscale_1_1flow.html#a970254f7761c6ad23248099af75d181c',1,'hgf::multiscale::flow']]],

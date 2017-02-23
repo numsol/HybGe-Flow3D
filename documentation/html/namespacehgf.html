@@ -105,144 +105,19 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacehgf_1_1solve"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf_1_1solve.html">solve</a></td></tr>
 <tr class="memdesc:namespacehgf_1_1solve"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains functions that solve hgf models. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacehgf_1_1utility"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf_1_1utility.html">utility</a></td></tr>
+<tr class="memdesc:namespacehgf_1_1utility"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains utility functions. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae3dd0e372513ccae261e0f616e25e5f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#ae3dd0e372513ccae261e0f616e25e5f6">init_parameters</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par, const std::string &amp;problem_path)</td></tr>
 <tr class="memdesc:ae3dd0e372513ccae261e0f616e25e5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a parameters struct from data in a problem directory.  <a href="#ae3dd0e372513ccae261e0f616e25e5f6">More...</a><br /></td></tr>
 <tr class="separator:ae3dd0e372513ccae261e0f616e25e5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a039f82b5b2e92100fc6f795d4d7a7d50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#a039f82b5b2e92100fc6f795d4d7a7d50">find_file</a> (const bfs::path &amp;problem_path, const std::string &amp;file_name, bfs::path &amp;file_path)</td></tr>
-<tr class="memdesc:a039f82b5b2e92100fc6f795d4d7a7d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a file or returns false if the file does not exist.  <a href="#a039f82b5b2e92100fc6f795d4d7a7d50">More...</a><br /></td></tr>
-<tr class="separator:a039f82b5b2e92100fc6f795d4d7a7d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aebcd53ac85998c15ee35f6f27122ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#a4aebcd53ac85998c15ee35f6f27122ca">load_parameters</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par, const bfs::path &amp;problem_path)</td></tr>
-<tr class="memdesc:a4aebcd53ac85998c15ee35f6f27122ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads parameters into a parameters struct from Parameters.dat file.  <a href="#a4aebcd53ac85998c15ee35f6f27122ca">More...</a><br /></td></tr>
-<tr class="separator:a4aebcd53ac85998c15ee35f6f27122ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d3a9de778afafb74ca38186e508e533"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#a3d3a9de778afafb74ca38186e508e533">print_parameters</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par)</td></tr>
-<tr class="memdesc:a3d3a9de778afafb74ca38186e508e533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints parameters from par parameter.  <a href="#a3d3a9de778afafb74ca38186e508e533">More...</a><br /></td></tr>
-<tr class="separator:a3d3a9de778afafb74ca38186e508e533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9ffde4f5ce689d6d3bba8cc83c2ce2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#ae9ffde4f5ce689d6d3bba8cc83c2ce2d">import_voxel_geometry</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par, const bfs::path &amp;problem_path)</td></tr>
-<tr class="memdesc:ae9ffde4f5ce689d6d3bba8cc83c2ce2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports voxel geometry from problem_path/Geometry.dat into par.voxel_geometry.  <a href="#ae9ffde4f5ce689d6d3bba8cc83c2ce2d">More...</a><br /></td></tr>
-<tr class="separator:ae9ffde4f5ce689d6d3bba8cc83c2ce2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2b731ab492931b3bf4a92c4579ef890"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#ae2b731ab492931b3bf4a92c4579ef890">check_symmetry</a> (std::vector&lt; <a class="el" href="structarray__coo.html">array_coo</a> &gt; &amp;array)</td></tr>
-<tr class="memdesc:ae2b731ab492931b3bf4a92c4579ef890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a coordinate sparse matrix is symmetric. Returns 1 for symmetry and 0 for non-symmetry.  <a href="#ae2b731ab492931b3bf4a92c4579ef890">More...</a><br /></td></tr>
-<tr class="separator:ae2b731ab492931b3bf4a92c4579ef890"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b8ec6a76809416d552d4be86d3ff268"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#a0b8ec6a76809416d552d4be86d3ff268">sort_array</a> (std::vector&lt; <a class="el" href="structarray__coo.html">array_coo</a> &gt; &amp;array)</td></tr>
-<tr class="memdesc:a0b8ec6a76809416d552d4be86d3ff268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts COO array by rows then by columns (j runs min to max within 1 i)  <a href="#a0b8ec6a76809416d552d4be86d3ff268">More...</a><br /></td></tr>
-<tr class="separator:a0b8ec6a76809416d552d4be86d3ff268"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a468cbbb709253dcd938cef5b635bdaa5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf.html#a468cbbb709253dcd938cef5b635bdaa5">unique_array</a> (std::vector&lt; <a class="el" href="structarray__coo.html">array_coo</a> &gt; &amp;array)</td></tr>
-<tr class="memdesc:a468cbbb709253dcd938cef5b635bdaa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create unique COO array. Array sorted and then values associated to repeat indexes are summed, and extras removed.  <a href="#a468cbbb709253dcd938cef5b635bdaa5">More...</a><br /></td></tr>
-<tr class="separator:a468cbbb709253dcd938cef5b635bdaa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>HGF is a library designed to solve multiscale flow problems in complex domains. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="ae2b731ab492931b3bf4a92c4579ef890"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2b731ab492931b3bf4a92c4579ef890">&#9670;&nbsp;</a></span>check_symmetry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hgf::check_symmetry </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structarray__coo.html">array_coo</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>array</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks if a coordinate sparse matrix is symmetric. Returns 1 for symmetry and 0 for non-symmetry. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">array</td><td>- coordinate sparse matrix input that is checked for symmetry. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a039f82b5b2e92100fc6f795d4d7a7d50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a039f82b5b2e92100fc6f795d4d7a7d50">&#9670;&nbsp;</a></span>find_file()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hgf::find_file </td>
-          <td>(</td>
-          <td class="paramtype">const bfs::path &amp;&#160;</td>
-          <td class="paramname"><em>problem_path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bfs::path &amp;&#160;</td>
-          <td class="paramname"><em>file_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Finds a file or returns false if the file does not exist. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">problem_path</td><td>- path to problem folder containing Parameters.dat and Geometry.dat files. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>- name of the file being sought. </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">file_path</td><td>- path to file found. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae9ffde4f5ce689d6d3bba8cc83c2ce2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9ffde4f5ce689d6d3bba8cc83c2ce2d">&#9670;&nbsp;</a></span>import_voxel_geometry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hgf::import_voxel_geometry </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>par</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bfs::path &amp;&#160;</td>
-          <td class="paramname"><em>problem_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Imports voxel geometry from problem_path/Geometry.dat into par.voxel_geometry. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">par</td><td>- parameters struct containing problem information. Voxel info in Geometry.dat located in problem_path is loaded into par.voxel_geometry. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">problem_path</td><td>- path containing Parameters.dat and Geometry.dat for this problem. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ae3dd0e372513ccae261e0f616e25e5f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3dd0e372513ccae261e0f616e25e5f6">&#9670;&nbsp;</a></span>init_parameters()</h2>
 
@@ -274,121 +149,6 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">par</td><td>- parameters struct initialized by this function. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">problem_path</td><td>- path to problem folder containing Parameters.dat and Geometry.dat files. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4aebcd53ac85998c15ee35f6f27122ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aebcd53ac85998c15ee35f6f27122ca">&#9670;&nbsp;</a></span>load_parameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hgf::load_parameters </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>par</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bfs::path &amp;&#160;</td>
-          <td class="paramname"><em>problem_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads parameters into a parameters struct from Parameters.dat file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">par</td><td>- parameters struct, parameters will be set from data in Parameters.dat located in problem_path. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">problem_path</td><td>- path containing Parameters.dat. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3d3a9de778afafb74ca38186e508e533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d3a9de778afafb74ca38186e508e533">&#9670;&nbsp;</a></span>print_parameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hgf::print_parameters </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>par</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Prints parameters from par parameter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">par</td><td>- parameters struct, function prints values from this struct. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a0b8ec6a76809416d552d4be86d3ff268"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b8ec6a76809416d552d4be86d3ff268">&#9670;&nbsp;</a></span>sort_array()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hgf::sort_array </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structarray__coo.html">array_coo</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>array</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sorts COO array by rows then by columns (j runs min to max within 1 i) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">array</td><td>- coordinate sparse matrix input that is sorted and returned. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a468cbbb709253dcd938cef5b635bdaa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a468cbbb709253dcd938cef5b635bdaa5">&#9670;&nbsp;</a></span>unique_array()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hgf::unique_array </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structarray__coo.html">array_coo</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>array</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create unique COO array. Array sorted and then values associated to repeat indexes are summed, and extras removed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">array</td><td>- coordinate sparse matrix input that is unique'd and returned. </td></tr>
   </table>
   </dd>
 </dl>
