@@ -153,7 +153,7 @@ hgf::models::stokes::solution_build(void)
  * @param[in,out] file_name - string used to name the output file, which is placed in the problem directory contained in parameters& par.
  */
 void
-hgf::models::stokes::output_vtk(const parameters& par, const hgf::mesh& msh, std::string& file_name)
+hgf::models::stokes::output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name)
 {
 
   if (par.dimension == 3) { // 3d output

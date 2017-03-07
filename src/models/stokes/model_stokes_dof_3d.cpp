@@ -7,7 +7,7 @@
 #define idx2(i, j, ldi) ((i * ldi) + j)
 
 void
-hgf::models::stokes::build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh& msh)
+hgf::models::stokes::build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
   // this function sets the degrees of freedom for the velocity components and pressure in 3d
   velocity_u.reserve((par.nx + 1)*par.ny*par.nz);
@@ -339,7 +339,7 @@ hgf::models::stokes::build_degrees_of_freedom_3d(const parameters& par, const hg
 }
 
 void
-hgf::models::stokes::dof_neighbors_3d(const parameters& par, const hgf::mesh& msh)
+hgf::models::stokes::dof_neighbors_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
 #pragma omp parallel
   {

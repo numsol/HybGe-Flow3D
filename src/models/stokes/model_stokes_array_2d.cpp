@@ -11,7 +11,7 @@
   sqrt(pow((x1-x2),2) + pow((y1-y2),2))
 
 void
-hgf::models::stokes::build_array_2d(const parameters& par, const hgf::mesh& msh)
+hgf::models::stokes::build_array_2d(const parameters& par, const hgf::mesh::voxel& msh)
 {
 
   // calls to set up 2nd order velocity terms

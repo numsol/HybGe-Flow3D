@@ -10,7 +10,7 @@
 #define idx2(i, j, ldi) ((i * ldi) + j)
 
 void
-hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh& msh)
+hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
   
   boundary.resize(velocity_u.size() + velocity_v.size() + velocity_w.size());
@@ -375,7 +375,7 @@ hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh& msh)
 }
 
 void
-hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh& msh)
+hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
   boundary.resize(velocity_u.size() + velocity_v.size() + velocity_w.size());
 
@@ -736,7 +736,7 @@ hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh& msh)
 }
 
 void
-hgf::models::stokes::zflow_3d(const parameters& par, const hgf::mesh& msh)
+hgf::models::stokes::zflow_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
   boundary.resize(velocity_u.size() + velocity_v.size() + velocity_w.size());
 

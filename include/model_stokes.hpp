@@ -41,12 +41,12 @@ namespace hgf
         std::vector< double > rhs;                                    /**< Right-hand side vector (force). */
         std::vector< double > solution;                               /**< Vector for storing full solution, including interior and boundary DOFs. */
         std::vector< double > solution_int;                           /**< Vector for storing solution for interior DOFs. Corresponds to produced coo_array and RHS, which are built with boundary DOFs eliminated. */
-        void build(const parameters& par, const hgf::mesh& msh);
+        void build(const parameters& par, const hgf::mesh::voxel& msh);
         void solution_build(void);
-        void output_vtk(const parameters& par, const hgf::mesh& msh, std::string& file_name);
-        void setup_xflow_bc(const parameters& par, const hgf::mesh& msh);
-        void setup_yflow_bc(const parameters& par, const hgf::mesh& msh);
-        void setup_zflow_bc(const parameters& par, const hgf::mesh& msh);
+        void output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
+        void setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
+        void setup_yflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
+        void setup_zflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
         void random_immersed_boundary(const parameters& par, double eta, double vol_frac);
         int random_immersed_boundary_clump(const parameters& par, double eta, double vol_frac, double likelihood);
         void immersed_boundary(const parameters& par, double eta);
@@ -57,22 +57,22 @@ namespace hgf
         std::vector< boundary_nodes > boundary;                    
         std::vector< int > interior_u_nums, interior_v_nums, interior_w_nums;
         std::vector< int > ptv;
-        void build_degrees_of_freedom_2d(const parameters& par, const hgf::mesh& msh);
-        void dof_neighbors_2d(const parameters& par, const hgf::mesh& msh);
-        void build_array_2d(const parameters& par, const hgf::mesh& msh);
+        void build_degrees_of_freedom_2d(const parameters& par, const hgf::mesh::voxel& msh);
+        void dof_neighbors_2d(const parameters& par, const hgf::mesh::voxel& msh);
+        void build_array_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void momentum_2d(double visc);
         void continuity_2d(void);
-        void xflow_2d(const parameters& par, const hgf::mesh& msh);
-        void yflow_2d(const parameters& par, const hgf::mesh& msh);
+        void xflow_2d(const parameters& par, const hgf::mesh::voxel& msh);
+        void yflow_2d(const parameters& par, const hgf::mesh::voxel& msh);
 
-        void build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh& msh);
-        void dof_neighbors_3d(const parameters& par, const hgf::mesh& msh);
-        void build_array_3d(const parameters& par, const hgf::mesh& msh);
+        void build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh::voxel& msh);
+        void dof_neighbors_3d(const parameters& par, const hgf::mesh::voxel& msh);
+        void build_array_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void momentum_3d(double visc);
         void continuity_3d(void);
-        void xflow_3d(const parameters& par, const hgf::mesh& msh);
-        void yflow_3d(const parameters& par, const hgf::mesh& msh);
-        void zflow_3d(const parameters& par, const hgf::mesh& msh);
+        void xflow_3d(const parameters& par, const hgf::mesh::voxel& msh);
+        void yflow_3d(const parameters& par, const hgf::mesh::voxel& msh);
+        void zflow_3d(const parameters& par, const hgf::mesh::voxel& msh);
 
     };
   }
