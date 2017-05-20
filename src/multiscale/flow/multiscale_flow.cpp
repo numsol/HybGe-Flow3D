@@ -14,7 +14,7 @@ solve_4x4( double *mat, double *v )
     for (int i = j + 1; i < 4; i++) {
       mat[i + 4*j] /= mat[j + 4*j];
     }
-    for (int jj = j + 1; jj < 4) {
+    for (int jj = j + 1; jj < 4; jj++) {
       temp = mat[j + 4*jj];
       for (int ii = 0; ii < 4; ii++) {
         mat[ii + jj*4] -= mat[ii + j*4] * temp;
@@ -23,9 +23,9 @@ solve_4x4( double *mat, double *v )
   }
 
   // Form U * x = L^-1 * v, TRSV(LNU)
-  for (int j = 0; j < 4) {
+  for (int j = 0; j < 4; j++) {
     temp = v[j];
-    for (i = j + 1; i < 4; i++) {
+    for (int i = j + 1; i < 4; i++) {
       v[i] -= temp * mat[i + j*4];
     }
   }
@@ -52,7 +52,7 @@ solve_9x9( double *mat, double *v )
     for (int i = j + 1; i < 9; i++) {
       mat[i + 9*j] /= mat[j + 9*j];
     }
-    for (int jj = j + 1; jj < 9) {
+    for (int jj = j + 1; jj < 9; jj++) {
       temp = mat[j + 9*jj];
       for (int ii = 0; ii < 9; ii++) {
         mat[ii + jj*9] -= mat[ii + j*9] * temp;
@@ -63,7 +63,7 @@ solve_9x9( double *mat, double *v )
   // Form U * x = L^-1 * v, TRSV(LNU)
   for (int j = 0; j < 9; j++) {
     temp = v[j];
-    for (i = j + 1; i < 9; i++) {
+    for (int i = j + 1; i < 9; i++) {
       v[i] -= temp * mat[i + j*9];
     }
   }
