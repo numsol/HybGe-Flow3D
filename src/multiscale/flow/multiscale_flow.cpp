@@ -3,8 +3,6 @@
 // 1d->2d index
 #define idx2(i, j, ldi) ((i * ldi) + j)
 
-extern "C" void dgesv(int *N, int *NRHS, double *A, int *LDA, int *IPIV, double *B, int *LDB, int *INFO);
-
 void
 compute_averages_x(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
                                           const std::vector< degree_of_freedom >& velocity_v, \
@@ -514,7 +512,7 @@ hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const 
     int info;
 
     // solve linear system for K tensor
-    dgesv(&n, &nrhs, mat, &n, ipiv, vel, &n, &info);
+    //--- TC TODO: write function to solve this system ---//
 
     // determine porosity
     double por;
@@ -570,7 +568,7 @@ hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const 
     int info;
 
     // solve linear system for K tensor
-    dgesv(&n, &nrhs, mat, &n, ipiv, vel, &n, &info);
+    //--- TC TODO: write function to solve this system ---//
 
     // determine porosity
     double por;
