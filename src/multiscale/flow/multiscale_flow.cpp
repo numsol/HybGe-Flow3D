@@ -3,6 +3,81 @@
 // 1d->2d index
 #define idx2(i, j, ldi) ((i * ldi) + j)
 
+static inline void
+solve_4x4( double *mat, double *v )
+{
+
+  double temp;
+
+  // LU (no pivot)
+  for (int j = 0; j < 4; j++) {
+    for (int i = j + 1; i < 4; i++) {
+      mat[i + 4*j] /= mat[j + 4*j];
+    }
+    for (int jj = j + 1; jj < 4) {
+      temp = mat[j + 4*jj];
+      for (int ii = 0; ii < 4; ii++) {
+        mat[ii + jj*4] -= mat[ii + j*4] * temp;
+      }
+    }
+  }
+
+  // Form U * x = L^-1 * v, TRSV(LNU)
+  for (int j = 0; j < 4) {
+    temp = v[j];
+    for (i = j + 1; i < 4; i++) {
+      v[i] -= temp * mat[i + j*4];
+    }
+  }
+
+  // Form x = U^-1 L^-1 * v, TRSV(UNN)
+  for (int j = 3; j >= 0; j--) {
+    v[j] /= mat[j + 4*j];
+    temp = v[j];
+    for (int i = j - 1; i >= 0; i--) {
+      v[i] -= temp * mat[i + j*4];
+    }
+  }
+
+}
+
+static inline void
+solve_9x9( double *mat, double *v )
+{
+ 
+  double temp;
+
+  // LU (no pivot)
+  for (int j = 0; j < 9; j++) {
+    for (int i = j + 1; i < 9; i++) {
+      mat[i + 9*j] /= mat[j + 9*j];
+    }
+    for (int jj = j + 1; jj < 9) {
+      temp = mat[j + 9*jj];
+      for (int ii = 0; ii < 9; ii++) {
+        mat[ii + jj*9] -= mat[ii + j*9] * temp;
+      }
+    }
+  }
+
+  // Form U * x = L^-1 * v, TRSV(LNU)
+  for (int j = 0; j < 9; j++) {
+    temp = v[j];
+    for (i = j + 1; i < 9; i++) {
+      v[i] -= temp * mat[i + j*9];
+    }
+  }
+
+  // Form x = U^-1 L^-1 * v, TRSV(UNN)
+  for (int j = 8; j >= 0; j--) {
+    v[j] /= mat[j + 9*j];
+    temp = v[j];
+    for (int i = j - 1; i >= 0; i--) {
+      v[i] -= temp * mat[i + j*9];
+    }
+  }
+}
+
 void
 compute_averages_x(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
                                           const std::vector< degree_of_freedom >& velocity_v, \
@@ -506,13 +581,9 @@ hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const 
     for (int ii = 0; ii < 27; ii++) {
       mat[(g_jdx[ii] * 9 + g_idx[ii])] = g_val[ii];
     }
-    int *ipiv = (int *)malloc(9 * sizeof(int));
-    int n = 9;
-    int nrhs = 1;
-    int info;
 
     // solve linear system for K tensor
-    //--- TC TODO: write function to solve this system ---//
+    solve_9x9( mat, &vel[0] );
 
     // determine porosity
     double por;
@@ -557,18 +628,15 @@ hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const 
       g_val[i + 4] = g_val[i];
     }
 
-    // column major dense matrix for lapack solve
-    double *mat = (double *)calloc(4 * 4,  sizeof(double));
+
+    // column major dense matrix for solve
+    double *mat = (double *)calloc(4 * 4, sizeof(double));
     for (int ii = 0; ii < 8; ii++) {
       mat[(g_jdx[ii] * 4 + g_idx[ii])] = g_val[ii];
     }
-    int *ipiv = (int *)malloc(4 * sizeof(int));
-    int n = 4;
-    int nrhs = 1;
-    int info;
 
     // solve linear system for K tensor
-    //--- TC TODO: write function to solve this system ---//
+    solve_4x4( mat, &vel[0] );
 
     // determine porosity
     double por;
