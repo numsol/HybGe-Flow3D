@@ -397,7 +397,7 @@ hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& 
     for (int i = 0; i < velocity_u.size(); i++) {
       outstream << "\nX VELOCITY DOF " << i << "\n";
       outstream << velocity_u[i].coords[0] << "\t" << velocity_u[i].coords[1] << "\t" << velocity_u[i].coords[2] << "\n";
-      outstream << solution[i + uzero] < "\n"; 
+      outstream << solution[i + uzero] << "\n"; 
     }
 
     // Y VELOCITY
