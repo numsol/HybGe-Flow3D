@@ -2,6 +2,7 @@
 
 // hgf includes
 #include "model_stokes.hpp"
+#include <iomanip>
 
 // 1d->2d index
 #define idx2(i, j, ldi) ((i * ldi) + j)
@@ -356,5 +357,73 @@ hgf::models::stokes::output_vtk(const parameters& par, const hgf::mesh::voxel& m
       outstream << pressure_ib_list[ row ] << "\n";
     }
     outstream.close();
+  }
+}
+
+/** \brief hgf::models::stokes::write_state saves the state of a Stokes flow simulation to a .dat file.
+ *
+ * @param[in] par - parameters struct containing problem information, including problem directory.
+ * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
+ * @param[in,out] file_name - string used to name the output file, which is placed in the problem directory contained in parameters& par.
+ */
+void
+hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name)
+{
+  if (par.dimension == 3) { // 3d output
+    bfs::path output_path( par.problem_path / file_name.c_str() );
+    output_path += ".dat";
+    std::ofstream outstream;
+    outstream.open(output_path.string());
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    outstream << "### STATE OF STOKES SIMULATION SAVED " << std::put_time(&tm, "%d-%m-%Y %H-%M-%S") << " ###\n";
+
+    // PRESSURE
+    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##\n";
+
+    // X VELOCITY
+    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+
+
+    // Y VELOCITY
+    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+
+
+    // Z VELOCITY
+    outstream << "\n## Z VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+
+
+    // IB
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n"
+
+    outstream.close();
+ 
+
+  } else if { // 2d output
+    bfs::path output_path( par.problem_path / file_name.c_str() );
+    output_path += ".dat";
+    std::ofstream outstream;
+    outstream.open(output_path.string());
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    outstream << "### STATE OF STOKES SIMULATION SAVED " << std::put_time(&tm, "%d-%m-%Y %H-%M-%S") << " ###\n";
+
+    // PRESSURE
+    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##\n";
+
+    // X VELOCITY
+    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+
+
+    // Y VELOCITY
+    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+
+    // IB
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n"
+
+    outstream.close();
+
   }
 }

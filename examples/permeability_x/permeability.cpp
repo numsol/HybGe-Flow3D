@@ -84,6 +84,10 @@ main( int argc, const char* argv[] )
   std::string file_name = "Solution_x";
   x_stks.output_vtk(par, msh, file_name);
 
+  // save the full state of the flow simulation
+  std::string state_name = "Stokes_State";
+  x_stks.write_state(par, msh, state_name);
+
   postp_time = omp_get_wtime() - rebegin;
   total_time = omp_get_wtime() - begin;
 
