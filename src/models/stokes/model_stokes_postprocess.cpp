@@ -385,41 +385,41 @@ hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& 
     outstream << "### STATE OF STOKES SIMULATION SAVED " << std::put_time(&tm, "%d-%m-%Y %H-%M-%S") << " ###\n";
 
     // PRESSURE
-    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##\n";
+    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##";
     for (int i = 0; i < pressure.size(); i++) {
-      outstream << "PRESSURE DOF " << i << "\n";
+      outstream << "\nPRESSURE DOF " << i << "\n";
       outstream << pressure[i].coords[0] << "\t" << pressure[i].coords[1] << "\t" << pressure[i].coords[2] << "\n";
-      outstream << solution[i + pzero];   
+      outstream << solution[i + pzero] << "\n";
     }
 
     // X VELOCITY
-    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##";
     for (int i = 0; i < velocity_u.size(); i++) {
-      outstream << "X VELOCITY DOF " << i << "\n";
+      outstream << "\nX VELOCITY DOF " << i << "\n";
       outstream << velocity_u[i].coords[0] << "\t" << velocity_u[i].coords[1] << "\t" << velocity_u[i].coords[2] << "\n";
-      outstream << solution[i + uzero];   
+      outstream << solution[i + uzero] < "\n"; 
     }
 
     // Y VELOCITY
-    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##";
     for (int i = 0; i < velocity_v.size(); i++) {
-      outstream << "Y VELOCITY DOF " << i << "\n";
+      outstream << "\nY VELOCITY DOF " << i << "\n";
       outstream << velocity_v[i].coords[0] << "\t" << velocity_v[i].coords[1] << "\t" << velocity_v[i].coords[2] << "\n";
-      outstream << solution[i + vzero];   
+      outstream << solution[i + vzero] << "\n";  
     }
 
     // Z VELOCITY
-    outstream << "\n## Z VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+    outstream << "\n## Z VELOCITY COMPONENT DEGREES OF FREEDOM ##";
     for (int i = 0; i < velocity_w.size(); i++) {
-      outstream << "Z VELOCITY DOF " << i << "\n";
+      outstream << "\nZ VELOCITY DOF " << i << "\n";
       outstream << velocity_w[i].coords[0] << "\t" << velocity_w[i].coords[1] << "\t" << velocity_w[i].coords[2] << "\n";
-      outstream << solution[i + wzero];   
+      outstream << solution[i + wzero] << "\n";
     }
 
     // IB
-    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n";
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##";
     for (int i = 0; i < pressure_ib_list.size(); i++) {
-      outstream << "CELL " << i << "\n";
+      outstream << "\nCELL " << i << "\n";
       outstream << pressure_ib_list[i] << "\n";
     }
 
@@ -439,33 +439,33 @@ hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& 
     outstream << "### STATE OF STOKES SIMULATION SAVED " << std::put_time(&tm, "%d-%m-%Y %H-%M-%S") << " ###\n";
 
     // PRESSURE
-    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##\n";
+    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##";
     for (int i = 0; i < pressure.size(); i++) {
-      outstream << "PRESSURE DOF " << i << "\n";
+      outstream << "\nPRESSURE DOF " << i << "\n";
       outstream << pressure[i].coords[0] << "\t" << pressure[i].coords[1] << "\n";
-      outstream << solution[i + pzero];   
+      outstream << solution[i + pzero] << "\n";
     }
 
     // X VELOCITY
-    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##";
     for (int i = 0; i < velocity_u.size(); i++) {
-      outstream << "X VELOCITY DOF " << i << "\n";
+      outstream << "\nX VELOCITY DOF " << i << "\n";
       outstream << velocity_u[i].coords[0] << "\t" << velocity_u[i].coords[1] << "\n";
-      outstream << solution[i + uzero];   
+      outstream << solution[i + uzero] << "\n";
     }
 
     // Y VELOCITY
-    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##";
     for (int i = 0; i < velocity_v.size(); i++) {
-      outstream << "Y VELOCITY DOF " << i << "\n";
+      outstream << "\nY VELOCITY DOF " << i << "\n";
       outstream << velocity_v[i].coords[0] << "\t" << velocity_v[i].coords[1] << "\n";
-      outstream << solution[i + vzero];   
+      outstream << solution[i + vzero] << "\n";
     }
 
     // IB
-    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n";
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##";
     for (int i = 0; i < pressure_ib_list.size(); i++) {
-      outstream << "CELL " << i << "\n";
+      outstream << "\nCELL " << i << "\n";
       outstream << pressure_ib_list[i] << "\n";
     }
     outstream.close();
