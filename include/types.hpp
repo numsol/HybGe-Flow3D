@@ -10,15 +10,15 @@ struct parameters
 {
   double viscosity;                              /**< For fluid flow problems, the viscosity of the fluid. */
   int dimension;                                 /**< Specifies if the problem is 2d or 3d. */
-  int nx;                                        /**< For uniform cartesian meshes and discretizations, specifies the x mesh dimension. */
-  int ny;                                        /**< For uniform cartesian meshes and discretizations, specifies the y mesh dimension. */
-  int nz;                                        /**< For uniform cartesian meshes and discretizations, specifies the z mesh dimension. */
   double length;                                 /**< Specifies the length of the domain (x-direction). */
   double width;                                  /**< Specifies the width of the domain (y-direction). */
   double height;                                 /**< Specifies the height of the domain (z-direction). */
+  int solver_max_iterations;                     /**< Specifies the maximum iterations allowed in iterative solvers. */
+  double solver_absolute_tolerance;              /**< Specifies the absolute error tolerance for iterative solvers. */
+  double solver_relative_tolerance;              /**< Specifies the relative error tolerance for iterative solvers. */
+  int solver_verbose;                            /**< Specifies the level of console output produced by iterative solvers. */
   std::vector< unsigned long > voxel_geometry;   /**< Vector storing a voxel geometry read from the Geometry.dat input file. */
   boost::filesystem::path problem_path;          /**< Path to folder containing Geometry.dat and Parameters.dat input files */
-  int verbose;                                   /**< Flag specifying the amount of output that will be printed to console */
 };
 
 /** \brief Mesh vertex struct

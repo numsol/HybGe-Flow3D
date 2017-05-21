@@ -36,7 +36,6 @@ hgf::init_parameters(parameters& par, const std::string& problem_path)
   }
   hgf::utility::load_parameters(par, Parameters);
   hgf::utility::import_voxel_geometry(par, par.problem_path);
-  par.verbose = 0;
 }
 
 /** \brief Finds a file or returns false if the file does not exist.
@@ -108,6 +107,39 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
   }
   std::istringstream iheight(line);
   iheight >> str >> par.height;
+
+  //--- solver_max_iterations ---//
+  if (ifs.good())
+  {
+    std::getline(ifs, line);
+  }
+  std::istringstream isolver_max_iterations(line);
+  isolver_max_iterations >> str >> par.solver_max_iterations;
+
+  //--- solver_absolute_tolerance ---//
+  if (ifs.good())
+  {
+    std::getline(ifs, line);
+  }
+  std::istringstream isolver_absolute_tolerance(line);
+  isolver_absolute_tolerance >> str >> par.solver_absolute_tolerance;
+
+   //--- solver_relative_tolerance ---//
+  if (ifs.good())
+  {
+    std::getline(ifs, line);
+  }
+  std::istringstream isolver_relative_tolerance(line);
+  isolver_relative_tolerance >> str >> par.solver_relative_tolerance;
+
+  //--- solver_verbose ---//
+  if (ifs.good())
+  {
+    std::getline(ifs, line);
+  }
+  std::istringstream isolver_verbose(line);
+  isolver_verbose >> str >> par.solver_verbose;
+
 }
 
 /** \brief Prints parameters from par parameter.
@@ -122,7 +154,10 @@ hgf::utility::print_parameters(parameters& par)
   std::cout << "Geometry length= " << par.length << "\n";
   std::cout << "Geometry width= " << par.width << "\n";
   std::cout << "Geometry height= " << par.height << "\n";
-  std::cout << "Verbose= " << par.verbose << "\n";
+  std::cout << "Solver maximum iterations= " << par.solver_max_iterations << "\n";
+  std::cout << "Solver absolute tolerance= " << par.solver_absolute_tolerance << "\n";
+  std::cout << "Solver relative tolerance= " << par.solver_relative_tolerance << "\n";
+  std::cout << "Solver verbose= " << par.solver_verbose << "\n";
   std::cout << "Problem path= " << par.problem_path.string() << "\n";
 }
 
