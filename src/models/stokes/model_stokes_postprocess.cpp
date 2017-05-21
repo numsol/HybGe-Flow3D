@@ -268,6 +268,11 @@ hgf::models::stokes::output_vtk(const parameters& par, const hgf::mesh::voxel& m
       outstream << uval << "\t" << vval << "\t" << wval << "\n";
     }
     outstream << "\n";
+    outstream << "SCALARS immersedboundary int\n";
+    outstream << "LOOKUP_TABLE default\n";
+    for (int row = 0; row < nEls; row++) {
+      outstream << pressure_ib_list[ row ] << "\n";
+    }
     outstream.close();
   }
   else { // 2d output
@@ -345,6 +350,11 @@ hgf::models::stokes::output_vtk(const parameters& par, const hgf::mesh::voxel& m
       outstream << uval << "\t" << vval << "\t" << 0 << "\n";
     }
     outstream << "\n";
+    outstream << "SCALARS immersedboundary int\n";
+    outstream << "LOOKUP_TABLE default\n";
+    for (int row = 0; row < nEls; row++) {
+      outstream << pressure_ib_list[ row ] << "\n";
+    }
     outstream.close();
   }
 }
