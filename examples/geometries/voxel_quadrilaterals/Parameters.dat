@@ -2,3 +2,7 @@ viscosity= 1.0
 length= 1.0
 width= 1.0
 height= 0.0
+solver_max_iterations= 500
+solver_absolute_tolerance= 1e-8
+solver_relative_tolerance= 1e-6
+solver_verbose= 2
