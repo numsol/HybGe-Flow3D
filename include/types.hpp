@@ -13,6 +13,9 @@ struct parameters
   double length;                                 /**< Specifies the length of the domain (x-direction). */
   double width;                                  /**< Specifies the width of the domain (y-direction). */
   double height;                                 /**< Specifies the height of the domain (z-direction). */
+  int nx;					 /**< Specifies the x mesh dimension. */
+  int ny;					 /**< Specifies the y mesh dimension. */
+  int nz;					 /**< Specifies the z mesh dimension. */
   int solver_max_iterations;                     /**< Specifies the maximum iterations allowed in iterative solvers. */
   double solver_absolute_tolerance;              /**< Specifies the absolute error tolerance for iterative solvers. */
   double solver_relative_tolerance;              /**< Specifies the relative error tolerance for iterative solvers. */
