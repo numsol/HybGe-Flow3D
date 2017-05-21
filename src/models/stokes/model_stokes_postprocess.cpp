@@ -370,6 +370,11 @@ void
 hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name)
 {
   if (par.dimension == 3) { // 3d output
+    int uzero = 0;
+    int vzero = uzero + (int)velocity_u.size();
+    int wzero = vzero + (int)velocity_v.size();
+    int pzero = wzero + (int)velocity_w.size();
+
     bfs::path output_path( par.problem_path / file_name.c_str() );
     output_path += ".dat";
     std::ofstream outstream;
@@ -381,26 +386,49 @@ hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& 
 
     // PRESSURE
     outstream << "\n## PRESSURE DEGREES OF FREEDOM ##\n";
+    for (int i = 0; i < pressure.size(); i++) {
+      outstream << "PRESSURE DOF " << i << "\n";
+      outstream << pressure[i].coords[0] << "\t" << pressure[i].coords[1] << "\t" << pressure[i].coords[2] << "\n";
+      outstream << solution[i + pzero];   
+    }
 
     // X VELOCITY
     outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
-
+    for (int i = 0; i < velocity_u.size(); i++) {
+      outstream << "X VELOCITY DOF " << i << "\n";
+      outstream << velocity_u[i].coords[0] << "\t" << velocity_u[i].coords[1] << "\t" << velocity_u[i].coords[2] << "\n";
+      outstream << solution[i + uzero];   
+    }
 
     // Y VELOCITY
     outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
-
+    for (int i = 0; i < velocity_v.size(); i++) {
+      outstream << "Y VELOCITY DOF " << i << "\n";
+      outstream << velocity_v[i].coords[0] << "\t" << velocity_v[i].coords[1] << "\t" << velocity_v[i].coords[2] << "\n";
+      outstream << solution[i + vzero];   
+    }
 
     // Z VELOCITY
     outstream << "\n## Z VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
-
+    for (int i = 0; i < velocity_w.size(); i++) {
+      outstream << "Z VELOCITY DOF " << i << "\n";
+      outstream << velocity_w[i].coords[0] << "\t" << velocity_w[i].coords[1] << "\t" << velocity_w[i].coords[2] << "\n";
+      outstream << solution[i + wzero];   
+    }
 
     // IB
-    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n"
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n";
+    for (int i = 0; i < pressure_ib_list.size(); i++) {
+      outstream << "CELL " << i << "\n";
+      outstream << pressure_ib_list[i] << "\n";
+    }
 
     outstream.close();
- 
 
-  } else if { // 2d output
+  } else { // 2d output
+    int uzero = 0;
+    int vzero = uzero + (int)velocity_u.size();
+    int pzero = vzero + (int)velocity_v.size();
     bfs::path output_path( par.problem_path / file_name.c_str() );
     output_path += ".dat";
     std::ofstream outstream;
@@ -412,17 +440,34 @@ hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& 
 
     // PRESSURE
     outstream << "\n## PRESSURE DEGREES OF FREEDOM ##\n";
+    for (int i = 0; i < pressure.size(); i++) {
+      outstream << "PRESSURE DOF " << i << "\n";
+      outstream << pressure[i].coords[0] << "\t" << pressure[i].coords[1] << "\n";
+      outstream << solution[i + pzero];   
+    }
 
     // X VELOCITY
     outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
-
+    for (int i = 0; i < velocity_u.size(); i++) {
+      outstream << "X VELOCITY DOF " << i << "\n";
+      outstream << velocity_u[i].coords[0] << "\t" << velocity_u[i].coords[1] << "\n";
+      outstream << solution[i + uzero];   
+    }
 
     // Y VELOCITY
     outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##\n";
+    for (int i = 0; i < velocity_v.size(); i++) {
+      outstream << "Y VELOCITY DOF " << i << "\n";
+      outstream << velocity_v[i].coords[0] << "\t" << velocity_v[i].coords[1] << "\n";
+      outstream << solution[i + vzero];   
+    }
 
     // IB
-    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n"
-
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##\n";
+    for (int i = 0; i < pressure_ib_list.size(); i++) {
+      outstream << "CELL " << i << "\n";
+      outstream << pressure_ib_list[i] << "\n";
+    }
     outstream.close();
 
   }
