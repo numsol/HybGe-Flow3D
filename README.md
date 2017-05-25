@@ -28,9 +28,20 @@ can also be found at http://www.gnu.org/licenses/.
 
 Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:
 
-    Costa, T., "HybGe-Flow3D", Package Version 2.0.0,
+    Costa, T., "HybGe-Flow3D", Package Version 2.1.0,
     http://github.com/numsol/HybGe-Flow3D.
 
 ### Contact ###
 
 Timothy B. Costa, timothy.costa@numericalsolutions.org
+
+### Change Log ###
+
+Version 2.1.0 (Under Development)
+- Add linear solver controls to parameters struct. Requires Parameters.dat file include:
+    - solver_max_iterations
+    - solver_absolute_tolerance
+    - solver_relative_tolerance
+    - solver_verbose
+ - Add write_state function to Stokes class.
+    - When called, writes to file (name arguement appended with '.dat') the state of the Stokes system, storing all degree of freedom coordinates and values.
