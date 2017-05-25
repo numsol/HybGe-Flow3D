@@ -45,7 +45,6 @@
  *     -# Filesystem
  *     -# System
  *   - Paralution
- *   - BLAS/LAPACK
  *
  * \section Build
  *
