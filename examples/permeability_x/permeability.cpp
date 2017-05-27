@@ -77,7 +77,7 @@ main( int argc, const char* argv[] )
 
   // compute permeability and print to console
   double permeability = hgf::multiscale::flow::compute_permeability_x( par, \
-    x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, x_stks.solution );
+    x_stks.pressure_ib_list, x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, x_stks.solution );
   std::cout << "\nX permeability = " << permeability << "\n";
 
   // save the x-flow solution for visualization

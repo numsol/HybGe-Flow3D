@@ -97,7 +97,7 @@ main( int argc, const char* argv[] )
   // compute permeability and print to console
   std::vector< double > permeability;
   hgf::multiscale::flow::compute_permeability_tensor( par, \
-    x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, \
+    x_stks.pressure_ib_list, x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, \
     x_stks.solution, y_stks.solution, z_stks.solution, permeability);
   std::cout << "Permeability Tensor=\n";
   for (int jj = 0; jj < par.dimension; jj++) {

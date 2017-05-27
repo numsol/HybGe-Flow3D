@@ -15,19 +15,23 @@ namespace hgf
      */
     namespace flow
     {
-      double compute_permeability_x(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
+      double compute_permeability_x(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                           const std::vector< degree_of_freedom >& velocity_u, \
                                                            const std::vector< degree_of_freedom >& velocity_v, \
                                                            const std::vector< degree_of_freedom >& velocity_w, \
                                                            const std::vector< double > solution);
-      double compute_permeability_y(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
+      double compute_permeability_y(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                           const std::vector< degree_of_freedom >& velocity_u, \
                                                            const std::vector< degree_of_freedom >& velocity_v, \
                                                            const std::vector< degree_of_freedom >& velocity_w, \
                                                            const std::vector< double > solution);
-      double compute_permeability_z(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
+      double compute_permeability_z(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                           const std::vector< degree_of_freedom >& velocity_u, \
                                                            const std::vector< degree_of_freedom >& velocity_v, \
                                                            const std::vector< degree_of_freedom >& velocity_w, \
                                                            const std::vector< double > solution);
-      void compute_permeability_tensor(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
+      void compute_permeability_tensor(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                           const std::vector< degree_of_freedom >& velocity_u, \
                                                            const std::vector< degree_of_freedom >& velocity_v, \
                                                            const std::vector< degree_of_freedom >& velocity_w, \
                                                            const std::vector< double > solution_xflow, \
