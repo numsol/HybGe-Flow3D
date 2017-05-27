@@ -45,5 +45,9 @@ Version 2.1.0 (Under Development)
     - solver_verbose
  - Add write_state function to Stokes class.
     - When called, writes to file (name arguement appended with '.dat') the state of the Stokes system, storing all degree of freedom coordinates and values.
- - Corrected upscaled permeability functions to account for presence of an immersed boundary. Required permeability function API change to include pressure_ib_list argument. 
- - Added example geometry 'immersed_circles' identical to voxel_quadrilaterals but with geometry entirely enforced via immersed boundary.
+ - Correct upscaled permeability functions to account for presence of an immersed boundary. Requires API change to include pressure_ib_list argument in functions:
+    - hgf::multiscale::flow::compute_permeability_x
+    - hgf::multiscale::flow::compute_permeability_y
+    - hgf::multiscale::flow::compute_permeability_z
+    - hgf::multiscale::flow::compute_permeability_tensor
+ - Add example geometry 'immersed_circles' identical to voxel_quadrilaterals but with geometry entirely enforced via immersed boundary.
