@@ -43,8 +43,8 @@ Version 2.1.0 (Under Development)
     - solver_absolute_tolerance
     - solver_relative_tolerance
     - solver_verbose
- - Add write_state function to Stokes class.
-    - When called, writes to file (name arguement appended with '.dat') the state of the Stokes system, storing all degree of freedom coordinates and values.
+ - Add function hgf::models::stokes::write_state.
+    - Writes to file (name argument appended with '.dat') the state of the Stokes system, storing all degree of freedom coordinates and values.
  - Correct upscaled permeability functions to account for presence of an immersed boundary. Requires API change to include pressure_ib_list argument in functions:
     - hgf::multiscale::flow::compute_permeability_x
     - hgf::multiscale::flow::compute_permeability_y
