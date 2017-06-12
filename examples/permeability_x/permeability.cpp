@@ -1,5 +1,5 @@
-/* Example computes the upscaled permeability tensor from the solution to Stokes and prints
-   the tensor to console. The x-flow solution is saved for visualization. Build with included
+/* Example computes the upscaled permeability in the x-direction from the solution to Stokes and prints
+   the result to console. The x-flow solution is saved for visualization. Build with included
    CMakeLists.txt, and use:
      permeability <path/to/problemfolder>
    Some example problem folders are included at examples/geometries.
