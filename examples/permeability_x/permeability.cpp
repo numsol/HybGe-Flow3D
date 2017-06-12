@@ -5,7 +5,6 @@
    Some example problem folders are included at examples/geometries.
 */
 
-// system includes
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
@@ -30,7 +29,7 @@ main( int argc, const char* argv[] )
   rebegin = omp_get_wtime();
 
   //--- mesh ---//
-  // First we check mesh sanity, and remove dead pores
+  // check mesh sanity and remove dead pores
   hgf::mesh::geo_sanity(par);
   int pores_removed = 0;
   pores_removed = hgf::mesh::remove_dead_pores(par);
@@ -42,7 +41,7 @@ main( int argc, const char* argv[] )
   mesh_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
 
-  //--- example stokes solve ---//
+  //--- stokes model ---//
   hgf::models::stokes x_stks;
   // build the degrees of freedom and the array for interior cells
   x_stks.build(par, msh);
@@ -56,16 +55,18 @@ main( int argc, const char* argv[] )
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
 
-  // Solve with Paralution
+  // solve with Paralution
   hgf::solve::paralution::init_solver();
-  if (par.dimension == 3) { // block diagonal preconditioner for 3d problem
+  // block diagonal preconditioner for 3d problem
+  if (par.dimension == 3) { 
     hgf::solve::paralution::solve_ps_flow(par, x_stks.coo_array, x_stks.rhs, x_stks.solution_int, \
       (int)std::accumulate(x_stks.interior_u.begin(), x_stks.interior_u.end(), 0), \
       (int)std::accumulate(x_stks.interior_v.begin(), x_stks.interior_v.end(), 0), \
       (int)std::accumulate(x_stks.interior_w.begin(), x_stks.interior_w.end(), 0), \
       (int)x_stks.pressure.size());
   }
-  else { // simple GMRES + ILU for 2d
+  // simple GMRES + ILU for 2d
+  else { 
     hgf::solve::paralution::solve(par, x_stks.coo_array, x_stks.rhs, x_stks.solution_int);
   }
   hgf::solve::paralution::finalize_solver();
@@ -73,18 +74,19 @@ main( int argc, const char* argv[] )
   solve_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
 
-  x_stks.solution_build();  // fills in solution vector with solution of linear system + boundary values
+  // fill in solution vector with solution of linear system + boundary values
+  x_stks.solution_build();  
 
   // compute permeability and print to console
   double permeability = hgf::multiscale::flow::compute_permeability_x( par, \
     x_stks.pressure_ib_list, x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, x_stks.solution );
   std::cout << "\nX permeability = " << permeability << "\n";
 
-  // save the x-flow solution for visualization
+  // save the x-flow solution for visualization with paraview
   std::string file_name = "Solution_x";
   x_stks.output_vtk(par, msh, file_name);
 
-  // save the full state of the flow simulation
+  // save the full state of the flow simulation to .dat file
   std::string state_name = "Stokes_State";
   x_stks.write_state(par, msh, state_name);
 
