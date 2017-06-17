@@ -76,14 +76,6 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
   std::string str;
   bfs::ifstream ifs(problem_path);
 
-  //--- viscosity ---//
-  if (ifs.good())
-  {
-    std::getline(ifs, line);
-  }
-  std::istringstream iVisc(line);
-  iVisc >> str >> par.viscosity;
-
   //--- length ---//
   if (ifs.good())
   {
@@ -149,7 +141,6 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
 void
 hgf::utility::print_parameters(parameters& par)
 {
-  std::cout << "Viscosity= " << par.viscosity << "\n";
   std::cout << "Dimension= " << par.dimension << "\n";
   std::cout << "Geometry length= " << par.length << "\n";
   std::cout << "Geometry width= " << par.width << "\n";

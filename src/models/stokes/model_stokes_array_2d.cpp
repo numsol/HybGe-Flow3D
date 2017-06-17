@@ -23,7 +23,7 @@ hgf::models::stokes::build_array_2d(const parameters& par, const hgf::mesh::voxe
 }
 
 void
-hgf::models::stokes::momentum_2d(double visc)
+hgf::models::stokes::momentum_2d(void)
 {
 
   int shift_v = std::accumulate(interior_u.begin(), interior_u.end(), 0);
@@ -88,7 +88,7 @@ hgf::models::stokes::momentum_2d(double visc)
         for (int jj = 0; jj < 4; jj++) {
           if (nbrs[jj] > -1 && interior_u[nbrs[jj]]) {
             entries++;
-            temp_coo[entries - 1].value = -visc * d_edges[jj] / d_dofs[jj];
+            temp_coo[entries - 1].value = -viscosity * d_edges[jj] / d_dofs[jj];
             temp_coo[entries - 1].i_index = interior_u_nums[ii];
             temp_coo[entries - 1].j_index = interior_u_nums[nbrs[jj]];
           }
@@ -163,7 +163,7 @@ hgf::models::stokes::momentum_2d(double visc)
         for (int jj = 0; jj < 4; jj++) {
           if (nbrs[jj] > -1 && interior_v[nbrs[jj]]) {
             entries++;
-            temp_coo[entries - 1].value = -visc * d_edges[jj] / d_dofs[jj];
+            temp_coo[entries - 1].value = -viscosity * d_edges[jj] / d_dofs[jj];
             temp_coo[entries - 1].i_index = interior_v_nums[ii]+shift_v;
             temp_coo[entries - 1].j_index = interior_v_nums[nbrs[jj]]+shift_v;
           }
