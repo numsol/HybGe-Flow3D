@@ -15,6 +15,10 @@
 void
 hgf::models::stokes::build(const parameters& par, const hgf::mesh::voxel& msh)
 {
+
+  // viscosity is initialized to 1.0
+  viscosity = 1.0;
+
   if (par.dimension == 2) {
 
     // setup the degrees of freedom

@@ -15,7 +15,7 @@ hgf::models::stokes::build_array_2d(const parameters& par, const hgf::mesh::voxe
 {
 
   // calls to set up 2nd order velocity terms
-  momentum_2d(par.viscosity);
+  momentum_2d();
 
   // calls to set up the continuity equations
   continuity_2d();

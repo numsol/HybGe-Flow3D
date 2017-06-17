@@ -75,14 +75,14 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // S neighbor?
         if (bc_contributor[0]) {
           // Type Dirichlet
-          value += par.viscosity * dx / (0.5*dy);
+          value += viscosity * dx / (0.5*dy);
         }
 
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet?
           if (velocity_u[ii].coords[0] + dx <= xmax - eps) {
-            value += par.viscosity * dx / dy;
+            value += viscosity * dx / dy;
             boundary[nbrs[1]].type = 1;
             boundary[nbrs[1]].value = 0.0;
           }
@@ -96,19 +96,19 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // N neighbor?
         if (bc_contributor[2]) {
           // Type Dirichlet
-          value += par.viscosity * dx / (0.5*dy);
+          value += viscosity * dx / (0.5*dy);
         }
 
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dx / dy;
+          value += viscosity * dx / dy;
           boundary[nbrs[3]].type = 1;
           boundary[nbrs[3]].value = 0.0;
           // is it an inflow bdr?
           if (velocity_u[ii].coords[0] - dx < xmin + eps) {
             double bvalue = (velocity_u[ii].coords[1] - ymin) * (ymax - velocity_u[ii].coords[1]);
-            rhs[interior_u_nums[ii]] += bvalue * par.viscosity * dy / dx;
+            rhs[interior_u_nums[ii]] += bvalue * viscosity * dy / dx;
             boundary[nbrs[3]].value += bvalue;
           }
         }
@@ -154,13 +154,13 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           // Type Dirichlet
           boundary[nbrs[0] + velocity_u.size()].type = 1;
           boundary[nbrs[0] + velocity_u.size()].value = 0.0;
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
         }
 
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet?
-          if (velocity_v[ii].coords[0] + 0.5*dx <= xmax - eps) value += par.viscosity * dx / dy;
+          if (velocity_v[ii].coords[0] + 0.5*dx <= xmax - eps) value += viscosity * dx / dy;
           // Type Neumann?
           else;
 
@@ -171,13 +171,13 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           // Type Dirichlet
           boundary[nbrs[2] + velocity_u.size()].type = 1;
           boundary[nbrs[2] + velocity_u.size()].value = 0.0;
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
         }
 
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dy / (0.5*dx);
+          value += viscosity * dy / (0.5*dx);
         }
 
         temp_coo.i_index = shift_v + interior_v_nums[ii];
@@ -296,13 +296,13 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // S neighbor?
         if (bc_contributor[0]) {
           // Type Dirichlet
-          value += par.viscosity * dx / (0.5*dy);
+          value += viscosity * dx / (0.5*dy);
         }
 
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
           boundary[nbrs[1]].type = 1;
           boundary[nbrs[1]].value = 0.0;
         }
@@ -310,7 +310,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // N neighbor?
         if (bc_contributor[2]) {
           // Type Dirichlet?
-          if (velocity_u[ii].coords[1] + 0.5*dy <= ymax - eps) value += par.viscosity * dx / (0.5*dy);
+          if (velocity_u[ii].coords[1] + 0.5*dy <= ymax - eps) value += viscosity * dx / (0.5*dy);
           // Type Neumann
           else;
         }
@@ -318,7 +318,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
           boundary[nbrs[3]].type = 1;
           boundary[nbrs[3]].value = 0.0;
         }
@@ -364,11 +364,11 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           // Type Dirichlet
           boundary[nbrs[0] + velocity_u.size()].type = 1;
           boundary[nbrs[0] + velocity_u.size()].value = 0.0;
-          value += par.viscosity * dx / dy;
+          value += viscosity * dx / dy;
           // is this an inflow boundary?
           if (velocity_v[ii].coords[1] - dy < ymin + eps) {
             double bvalue = (velocity_v[ii].coords[0] - xmin) * (xmax - velocity_v[ii].coords[0]);
-            rhs[interior_v_nums[ii] + shift_v] += bvalue * par.viscosity * dx / dy;
+            rhs[interior_v_nums[ii] + shift_v] += bvalue * viscosity * dx / dy;
             boundary[nbrs[3] + velocity_u.size()].value += bvalue;
           }
         }
@@ -376,7 +376,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet?
-          value += par.viscosity * dy / (0.5*dx);
+          value += viscosity * dy / (0.5*dx);
         }
 
         // N neighbor?
@@ -385,7 +385,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           if (velocity_v[ii].coords[1] + dy <= ymin - eps) {
             boundary[nbrs[2] + velocity_u.size()].type = 1;
             boundary[nbrs[2] + velocity_u.size()].value = 0.0;
-            value += par.viscosity * dx / dy;
+            value += viscosity * dx / dy;
           }
           else {// nothing to do... outflow is 0 neumann 
             boundary[nbrs[2] + velocity_u.size()].type = 2;
@@ -396,7 +396,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dy / (0.5*dx);
+          value += viscosity * dy / (0.5*dx);
         }
 
         temp_coo.i_index = shift_v + interior_v_nums[ii];

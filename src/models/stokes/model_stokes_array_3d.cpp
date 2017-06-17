@@ -15,7 +15,7 @@ hgf::models::stokes::build_array_3d(const parameters& par, const hgf::mesh::voxe
 {
 
   // momentum equation entries
-  momentum_3d(par.viscosity);
+  momentum_3d();
 
   // continuity equation
   continuity_3d();
