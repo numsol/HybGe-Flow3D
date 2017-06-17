@@ -62,9 +62,9 @@ hgf::solve::paralution::solve(const parameters& par, \
 #endif
 
   GMRES<LocalMatrix<double>, LocalVector<double>, double> ls;
-  ls.Init(1e-8, 1e-6, 1e8, 1000);
+  ls.Init(par.solver_absolute_tolerance, par.solver_relative_tolerance, 1e8, par.solver_max_iterations);
   ls.SetOperator(mat);
-  ls.Verbose(0);
+  ls.Verbose(par.solver_verbose);
 
   ILU<LocalMatrix<double>, LocalVector<double>, double> p;
   p.Set(2);
@@ -142,9 +142,9 @@ hgf::solve::paralution::solve_ps_flow(const parameters& par, \
 
   // GMRES object
   FGMRES<LocalMatrix<double>, LocalVector<double>, double> ls;
-  ls.Init(1e-8, 1e-6, 1e8, 500);
+  ls.Init(par.solver_absolute_tolerance, par.solver_relative_tolerance, 1e8, par.solver_max_iterations);
   ls.SetOperator(mat);
-  ls.Verbose(0);
+  ls.Verbose(par.solver_verbose);
   ls.SetBasisSize(100);
 
   // preconditioning
@@ -174,7 +174,6 @@ hgf::solve::paralution::solve_ps_flow(const parameters& par, \
   p.Set(p_k, p_s);
 
   //  ILU<LocalMatrix<double>, LocalVector<double>, double> p;
-  //  p.Set(Par.prec);
   ls.SetPreconditioner(p);
 
   // build

@@ -44,6 +44,7 @@ namespace hgf
         void build(const parameters& par, const hgf::mesh::voxel& msh);
         void solution_build(void);
         void output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
+        void write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
         void setup_yflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
         void setup_zflow_bc(const parameters& par, const hgf::mesh::voxel& msh);

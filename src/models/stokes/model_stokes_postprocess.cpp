@@ -2,6 +2,7 @@
 
 // hgf includes
 #include "model_stokes.hpp"
+#include <iomanip>
 
 // 1d->2d index
 #define idx2(i, j, ldi) ((i * ldi) + j)
@@ -268,6 +269,11 @@ hgf::models::stokes::output_vtk(const parameters& par, const hgf::mesh::voxel& m
       outstream << uval << "\t" << vval << "\t" << wval << "\n";
     }
     outstream << "\n";
+    outstream << "SCALARS immersedboundary int\n";
+    outstream << "LOOKUP_TABLE default\n";
+    for (int row = 0; row < nEls; row++) {
+      outstream << pressure_ib_list[ row ] << "\n";
+    }
     outstream.close();
   }
   else { // 2d output
@@ -345,6 +351,124 @@ hgf::models::stokes::output_vtk(const parameters& par, const hgf::mesh::voxel& m
       outstream << uval << "\t" << vval << "\t" << 0 << "\n";
     }
     outstream << "\n";
+    outstream << "SCALARS immersedboundary int\n";
+    outstream << "LOOKUP_TABLE default\n";
+    for (int row = 0; row < nEls; row++) {
+      outstream << pressure_ib_list[ row ] << "\n";
+    }
     outstream.close();
+  }
+}
+
+/** \brief hgf::models::stokes::write_state saves the state of a Stokes flow simulation to a .dat file.
+ *
+ * @param[in] par - parameters struct containing problem information, including problem directory.
+ * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
+ * @param[in,out] file_name - string used to name the output file, which is placed in the problem directory contained in parameters& par.
+ */
+void
+hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name)
+{
+  if (par.dimension == 3) { // 3d output
+    int uzero = 0;
+    int vzero = uzero + (int)velocity_u.size();
+    int wzero = vzero + (int)velocity_v.size();
+    int pzero = wzero + (int)velocity_w.size();
+
+    bfs::path output_path( par.problem_path / file_name.c_str() );
+    output_path += ".dat";
+    std::ofstream outstream;
+    outstream.open(output_path.string());
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    outstream << "### STATE OF STOKES SIMULATION SAVED " << std::put_time(&tm, "%d-%m-%Y %H-%M-%S") << " ###\n";
+
+    // PRESSURE
+    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##";
+    for (int i = 0; i < pressure.size(); i++) {
+      outstream << "\nPRESSURE DOF " << i << "\n";
+      outstream << pressure[i].coords[0] << "\t" << pressure[i].coords[1] << "\t" << pressure[i].coords[2] << "\n";
+      outstream << solution[i + pzero] << "\n";
+    }
+
+    // X VELOCITY
+    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##";
+    for (int i = 0; i < velocity_u.size(); i++) {
+      outstream << "\nX VELOCITY DOF " << i << "\n";
+      outstream << velocity_u[i].coords[0] << "\t" << velocity_u[i].coords[1] << "\t" << velocity_u[i].coords[2] << "\n";
+      outstream << solution[i + uzero] << "\n"; 
+    }
+
+    // Y VELOCITY
+    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##";
+    for (int i = 0; i < velocity_v.size(); i++) {
+      outstream << "\nY VELOCITY DOF " << i << "\n";
+      outstream << velocity_v[i].coords[0] << "\t" << velocity_v[i].coords[1] << "\t" << velocity_v[i].coords[2] << "\n";
+      outstream << solution[i + vzero] << "\n";  
+    }
+
+    // Z VELOCITY
+    outstream << "\n## Z VELOCITY COMPONENT DEGREES OF FREEDOM ##";
+    for (int i = 0; i < velocity_w.size(); i++) {
+      outstream << "\nZ VELOCITY DOF " << i << "\n";
+      outstream << velocity_w[i].coords[0] << "\t" << velocity_w[i].coords[1] << "\t" << velocity_w[i].coords[2] << "\n";
+      outstream << solution[i + wzero] << "\n";
+    }
+
+    // IB
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##";
+    for (int i = 0; i < pressure_ib_list.size(); i++) {
+      outstream << "\nCELL " << i << "\n";
+      outstream << pressure_ib_list[i] << "\n";
+    }
+
+    outstream.close();
+
+  } else { // 2d output
+    int uzero = 0;
+    int vzero = uzero + (int)velocity_u.size();
+    int pzero = vzero + (int)velocity_v.size();
+    bfs::path output_path( par.problem_path / file_name.c_str() );
+    output_path += ".dat";
+    std::ofstream outstream;
+    outstream.open(output_path.string());
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    outstream << "### STATE OF STOKES SIMULATION SAVED " << std::put_time(&tm, "%d-%m-%Y %H-%M-%S") << " ###\n";
+
+    // PRESSURE
+    outstream << "\n## PRESSURE DEGREES OF FREEDOM ##";
+    for (int i = 0; i < pressure.size(); i++) {
+      outstream << "\nPRESSURE DOF " << i << "\n";
+      outstream << pressure[i].coords[0] << "\t" << pressure[i].coords[1] << "\n";
+      outstream << solution[i + pzero] << "\n";
+    }
+
+    // X VELOCITY
+    outstream << "\n## X VELOCITY COMPONENT DEGREES OF FREEDOM ##";
+    for (int i = 0; i < velocity_u.size(); i++) {
+      outstream << "\nX VELOCITY DOF " << i << "\n";
+      outstream << velocity_u[i].coords[0] << "\t" << velocity_u[i].coords[1] << "\n";
+      outstream << solution[i + uzero] << "\n";
+    }
+
+    // Y VELOCITY
+    outstream << "\n## Y VELOCITY COMPONENT DEGREES OF FREEDOM ##";
+    for (int i = 0; i < velocity_v.size(); i++) {
+      outstream << "\nY VELOCITY DOF " << i << "\n";
+      outstream << velocity_v[i].coords[0] << "\t" << velocity_v[i].coords[1] << "\n";
+      outstream << solution[i + vzero] << "\n";
+    }
+
+    // IB
+    outstream << "\n## IMMERSED BOUNDARY INDICATOR ##";
+    for (int i = 0; i < pressure_ib_list.size(); i++) {
+      outstream << "\nCELL " << i << "\n";
+      outstream << pressure_ib_list[i] << "\n";
+    }
+    outstream.close();
+
   }
 }

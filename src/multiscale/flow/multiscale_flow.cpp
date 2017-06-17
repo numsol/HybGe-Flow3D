@@ -79,7 +79,8 @@ solve_9x9( double *mat, double *v )
 }
 
 void
-compute_averages_x(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
+compute_averages_x(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                          const std::vector< degree_of_freedom >& velocity_u, \
                                           const std::vector< degree_of_freedom >& velocity_v, \
                                           const std::vector< degree_of_freedom >& velocity_w, \
                                           const std::vector< double > solution, double& v, double& g)
@@ -121,7 +122,7 @@ compute_averages_x(const parameters& par, const std::vector< degree_of_freedom >
     for (int ii = 0; ii < velocity_u.size(); ii++) {
       p1_idx = velocity_u[ii].cell_numbers[0];
       p2_idx = velocity_u[ii].cell_numbers[1];
-      if (p1_idx != -1 && p2_idx != -1) {
+      if (p1_idx != -1 && p2_idx != -1 && !pressure_ib_list[p1_idx] && !pressure_ib_list[p2_idx]) {
         if (velocity_u[ii].coords[0] > min_x) {
           if (velocity_u[ii].coords[0] < max_x) {
             if (velocity_u[ii].coords[1] > min_y) {
@@ -169,7 +170,7 @@ compute_averages_x(const parameters& par, const std::vector< degree_of_freedom >
     for (int ii = 0; ii < velocity_u.size(); ii++) {
       p1_idx = velocity_u[ii].cell_numbers[0];
       p2_idx = velocity_u[ii].cell_numbers[1];
-      if (p1_idx != -1 && p2_idx != -1) {
+      if (p1_idx != -1 && p2_idx != -1 && !pressure_ib_list[p1_idx] && !pressure_ib_list[p2_idx]) {
         if (velocity_u[ii].coords[0] > min_x) {
           if (velocity_u[ii].coords[0] < max_x) {
             if (velocity_u[ii].coords[1] > min_y) {
@@ -201,10 +202,11 @@ compute_averages_x(const parameters& par, const std::vector< degree_of_freedom >
 }
 
 void
-compute_averages_y(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
-  const std::vector< degree_of_freedom >& velocity_v, \
-  const std::vector< degree_of_freedom >& velocity_w, \
-  const std::vector< double > solution, double& v, double& g)
+compute_averages_y(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                          const std::vector< degree_of_freedom >& velocity_u, \
+                                          const std::vector< degree_of_freedom >& velocity_v, \
+                                          const std::vector< degree_of_freedom >& velocity_w, \
+                                          const std::vector< double > solution, double& v, double& g)
 {
   double min_x, max_x, min_y, max_y, mid_y, midrange_y, min_z, max_z, pressure;
   double p1 = 0;
@@ -243,7 +245,7 @@ compute_averages_y(const parameters& par, const std::vector< degree_of_freedom >
     for (int ii = 0; ii < velocity_v.size(); ii++) {
       p1_idx = velocity_v[ii].cell_numbers[0];
       p2_idx = velocity_v[ii].cell_numbers[1];
-      if (p1_idx != -1 && p2_idx != -1) {
+      if (p1_idx != -1 && p2_idx != -1 && !pressure_ib_list[p1_idx] && !pressure_ib_list[p2_idx]) {
         if (velocity_v[ii].coords[0] > min_x) {
           if (velocity_v[ii].coords[0] < max_x) {
             if (velocity_v[ii].coords[1] > min_y) {
@@ -291,7 +293,7 @@ compute_averages_y(const parameters& par, const std::vector< degree_of_freedom >
     for (int ii = 0; ii < velocity_v.size(); ii++) {
       p1_idx = velocity_v[ii].cell_numbers[0];
       p2_idx = velocity_v[ii].cell_numbers[1];
-      if (p1_idx != -1 && p2_idx != -1) {
+      if (p1_idx != -1 && p2_idx != -1 && !pressure_ib_list[p1_idx] && !pressure_ib_list[p2_idx]) {
         if (velocity_v[ii].coords[0] > min_x) {
           if (velocity_v[ii].coords[0] < max_x) {
             if (velocity_v[ii].coords[1] > min_y) {
@@ -323,10 +325,11 @@ compute_averages_y(const parameters& par, const std::vector< degree_of_freedom >
 }
 
 void
-compute_averages_z(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
-  const std::vector< degree_of_freedom >& velocity_v, \
-  const std::vector< degree_of_freedom >& velocity_w, \
-  const std::vector< double > solution, double& v, double& g)
+compute_averages_z(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                          const std::vector< degree_of_freedom >& velocity_u, \
+                                          const std::vector< degree_of_freedom >& velocity_v, \
+                                          const std::vector< degree_of_freedom >& velocity_w, \
+                                          const std::vector< double > solution, double& v, double& g)
 {
   double min_x, max_x, min_y, max_y, min_z, max_z, mid_z, midrange_z, pressure;
   double p1 = 0;
@@ -364,7 +367,7 @@ compute_averages_z(const parameters& par, const std::vector< degree_of_freedom >
   for (int ii = 0; ii < velocity_w.size(); ii++) {
     p1_idx = velocity_w[ii].cell_numbers[0];
     p2_idx = velocity_w[ii].cell_numbers[1];
-    if (p1_idx != -1 && p2_idx != -1) {
+    if (p1_idx != -1 && p2_idx != -1 && !pressure_ib_list[p1_idx] && !pressure_ib_list[p2_idx]) {
       if (velocity_w[ii].coords[0] > min_x) {
         if (velocity_w[ii].coords[0] < max_x) {
           if (velocity_w[ii].coords[1] > min_y) {
@@ -403,13 +406,15 @@ compute_averages_z(const parameters& par, const std::vector< degree_of_freedom >
 /** \brief hgf::multiscale::flow::compute_permeability_x computes upscaled permeability in the x direction from a porescale flow solution.
  *
  * @param[in] par - parameters struct containing problem information.
+ * @param[in] pressure_ib_list - Integer array indicating if a cell is an immersed boundary cell.
  * @param[in] velocity_u - Degrees of freedom for the x-component of the porescale velocity solution.
  * @param[in] velocity_v - Degrees of freedom for the y-component of the porescale velocity solution.
  * @param[in] velocity_w - Degrees of freedom for the z-component of the porescale velocity solution.
  * @param[in] solution - Porescale flow solution.
  */
 double
-hgf::multiscale::flow::compute_permeability_x(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
+hgf::multiscale::flow::compute_permeability_x(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                                     const std::vector< degree_of_freedom >& velocity_u, \
                                                                      const std::vector< degree_of_freedom >& velocity_v, \
                                                                      const std::vector< degree_of_freedom >& velocity_w, \
                                                                      const std::vector< double > solution)
@@ -422,7 +427,7 @@ hgf::multiscale::flow::compute_permeability_x(const parameters& par, const std::
 
   double v, g, por;
 
-  compute_averages_x(par, velocity_u, velocity_v, velocity_w, solution, v, g);
+  compute_averages_x(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution, v, g);
 
   // determine porosity (holder)
   int n_voxels = 0;
@@ -440,15 +445,17 @@ hgf::multiscale::flow::compute_permeability_x(const parameters& par, const std::
 /** \brief hgf::multiscale::flow::compute_permeability_y computes upscaled permeability in the y direction from a porescale flow solution.
  *
  * @param[in] par - parameters struct containing problem information.
+ * @param[in] pressure_ib_list - Integer array indicating if a cell is an immersed boundary cell.
  * @param[in] velocity_u - Degrees of freedom for the x-component of the porescale velocity solution.
  * @param[in] velocity_v - Degrees of freedom for the y-component of the porescale velocity solution.
  * @param[in] velocity_w - Degrees of freedom for the z-component of the porescale velocity solution.
  * @param[in] solution - Porescale flow solution.
  */
 double
-hgf::multiscale::flow::compute_permeability_y(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
-                                                     const std::vector< degree_of_freedom >& velocity_v, \
-                                                     const std::vector< degree_of_freedom >& velocity_w, \
+hgf::multiscale::flow::compute_permeability_y(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                                     const std::vector< degree_of_freedom >& velocity_u, \
+                                                                     const std::vector< degree_of_freedom >& velocity_v, \
+                                                                     const std::vector< degree_of_freedom >& velocity_w, \
   const std::vector< double > solution)
 {
   // quick exit
@@ -459,9 +466,9 @@ hgf::multiscale::flow::compute_permeability_y(const parameters& par, const std::
 
   double v, g, por;
 
-  compute_averages_y(par, velocity_u, velocity_v, velocity_w, solution, v, g);
+  compute_averages_y(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution, v, g);
 
-  // determine porosity (holder)
+  // determine porosity
   int n_voxels = 0;
   int n_void = 0;
   for (int ii = 0; ii < par.voxel_geometry.size(); ii++) {
@@ -477,16 +484,18 @@ hgf::multiscale::flow::compute_permeability_y(const parameters& par, const std::
 /** \brief hgf::multiscale::flow::compute_permeability_z computes upscaled permeability in the z direction from a porescale flow solution.
  *
  * @param[in] par - parameters struct containing problem information.
+ * @param[in] pressure_ib_list - Integer array indicating if a cell is an immersed boundary cell.
  * @param[in] velocity_u - Degrees of freedom for the x-component of the porescale velocity solution.
  * @param[in] velocity_v - Degrees of freedom for the y-component of the porescale velocity solution.
  * @param[in] velocity_w - Degrees of freedom for the z-component of the porescale velocity solution.
  * @param[in] solution - Porescale flow solution.
  */
 double
-hgf::multiscale::flow::compute_permeability_z(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
-                                                     const std::vector< degree_of_freedom >& velocity_v, \
-                                                     const std::vector< degree_of_freedom >& velocity_w, \
-                                                     const std::vector< double > solution)
+hgf::multiscale::flow::compute_permeability_z(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                                     const std::vector< degree_of_freedom >& velocity_u, \
+                                                                     const std::vector< degree_of_freedom >& velocity_v, \
+                                                                     const std::vector< degree_of_freedom >& velocity_w, \
+                                                                     const std::vector< double > solution)
 {
   // quick exit
   if (solution.size() <= 0) {
@@ -496,7 +505,7 @@ hgf::multiscale::flow::compute_permeability_z(const parameters& par, const std::
 
   double v, g, por;
 
-  compute_averages_z(par, velocity_u, velocity_v, velocity_w, solution, v, g);
+  compute_averages_z(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution, v, g);
 
   // determine porosity (holder)
   int n_voxels = 0;
@@ -513,6 +522,7 @@ hgf::multiscale::flow::compute_permeability_z(const parameters& par, const std::
 /** \brief hgf::multiscale::flow::compute_permeability_tensor computes upscaled permeability tensor given flow solutions for flows in each principal axis direction.
  *
  * @param[in] par - parameters struct containing problem information.
+ * @param[in] pressure_ib_list - Integer array indicating if a cell is an immersed boundary cell.
  * @param[in] velocity_u - Degrees of freedom for the x-component of the porescale velocity solution.
  * @param[in] velocity_v - Degrees of freedom for the y-component of the porescale velocity solution.
  * @param[in] velocity_w - Degrees of freedom for the z-component of the porescale velocity solution. Can be empty if par indicates a 2d flow.
@@ -522,7 +532,8 @@ hgf::multiscale::flow::compute_permeability_z(const parameters& par, const std::
  * @param[out] permeability - resulting 4x4 (2d flow) or 9x9 (3d flow) permeability tensor. 
  */
 void
-hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const std::vector< degree_of_freedom >& velocity_u, \
+hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const std::vector< int >& pressure_ib_list, \
+                                                                          const std::vector< degree_of_freedom >& velocity_u, \
                                                                           const std::vector< degree_of_freedom >& velocity_v, \
                                                                           const std::vector< degree_of_freedom >& velocity_w, \
                                                                           const std::vector< double > solution_xflow, \
@@ -561,15 +572,15 @@ hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const 
     }
 
     // Compute averages
-    compute_averages_x(par, velocity_u, velocity_v, velocity_w, solution_xflow, vel[0], g_val[0]);
-    compute_averages_y(par, velocity_u, velocity_v, velocity_w, solution_xflow, vel[1], g_val[1]);
-    compute_averages_z(par, velocity_u, velocity_v, velocity_w, solution_xflow, vel[2], g_val[2]);
-    compute_averages_x(par, velocity_u, velocity_v, velocity_w, solution_yflow, vel[3], g_val[3]);
-    compute_averages_y(par, velocity_u, velocity_v, velocity_w, solution_yflow, vel[4], g_val[4]);
-    compute_averages_z(par, velocity_u, velocity_v, velocity_w, solution_yflow, vel[5], g_val[5]);
-    compute_averages_x(par, velocity_u, velocity_v, velocity_w, solution_zflow, vel[6], g_val[6]);
-    compute_averages_y(par, velocity_u, velocity_v, velocity_w, solution_zflow, vel[7], g_val[7]);
-    compute_averages_z(par, velocity_u, velocity_v, velocity_w, solution_zflow, vel[8], g_val[8]);
+    compute_averages_x(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_xflow, vel[0], g_val[0]);
+    compute_averages_y(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_xflow, vel[1], g_val[1]);
+    compute_averages_z(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_xflow, vel[2], g_val[2]);
+    compute_averages_x(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_yflow, vel[3], g_val[3]);
+    compute_averages_y(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_yflow, vel[4], g_val[4]);
+    compute_averages_z(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_yflow, vel[5], g_val[5]);
+    compute_averages_x(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_zflow, vel[6], g_val[6]);
+    compute_averages_y(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_zflow, vel[7], g_val[7]);
+    compute_averages_z(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_zflow, vel[8], g_val[8]);
 
     for (int i = 0; i < 9; i++) {
       g_val[i + 9] = g_val[i];
@@ -619,10 +630,10 @@ hgf::multiscale::flow::compute_permeability_tensor(const parameters& par, const 
 
     // Compute averages
     // Compute averages
-    compute_averages_x(par, velocity_u, velocity_v, velocity_w, solution_xflow, vel[0], g_val[0]);
-    compute_averages_y(par, velocity_u, velocity_v, velocity_w, solution_xflow, vel[1], g_val[1]);
-    compute_averages_x(par, velocity_u, velocity_v, velocity_w, solution_yflow, vel[2], g_val[2]);
-    compute_averages_y(par, velocity_u, velocity_v, velocity_w, solution_yflow, vel[3], g_val[3]);
+    compute_averages_x(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_xflow, vel[0], g_val[0]);
+    compute_averages_y(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_xflow, vel[1], g_val[1]);
+    compute_averages_x(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_yflow, vel[2], g_val[2]);
+    compute_averages_y(par, pressure_ib_list, velocity_u, velocity_v, velocity_w, solution_yflow, vel[3], g_val[3]);
 
     for (int i = 0; i < 4; i++) {
       g_val[i + 4] = g_val[i];

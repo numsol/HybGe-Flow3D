@@ -21,7 +21,6 @@ hgf::models::uniform_porenetwork::output_vtk(const parameters& par)
   }
   nlines /= 2;
 
-
   if (par.dimension == 3) {
 
     // write to vtk file

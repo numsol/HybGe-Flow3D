@@ -28,9 +28,27 @@ can also be found at http://www.gnu.org/licenses/.
 
 Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:
 
-    Costa, T., "HybGe-Flow3D", Package Version 2.0.0,
+    Costa, T., "HybGe-Flow3D", Package Version 2.1.0,
     http://github.com/numsol/HybGe-Flow3D.
 
 ### Contact ###
 
 Timothy B. Costa, timothy.costa@numericalsolutions.org
+
+### Change Log ###
+
+Version 2.1.0
+- Add linear solver controls to parameters struct. Requires Parameters.dat file include:
+    - solver_max_iterations
+    - solver_absolute_tolerance
+    - solver_relative_tolerance
+    - solver_verbose
+ - Add function hgf::models::stokes::write_state.
+    - Writes to file (name argument appended with '.dat') the state of the Stokes system, storing all degree of freedom coordinates and values.
+ - Correct upscaled permeability functions to account for presence of an immersed boundary. Requires API change to include pressure_ib_list argument in functions:
+    - hgf::multiscale::flow::compute_permeability_x
+    - hgf::multiscale::flow::compute_permeability_y
+    - hgf::multiscale::flow::compute_permeability_z
+    - hgf::multiscale::flow::compute_permeability_tensor
+ - Example geometries given descriptive names.
+ - Add example geometry 'immersed_circles_2d' identical to voxel_quadrilaterals but with geometry entirely enforced via immersed boundary.
