@@ -37,6 +37,8 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 ### Change Log ###
 
+Version 2.2.0 (under development)
+
 Version 2.1.0
 - Add linear solver controls to parameters struct. Requires Parameters.dat file include:
     - solver_max_iterations
