@@ -10,6 +10,7 @@ var classhgf_1_1models_1_1stokes =
     [ "setup_yflow_bc", "classhgf_1_1models_1_1stokes.html#a78d3d92fc1bbe6e41a6aecb11c877296", null ],
     [ "setup_zflow_bc", "classhgf_1_1models_1_1stokes.html#a1b608266d15452d1dc5567d51176e174", null ],
     [ "solution_build", "classhgf_1_1models_1_1stokes.html#aa65a0826d15ee2f8b3e13c4af4ff54b0", null ],
+    [ "write_state", "classhgf_1_1models_1_1stokes.html#a70924c8f4821872a0df17e268138520f", null ],
     [ "coo_array", "classhgf_1_1models_1_1stokes.html#a2d483349f879909dafa742096bc939d1", null ],
     [ "interior_u", "classhgf_1_1models_1_1stokes.html#af2aa6ca80c15fcb0d6d75125faba42eb", null ],
     [ "interior_v", "classhgf_1_1models_1_1stokes.html#a8e6d71bdd9f421033bf1364e93d44e2f", null ],

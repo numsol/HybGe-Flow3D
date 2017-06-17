@@ -8,6 +8,10 @@ var searchData=
   ['solution_5fint',['solution_int',['../classhgf_1_1models_1_1stokes.html#a3ec70fc6e118012ccc4bf3b71f143760',1,'hgf::models::stokes']]],
   ['solve',['solve',['../namespacehgf_1_1solve_1_1paralution.html#abc4282778f617f4590657585c8c5901d',1,'hgf::solve::paralution']]],
   ['solve_5fps_5fflow',['solve_ps_flow',['../namespacehgf_1_1solve_1_1paralution.html#a7a00a24f752b2db127073ef379a10bc1',1,'hgf::solve::paralution']]],
+  ['solver_5fabsolute_5ftolerance',['solver_absolute_tolerance',['../structparameters.html#a2e26c5617fb8c80e92deffe9bd86748e',1,'parameters']]],
+  ['solver_5fmax_5fiterations',['solver_max_iterations',['../structparameters.html#a9c9384ec01d04fc81ebdfff981860b4c',1,'parameters']]],
+  ['solver_5frelative_5ftolerance',['solver_relative_tolerance',['../structparameters.html#a465c3bb307b023699f3f11aee345c9b0',1,'parameters']]],
+  ['solver_5fverbose',['solver_verbose',['../structparameters.html#a5a9a1693a9fdbfb73cf90efb21b04c4e',1,'parameters']]],
   ['sort_5farray',['sort_array',['../namespacehgf_1_1utility.html#a32ba9dc21a9a8459f862221fe3445700',1,'hgf::utility']]],
   ['stokes',['stokes',['../classhgf_1_1models_1_1stokes.html',1,'hgf::models']]]
 ];

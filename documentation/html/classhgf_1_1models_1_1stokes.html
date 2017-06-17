@@ -105,6 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9e3d847e073936f4e3e151d2b2e41358"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhgf_1_1models_1_1stokes.html#a9e3d847e073936f4e3e151d2b2e41358">output_vtk</a> (const <a class="el" href="structparameters.html">parameters</a> &amp;par, const <a class="el" href="classhgf_1_1mesh_1_1voxel.html">hgf::mesh::voxel</a> &amp;msh, std::string &amp;file_name)</td></tr>
 <tr class="memdesc:a9e3d847e073936f4e3e151d2b2e41358"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classhgf_1_1models_1_1stokes.html#a9e3d847e073936f4e3e151d2b2e41358" title="hgf::models::stokes::output_vtk saves the solution to the Stokes flow to a file for VTK visualiztion...">hgf::models::stokes::output_vtk</a> saves the solution to the Stokes flow to a file for VTK visualiztion.  <a href="#a9e3d847e073936f4e3e151d2b2e41358">More...</a><br /></td></tr>
 <tr class="separator:a9e3d847e073936f4e3e151d2b2e41358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70924c8f4821872a0df17e268138520f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhgf_1_1models_1_1stokes.html#a70924c8f4821872a0df17e268138520f">write_state</a> (const <a class="el" href="structparameters.html">parameters</a> &amp;par, const <a class="el" href="classhgf_1_1mesh_1_1voxel.html">hgf::mesh::voxel</a> &amp;msh, std::string &amp;file_name)</td></tr>
+<tr class="memdesc:a70924c8f4821872a0df17e268138520f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classhgf_1_1models_1_1stokes.html#a70924c8f4821872a0df17e268138520f" title="hgf::models::stokes::write_state saves the state of a Stokes flow simulation to a ...">hgf::models::stokes::write_state</a> saves the state of a Stokes flow simulation to a .dat file.  <a href="#a70924c8f4821872a0df17e268138520f">More...</a><br /></td></tr>
+<tr class="separator:a70924c8f4821872a0df17e268138520f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9aade5eebe0c7ea731776c65f9b67ba4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhgf_1_1models_1_1stokes.html#a9aade5eebe0c7ea731776c65f9b67ba4">setup_xflow_bc</a> (const <a class="el" href="structparameters.html">parameters</a> &amp;par, const <a class="el" href="classhgf_1_1mesh_1_1voxel.html">hgf::mesh::voxel</a> &amp;msh)</td></tr>
 <tr class="memdesc:a9aade5eebe0c7ea731776c65f9b67ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classhgf_1_1models_1_1stokes.html#a9aade5eebe0c7ea731776c65f9b67ba4" title="hgf::models::stokes::setup_xflow_bc setups up the boundary conditions for a problem with flow in the ...">hgf::models::stokes::setup_xflow_bc</a> setups up the boundary conditions for a problem with flow in the positive direction along the x-axis.  <a href="#a9aade5eebe0c7ea731776c65f9b67ba4">More...</a><br /></td></tr>
 <tr class="separator:a9aade5eebe0c7ea731776c65f9b67ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -545,6 +548,50 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a70924c8f4821872a0df17e268138520f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70924c8f4821872a0df17e268138520f">&#9670;&nbsp;</a></span>write_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hgf::models::stokes::write_state </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>par</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhgf_1_1mesh_1_1voxel.html">hgf::mesh::voxel</a> &amp;&#160;</td>
+          <td class="paramname"><em>msh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="classhgf_1_1models_1_1stokes.html#a70924c8f4821872a0df17e268138520f" title="hgf::models::stokes::write_state saves the state of a Stokes flow simulation to a ...">hgf::models::stokes::write_state</a> saves the state of a Stokes flow simulation to a .dat file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">par</td><td>- parameters struct containing problem information, including problem directory. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msh</td><td>- mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters&amp; par. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">file_name</td><td>- string used to name the output file, which is placed in the problem directory contained in parameters&amp; par. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a2d483349f879909dafa742096bc939d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2d483349f879909dafa742096bc939d1">&#9670;&nbsp;</a></span>coo_array</h2>
@@ -727,16 +774,16 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/include/<a class="el" href="model__stokes_8hpp_source.html">model_stokes.hpp</a></li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_array_2d.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_array_3d.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_bc_2d.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_bc_3d.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_dof_2d.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_dof_3d.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_immersed_boundary.cpp</li>
-<li>C:/Users/costa/Build/numericalsolutions/HybGe-Flow3D/src/models/stokes/model_stokes_postprocess.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/include/<a class="el" href="model__stokes_8hpp_source.html">model_stokes.hpp</a></li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_array_2d.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_array_3d.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_bc_2d.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_bc_3d.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_dof_2d.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_dof_3d.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_immersed_boundary.cpp</li>
+<li>C:/Users/costa/Build/hybge-flow3d-development/src/models/stokes/model_stokes_postprocess.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
