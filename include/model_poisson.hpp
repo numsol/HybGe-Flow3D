@@ -7,6 +7,9 @@ namespace hgf
 {
   namespace models 
   {
+    /** \brief Contains functionality for setup and post-processessing the solution of the Poisson equation in 2d or 3d.
+     * 
+     */
     class poisson 
     {
 
@@ -24,7 +27,7 @@ namespace hgf
         void import_immersed_boundary(parameters& par, std::vector< int >& input_ib, double eta);       
 
       private:
-      
+
         std::vector< boundary_nodes > boundary;                    
         void build_degrees_of_freedom_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void build_array_2d(const parameters& par, const hgf::mesh::voxel& msh);
@@ -32,6 +35,6 @@ namespace hgf
         void build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void build_array_3d(const parameters& par, const hgf::mesh::voxel& msh);
 
-    }
+    };
   }
 }
