@@ -10,8 +10,8 @@
    If the model src is placed within HGFROOT/src/models/ cmake will include all src 
    and headers.*/
 
-// HGF ships with stationary Stokes and a simple PoreNetwork model
 #include "model_stokes.hpp"
+#include "model_poisson.hpp"
 #include "model_porenetwork.hpp"
 
 #endif
