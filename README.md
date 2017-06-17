@@ -50,4 +50,5 @@ Version 2.1.0 (Under Development)
     - hgf::multiscale::flow::compute_permeability_y
     - hgf::multiscale::flow::compute_permeability_z
     - hgf::multiscale::flow::compute_permeability_tensor
- - Add example geometry 'immersed_circles' identical to voxel_quadrilaterals but with geometry entirely enforced via immersed boundary.
+ - Example geometries given descriptive names.
+ - Add example geometry 'immersed_circles_2d' identical to voxel_quadrilaterals but with geometry entirely enforced via immersed boundary.
