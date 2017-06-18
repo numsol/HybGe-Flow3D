@@ -2,9 +2,6 @@
 
 #include "model_poisson.hpp"
 
-// 1d->2d index
-#define idx(i, j, ldi) ((i * ldi) + j)
-
 /** \brief hgf::models::poisson::build builds the degrees of freedom, initializes the solution and rhs vectors, and sets up the linear system for the Poisso equation.
  *
  * Immersed boundary and boundary condition information are not set by this function.
