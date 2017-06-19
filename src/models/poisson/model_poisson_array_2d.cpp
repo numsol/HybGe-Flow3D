@@ -13,5 +13,10 @@
 void
 hgf::models::poisson::build_array_2d(const parameters& par, const hgf::mesh::voxel& msh)
 {
+  int NTHREADS = omp_get_max_threads();
+  int block_size = ((int)cc_dof.size() % NTHREADS) ? (int)((cc_dof.size() / NTHREADS) + 1) : (int)(cc_dof.size() / NTHREADS);
 
+  std::vector< std::vector< array_coo > > temp_arrays;
+  temp_arrays.resize(NTHREADS);
+  
 }
