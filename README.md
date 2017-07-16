@@ -41,6 +41,7 @@ Version 2.2.0 (under development)
 - Viscosity removed from parameters struct and placed as variable in Stokes class.
     - hgf::models::stokes::build initializes viscosity to 1.0.
     - Examples updated to reflect this change.
+- Vector that tracks immersed boundary is now initialized to the length of the pressure vector during build. 
 
 Version 2.1.0
 - Add linear solver controls to parameters struct. Requires Parameters.dat file include:

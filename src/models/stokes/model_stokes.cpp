@@ -30,6 +30,7 @@ hgf::models::stokes::build(const parameters& par, const hgf::mesh::voxel& msh)
     int nP = (int)pressure.size();
     solution_int.resize(nU + nV + nP);
     rhs.resize(nU + nV + nP);
+    pressure_ib_list.assign(nP, 0);
 
     // setup the linear system
     build_array_2d(par, msh);
@@ -47,6 +48,7 @@ hgf::models::stokes::build(const parameters& par, const hgf::mesh::voxel& msh)
     int nP = (int)pressure.size();
     solution_int.resize(nU + nV + nW + nP);
     rhs.resize(nU + nV + nW + nP);
+    pressure_ib_list.assign(nP, 0);
 
     // setup the linear system
     build_array_3d(par, msh);

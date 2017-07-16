@@ -11,7 +11,6 @@
    and headers.*/
 
 #include "model_stokes.hpp"
-#include "model_poisson.hpp"
 #include "model_porenetwork.hpp"
 
 #endif
