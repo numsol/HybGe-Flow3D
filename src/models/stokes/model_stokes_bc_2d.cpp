@@ -31,8 +31,8 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
   temp_u_arrays.resize(NTHREADS);
   temp_v_arrays.resize(NTHREADS);
   temp_p_arrays.resize(NTHREADS);
-  int maxu = block_size_u;
-  int maxv = block_size_v;
+  int maxu = 2*block_size_u;
+  int maxv = 2*block_size_v;
   int maxp = 2*block_size_p;
   for (int ii = 0; ii < NTHREADS; ii++) { temp_u_arrays[ii].reserve(maxu); temp_v_arrays[ii].reserve(maxv); temp_p_arrays[ii].reserve(maxp); }
 
@@ -51,7 +51,7 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
     for (int kk = 0; kk < NTHREADS; kk++) {
 
       int nbrs[4];
-      array_coo temp_coo;
+      array_coo temp_coo, temp_p_coo;
       double dx, dy;
 
       for (int ii = kk*block_size_u; ii < std::min((kk + 1)*block_size_u, (int)interior_u_nums.size()); ii++) {
@@ -89,7 +89,11 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
             boundary[nbrs[1]].value = 0.0;
           }
           // Type Neumann?
-          else {// nothing to do... outflow is 0 neumann 
+          else {
+            temp_p_coo.i_index = interior_u_nums[ii];
+            temp_p_coo.j_index = shift_rows + ((velocity_u[ii].cell_numbers[1] != -1) ? velocity_u[ii].cell_numbers[1] : velocity_u[ii].cell_numbers[0]);
+            temp_p_coo.value = viscosity * dy;
+            temp_u_arrays[kk].push_back(temp_p_coo);
             boundary[nbrs[1]].type = 2;
             boundary[nbrs[1]].value = 0.0;
           }
@@ -128,7 +132,7 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
     for (int kk = 0; kk < NTHREADS; kk++) {
 
       int nbrs[4];
-      array_coo temp_coo;
+      array_coo temp_coo, temp_p_coo;
       double dx, dy;
 
       for (int ii = kk*block_size_v; ii < std::min((kk + 1)*block_size_v, (int)interior_v_nums.size()); ii++) {
