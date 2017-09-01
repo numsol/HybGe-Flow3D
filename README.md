@@ -2,7 +2,7 @@
 
 HybGe-Flow3D is a library designed for solving multiscale fluid flow problems in complex, uncertain 3D and 2D geometries.
 
-This software is developed and maintained by Numerical Solutions, Inc.
+This software is maintained by Numerical Solutions, Inc.
 
 The first version of this software was developed under the partial support of the National Science
 Foundation on the projects NSF DMS-1115827 "Hybrid modeling in porous media" (PI: M. Peszynska)
@@ -43,7 +43,7 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 ### Change Log ###
 
-Version 2.2.0 (under development)
+Version 2.2.0
 - Add new function hgf::models::stokes::check_divergence.
     - Calculates divergence of Stokes solution on each cell and places value in info input vector. If requested, prints divergence to vtk file for visualization.
 - Bug in outflow boundary condition in Stokes model fixed.
