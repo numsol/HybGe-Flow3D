@@ -505,4 +505,9 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
       coo_array.push_back(temp_v_arrays[ii][jj]);
     }
   }
+  for (int ii = 0; ii < NTHREADS; ii++) {
+    for (int jj = 0; jj < temp_p_arrays[ii].size(); jj++) {
+      coo_array.push_back(temp_p_arrays[ii][jj]);
+    }
+  }
 }
