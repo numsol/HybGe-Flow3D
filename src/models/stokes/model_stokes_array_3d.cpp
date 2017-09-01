@@ -15,7 +15,7 @@ hgf::models::stokes::build_array_3d(const parameters& par, const hgf::mesh::voxe
 {
 
   // momentum equation entries
-  momentum_3d(par.viscosity);
+  momentum_3d();
 
   // continuity equation
   continuity_3d();
@@ -23,7 +23,7 @@ hgf::models::stokes::build_array_3d(const parameters& par, const hgf::mesh::voxe
 }
 
 void
-hgf::models::stokes::momentum_3d(double visc)
+hgf::models::stokes::momentum_3d(void)
 {
 
   int shift_v = std::accumulate(interior_u.begin(), interior_u.end(), 0);
@@ -100,7 +100,7 @@ hgf::models::stokes::momentum_3d(double visc)
         for (int jj = 0; jj < 6; jj++) {
           if (nbrs[jj] > -1 && interior_u[nbrs[jj]]) {
             entries++;
-            temp_coo[entries - 1].value = -visc * d_faces[jj] / d_dofs[jj];
+            temp_coo[entries - 1].value = -viscosity * d_faces[jj] / d_dofs[jj];
             temp_coo[entries - 1].i_index = interior_u_nums[ii];
             temp_coo[entries - 1].j_index = interior_u_nums[nbrs[jj]];
           }
@@ -189,7 +189,7 @@ hgf::models::stokes::momentum_3d(double visc)
         for (int jj = 0; jj < 6; jj++) {
           if (nbrs[jj] > -1 && interior_v[nbrs[jj]]) {
             entries++;
-            temp_coo[entries - 1].value = -visc * d_faces[jj] / d_dofs[jj];
+            temp_coo[entries - 1].value = -viscosity * d_faces[jj] / d_dofs[jj];
             temp_coo[entries - 1].i_index = interior_v_nums[ii] + shift_v;
             temp_coo[entries - 1].j_index = interior_v_nums[nbrs[jj]] + shift_v;
           }
@@ -277,7 +277,7 @@ hgf::models::stokes::momentum_3d(double visc)
         for (int jj = 0; jj < 6; jj++) {
           if (nbrs[jj] > -1 && interior_w[nbrs[jj]]) {
             entries++;
-            temp_coo[entries - 1].value = -visc * d_faces[jj] / d_dofs[jj];
+            temp_coo[entries - 1].value = -viscosity * d_faces[jj] / d_dofs[jj];
             temp_coo[entries - 1].i_index = interior_w_nums[ii] + shift_w;
             temp_coo[entries - 1].j_index = interior_w_nums[nbrs[jj]] + shift_w;
           }

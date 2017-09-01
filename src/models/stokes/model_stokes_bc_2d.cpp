@@ -27,12 +27,14 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
   int block_size_p = ((int)pressure.size() % NTHREADS) ? (int)((pressure.size() / NTHREADS) + 1) : (int)(pressure.size() / NTHREADS);
 
   // define temp coo arrays to store results in parallel region
-  std::vector< std::vector< array_coo > > temp_u_arrays, temp_v_arrays;
+  std::vector< std::vector< array_coo > > temp_u_arrays, temp_v_arrays, temp_p_arrays;
   temp_u_arrays.resize(NTHREADS);
   temp_v_arrays.resize(NTHREADS);
-  int maxu = block_size_u;
-  int maxv = block_size_v;
-  for (int ii = 0; ii < NTHREADS; ii++) { temp_u_arrays[ii].reserve(maxu); temp_v_arrays[ii].reserve(maxv); }
+  temp_p_arrays.resize(NTHREADS);
+  int maxu = 2*block_size_u;
+  int maxv = 2*block_size_v;
+  int maxp = 2*block_size_p;
+  for (int ii = 0; ii < NTHREADS; ii++) { temp_u_arrays[ii].reserve(maxu); temp_v_arrays[ii].reserve(maxv); temp_p_arrays[ii].reserve(maxp); }
 
   // xmin, xmax
   double xmin = 0.0;
@@ -49,7 +51,7 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
     for (int kk = 0; kk < NTHREADS; kk++) {
 
       int nbrs[4];
-      array_coo temp_coo;
+      array_coo temp_coo, temp_p_coo;
       double dx, dy;
 
       for (int ii = kk*block_size_u; ii < std::min((kk + 1)*block_size_u, (int)interior_u_nums.size()); ii++) {
@@ -75,19 +77,23 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // S neighbor?
         if (bc_contributor[0]) {
           // Type Dirichlet
-          value += par.viscosity * dx / (0.5*dy);
+          value += viscosity * dx / (0.5*dy);
         }
 
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet?
           if (velocity_u[ii].coords[0] + dx <= xmax - eps) {
-            value += par.viscosity * dx / dy;
+            value += viscosity * dx / dy;
             boundary[nbrs[1]].type = 1;
             boundary[nbrs[1]].value = 0.0;
           }
           // Type Neumann?
-          else {// nothing to do... outflow is 0 neumann 
+          else {
+            temp_p_coo.i_index = interior_u_nums[ii];
+            temp_p_coo.j_index = shift_rows + ((velocity_u[ii].cell_numbers[1] != -1) ? velocity_u[ii].cell_numbers[1] : velocity_u[ii].cell_numbers[0]);
+            temp_p_coo.value = viscosity * dy;
+            temp_u_arrays[kk].push_back(temp_p_coo);
             boundary[nbrs[1]].type = 2;
             boundary[nbrs[1]].value = 0.0;
           }
@@ -96,19 +102,19 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // N neighbor?
         if (bc_contributor[2]) {
           // Type Dirichlet
-          value += par.viscosity * dx / (0.5*dy);
+          value += viscosity * dx / (0.5*dy);
         }
 
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dx / dy;
+          value += viscosity * dx / dy;
           boundary[nbrs[3]].type = 1;
           boundary[nbrs[3]].value = 0.0;
           // is it an inflow bdr?
           if (velocity_u[ii].coords[0] - dx < xmin + eps) {
             double bvalue = (velocity_u[ii].coords[1] - ymin) * (ymax - velocity_u[ii].coords[1]);
-            rhs[interior_u_nums[ii]] += bvalue * par.viscosity * dy / dx;
+            rhs[interior_u_nums[ii]] += bvalue * viscosity * dy / dx;
             boundary[nbrs[3]].value += bvalue;
           }
         }
@@ -126,7 +132,7 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
     for (int kk = 0; kk < NTHREADS; kk++) {
 
       int nbrs[4];
-      array_coo temp_coo;
+      array_coo temp_coo, temp_p_coo;
       double dx, dy;
 
       for (int ii = kk*block_size_v; ii < std::min((kk + 1)*block_size_v, (int)interior_v_nums.size()); ii++) {
@@ -154,16 +160,20 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           // Type Dirichlet
           boundary[nbrs[0] + velocity_u.size()].type = 1;
           boundary[nbrs[0] + velocity_u.size()].value = 0.0;
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
         }
 
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet?
-          if (velocity_v[ii].coords[0] + 0.5*dx <= xmax - eps) value += par.viscosity * dx / dy;
+          if (velocity_v[ii].coords[0] + 0.5*dx <= xmax - eps) value += viscosity * dx / dy;
           // Type Neumann?
-          else;
-
+          else {
+            temp_p_coo.i_index = shift_v + interior_v_nums[ii];
+            temp_p_coo.j_index = shift_rows + ((velocity_v[ii].cell_numbers[1] != -1) ? velocity_v[ii].cell_numbers[1] : velocity_v[ii].cell_numbers[0]);
+            temp_p_coo.value = viscosity * dy;
+            temp_v_arrays[kk].push_back(temp_p_coo);
+	  } 
         }
 
         // N neighbor?
@@ -171,13 +181,13 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           // Type Dirichlet
           boundary[nbrs[2] + velocity_u.size()].type = 1;
           boundary[nbrs[2] + velocity_u.size()].value = 0.0;
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
         }
 
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dy / (0.5*dx);
+          value += viscosity * dy / (0.5*dx);
         }
 
         temp_coo.i_index = shift_v + interior_v_nums[ii];
@@ -191,6 +201,8 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
     }
 #pragma omp for schedule(dynamic) nowait // continuity equation
     for (int kk = 0; kk < NTHREADS; kk++) {
+      array_coo temp_coo_u;
+      array_coo temp_coo_p;
       double dxy[2], uval;
       int i_index;
       for (int ii = kk*block_size_p; ii < std::min((kk + 1)*block_size_p, (int)pressure.size()); ii++) {
@@ -201,6 +213,7 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           velocity_v[ptv[idx2(ii, 3, 4)]].coords[0], velocity_v[ptv[idx2(ii, 3, 4)]].coords[1]);
 
         // ux
+        // inflow boundary
         if (interior_u_nums[ptv[idx2(ii, 0, 4)]] == -1) {
           if (pressure[ii].coords[0] - 0.5*dxy[0] < xmin + eps) {
             i_index = shift_rows + ii;
@@ -209,11 +222,22 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           }
         }
 
+        // outflow boundary
         if (interior_u_nums[ptv[idx2(ii, 1, 4)]] == -1) {
           if (pressure[ii].coords[0] + 0.5*dxy[0] > xmax - eps) {
+            // U contribution
             i_index = shift_rows + ii;
-            uval = (velocity_u[ptv[idx2(ii, 0, 4)]].coords[1] - ymin) * (ymax - velocity_u[ptv[idx2(ii, 0, 4)]].coords[1]); // ugh convert neumann to dirichlet here
-            rhs[i_index] += (dxy[0] * dxy[1] / dxy[0]) * uval;
+            temp_coo_u.i_index = i_index;
+            temp_coo_u.j_index = interior_u_nums[ptv[idx2(ii, 0, 4)]];
+            temp_coo_u.value = -dxy[1];
+
+            // P contribution
+            temp_coo_p.i_index = i_index;
+            temp_coo_p.j_index = i_index;
+            temp_coo_p.value = -dxy[0] * dxy[1];
+
+            temp_p_arrays[kk].push_back(temp_coo_u);
+            temp_p_arrays[kk].push_back(temp_coo_p);
           }
         }
       }
@@ -228,6 +252,11 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
   for (int ii = 0; ii < NTHREADS; ii++) {
     for (int jj = 0; jj < temp_v_arrays[ii].size(); jj++) {
       coo_array.push_back(temp_v_arrays[ii][jj]);
+    }
+  }
+  for (int ii = 0; ii < NTHREADS; ii++) {
+    for (int jj = 0; jj < temp_p_arrays[ii].size(); jj++) {
+      coo_array.push_back(temp_p_arrays[ii][jj]);
     }
   }
 }
@@ -248,12 +277,14 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
   int block_size_p = ((int)pressure.size() % NTHREADS) ? (int)((pressure.size() / NTHREADS) + 1) : (int)(pressure.size() / NTHREADS);
 
   // define temp coo arrays to store results in parallel region
-  std::vector< std::vector< array_coo > > temp_u_arrays, temp_v_arrays;
+  std::vector< std::vector< array_coo > > temp_u_arrays, temp_v_arrays, temp_p_arrays;
   temp_u_arrays.resize(NTHREADS);
   temp_v_arrays.resize(NTHREADS);
-  int maxu = block_size_u;
-  int maxv = block_size_v;
-  for (int ii = 0; ii < NTHREADS; ii++) { temp_u_arrays[ii].reserve(maxu); temp_v_arrays[ii].reserve(maxv); }
+  temp_p_arrays.resize(NTHREADS);
+  int maxu = 2*block_size_u;
+  int maxv = 2*block_size_v;
+  int maxp = 2*block_size_p;
+  for (int ii = 0; ii < NTHREADS; ii++) { temp_u_arrays[ii].reserve(maxu); temp_v_arrays[ii].reserve(maxv); temp_p_arrays[ii].reserve(maxp); }
 
   // xmin, xmax
   double xmin = 0.0;
@@ -271,6 +302,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
 
       int nbrs[4];
       array_coo temp_coo;
+      array_coo temp_p_coo;
       double dx, dy;
 
       for (int ii = kk*block_size_u; ii < std::min((kk + 1)*block_size_u, (int)interior_u_nums.size()); ii++) {
@@ -296,13 +328,13 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // S neighbor?
         if (bc_contributor[0]) {
           // Type Dirichlet
-          value += par.viscosity * dx / (0.5*dy);
+          value += viscosity * dx / (0.5*dy);
         }
 
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
           boundary[nbrs[1]].type = 1;
           boundary[nbrs[1]].value = 0.0;
         }
@@ -310,15 +342,20 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // N neighbor?
         if (bc_contributor[2]) {
           // Type Dirichlet?
-          if (velocity_u[ii].coords[1] + 0.5*dy <= ymax - eps) value += par.viscosity * dx / (0.5*dy);
+          if (velocity_u[ii].coords[1] + 0.5*dy <= ymax - eps) value += viscosity * dx / (0.5*dy);
           // Type Neumann
-          else;
+          else {
+            temp_p_coo.i_index = interior_u_nums[ii];
+            temp_p_coo.j_index = shift_rows + ((velocity_u[ii].cell_numbers[1] != -1) ? velocity_u[ii].cell_numbers[1] : velocity_u[ii].cell_numbers[0]);
+            temp_p_coo.value = viscosity * dx;
+            temp_u_arrays[kk].push_back(temp_p_coo);
+          }
         }
 
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dy / dx;
+          value += viscosity * dy / dx;
           boundary[nbrs[3]].type = 1;
           boundary[nbrs[3]].value = 0.0;
         }
@@ -337,6 +374,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
 
       int nbrs[4];
       array_coo temp_coo;
+      array_coo temp_p_coo;
       double dx, dy;
 
       for (int ii = kk*block_size_v; ii < std::min((kk + 1)*block_size_v, (int)interior_v_nums.size()); ii++) {
@@ -364,19 +402,19 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           // Type Dirichlet
           boundary[nbrs[0] + velocity_u.size()].type = 1;
           boundary[nbrs[0] + velocity_u.size()].value = 0.0;
-          value += par.viscosity * dx / dy;
+          value += viscosity * dx / dy;
           // is this an inflow boundary?
           if (velocity_v[ii].coords[1] - dy < ymin + eps) {
             double bvalue = (velocity_v[ii].coords[0] - xmin) * (xmax - velocity_v[ii].coords[0]);
-            rhs[interior_v_nums[ii] + shift_v] += bvalue * par.viscosity * dx / dy;
-            boundary[nbrs[3] + velocity_u.size()].value += bvalue;
+            rhs[interior_v_nums[ii] + shift_v] += bvalue * viscosity * dx / dy;
+            boundary[nbrs[0] + velocity_u.size()].value += bvalue;
           }
         }
 
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet?
-          value += par.viscosity * dy / (0.5*dx);
+          value += viscosity * dy / (0.5*dx);
         }
 
         // N neighbor?
@@ -385,9 +423,13 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           if (velocity_v[ii].coords[1] + dy <= ymin - eps) {
             boundary[nbrs[2] + velocity_u.size()].type = 1;
             boundary[nbrs[2] + velocity_u.size()].value = 0.0;
-            value += par.viscosity * dx / dy;
+            value += viscosity * dx / dy;
           }
           else {// nothing to do... outflow is 0 neumann 
+            temp_p_coo.i_index = shift_v + interior_v_nums[ii];
+            temp_p_coo.j_index = shift_rows + ((velocity_v[ii].cell_numbers[1] != -1) ? velocity_v[ii].cell_numbers[1] : velocity_v[ii].cell_numbers[0]);
+            temp_p_coo.value = viscosity * dx;
+            temp_v_arrays[kk].push_back(temp_p_coo);
             boundary[nbrs[2] + velocity_u.size()].type = 2;
             boundary[nbrs[2] + velocity_u.size()].value = 0.0;
           }
@@ -396,7 +438,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // W neighbor?
         if (bc_contributor[3]) {
           // Type Dirichlet
-          value += par.viscosity * dy / (0.5*dx);
+          value += viscosity * dy / (0.5*dx);
         }
 
         temp_coo.i_index = shift_v + interior_v_nums[ii];
@@ -410,6 +452,8 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
     } // kk loop, v section
 #pragma omp for schedule(dynamic) nowait // continuity equation
     for (int kk = 0; kk < NTHREADS; kk++) {
+      array_coo temp_coo_v;
+      array_coo temp_coo_p;
       double dxy[2], vval;
       int i_index;
       for (int ii = kk*block_size_p; ii < std::min((kk + 1)*block_size_p, (int)pressure.size()); ii++) {
@@ -431,8 +475,17 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         if (interior_v_nums[ptv[idx2(ii, 3, 4)]] == -1) {
           if (pressure[ii].coords[1] + 0.5*dxy[1] > ymax - eps) {
             i_index = shift_rows + ii;
-            vval = (velocity_v[ptv[idx2(ii, 2, 4)]].coords[0] - xmin) * (xmax - velocity_v[ptv[idx2(ii, 2, 4)]].coords[0]); // ugh convert neumann to dirichlet here
-            rhs[i_index] += (dxy[0] * dxy[1] / dxy[1]) * vval;
+            temp_coo_v.i_index = i_index;
+            temp_coo_v.j_index = shift_v + interior_v_nums[ptv[idx2(ii, 2, 4)]];
+            temp_coo_v.value = -dxy[0];
+
+            // P contribution
+            temp_coo_p.i_index = i_index;
+            temp_coo_p.j_index = i_index;
+            temp_coo_p.value = -dxy[0] * dxy[1];
+
+            temp_p_arrays[kk].push_back(temp_coo_v);
+            temp_p_arrays[kk].push_back(temp_coo_p);
           }
         }
       }
@@ -448,6 +501,11 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
   for (int ii = 0; ii < NTHREADS; ii++) {
     for (int jj = 0; jj < temp_v_arrays[ii].size(); jj++) {
       coo_array.push_back(temp_v_arrays[ii][jj]);
+    }
+  }
+  for (int ii = 0; ii < NTHREADS; ii++) {
+    for (int jj = 0; jj < temp_p_arrays[ii].size(); jj++) {
+      coo_array.push_back(temp_p_arrays[ii][jj]);
     }
   }
 }

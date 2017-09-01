@@ -37,12 +37,14 @@ hgf::models::stokes::solution_build(void)
           // check for a node to the right, if yes, calculate using prescribed flux and value to the right
           if (velocity_u[ii].neighbors[1] != -1) {
             dx = velocity_u[velocity_u[ii].neighbors[1]].coords[0] - velocity_u[ii].coords[0];
-            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[1]]] - boundary[ii].value * dx;
+            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[1]]] + \
+              (boundary[ii].value + solution_int[nU + nV + nW + velocity_u[ii].cell_numbers[1]]) * dx;
           }
           // else left, calculate using prescribed flux and u value to left
           else {
             dx = velocity_u[ii].coords[0] - velocity_u[velocity_u[ii].neighbors[3]].coords[0];
-            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[3]]] + boundary[ii].value * dx;
+            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[3]]] + \
+              (boundary[ii].value + solution_int[nU + nV + nW + velocity_u[ii].cell_numbers[0]]) * dx;
           }
         }
       }
@@ -58,12 +60,14 @@ hgf::models::stokes::solution_build(void)
           // check for a node in the y+ direction, if yes, calculate value using prescribed flux and y+ v value
           if (velocity_v[ii].neighbors[2] != -1) {
             dy = velocity_v[velocity_v[ii].neighbors[2]].coords[1] - velocity_v[ii].coords[1];
-            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[2]]] - boundary[ii + velocity_u.size()].value * dy;
+            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[2]]] + \
+              (boundary[ii + velocity_u.size()].value + solution_int[nU + nV + nW + velocity_v[ii].cell_numbers[1]]) * dy;
           }
           // else y-, calculate using prescribed flux and v value to y- direction
           else {
             dy = velocity_v[ii].coords[1] - velocity_v[velocity_v[ii].neighbors[0]].coords[1];
-            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[0]]] + boundary[ii + velocity_u.size()].value * dy;
+            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[0]]] + \
+              (boundary[ii + velocity_u.size()].value + solution_int[nU + nV + nW + velocity_v[ii].cell_numbers[0]]) * dy;
           }
         }
       }
@@ -79,12 +83,14 @@ hgf::models::stokes::solution_build(void)
           // check for a node in the z+ direction, if yes, calculate value using prescribed flux and z+ w value
           if (velocity_w[ii].neighbors[5] != -1) {
             dz = velocity_w[velocity_w[ii].neighbors[5]].coords[2] - velocity_w[ii].coords[2];
-            solution[ii + velocity_u.size() + velocity_v.size()] = solution_int[nU + nV + interior_w_nums[velocity_w[ii].neighbors[5]]] - boundary[ii + velocity_u.size() + velocity_v.size()].value * dz;
+            solution[ii + velocity_u.size() + velocity_v.size()] = solution_int[nU + nV + interior_w_nums[velocity_w[ii].neighbors[5]]] + \ 
+              (boundary[ii + velocity_u.size() + velocity_v.size()].value + solution_int[nU + nV + nW + velocity_w[ii].cell_numbers[1]]) * dz;
           }
           // else z-, calculate using prescribed flux and w value in z- direction
           else {
             dz = velocity_w[ii].coords[2] - velocity_w[velocity_w[ii].neighbors[4]].coords[2];
-            solution[ii + velocity_u.size() + velocity_v.size()] = solution_int[nU + nV + interior_w_nums[velocity_w[ii].neighbors[4]]] + boundary[ii + velocity_u.size() + velocity_v.size()].value * dz;
+            solution[ii + velocity_u.size() + velocity_v.size()] = solution_int[nU + nV + interior_w_nums[velocity_w[ii].neighbors[4]]] + \
+              (boundary[ii + velocity_u.size() + velocity_v.size()].value + solution_int[nU + nV + nW + velocity_w[ii].cell_numbers[0]]) * dz;
           }
         }
       }
@@ -109,12 +115,14 @@ hgf::models::stokes::solution_build(void)
           // check for a node to the right, if yes, calculate value using prescribed flux and u value to the right
           if (velocity_u[ii].neighbors[1] != -1) {
             dx = velocity_u[velocity_u[ii].neighbors[1]].coords[0] - velocity_u[ii].coords[0];
-            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[1]]] - boundary[ii].value * dx;
+            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[1]]] + \
+              (boundary[ii].value + solution_int[nU + nV + velocity_u[ii].cell_numbers[1]]) * dx;
           }
           // else left, calculate value using prescribed flux and u value to left
           else {
             dx = velocity_u[ii].coords[0] - velocity_u[velocity_u[ii].neighbors[3]].coords[0];
-            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[3]]] + boundary[ii].value * dx;
+            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[3]]] + \
+              (boundary[ii].value + solution_int[nU + nV + velocity_u[ii].cell_numbers[0]]) * dx;
           }
         }
       }
@@ -130,12 +138,14 @@ hgf::models::stokes::solution_build(void)
           // check for a node above, if yes, calculate value using prescribed flux and v value above
           if (velocity_v[ii].neighbors[2] != -1) {
             dy = velocity_v[velocity_v[ii].neighbors[2]].coords[1] - velocity_v[ii].coords[1];
-            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[2]]] - boundary[ii + velocity_u.size()].value * dy;
+            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[2]]] + \
+              (boundary[ii + velocity_u.size()].value + solution_int[nU + nV + velocity_v[ii].cell_numbers[1]]) * dy;
           }
           // else below, calculate value using prescribed flux and v value below
           else {
             dy = velocity_v[ii].coords[1] - velocity_v[velocity_v[ii].neighbors[0]].coords[1];
-            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[0]]] + boundary[ii + velocity_u.size()].value * dy;
+            solution[ii + velocity_u.size()] = solution_int[nU + interior_v_nums[velocity_v[ii].neighbors[0]]] + \
+              (boundary[ii + velocity_u.size()].value + solution_int[nU + nV + velocity_v[ii].cell_numbers[0]]) * dy;
           }
         }
       }
@@ -143,6 +153,197 @@ hgf::models::stokes::solution_build(void)
       for (int ii = 0; ii < pressure.size(); ii++) {
         solution[velocity_u.size() + velocity_v.size() + ii] = solution_int[nVel + ii];
       }
+    }
+  }
+}
+
+/** \brief hgf::models::stokes::check_divergence checks that the velocity solution satisfies the divergence free condition. 
+ *
+ */
+void 
+hgf::models::stokes::check_divergence(const parameters& par, const hgf::mesh::voxel& msh, int print, std::vector<double>& info, std::string& file_name)
+{
+
+  double dxy[3];  
+  info.resize(pressure.size());
+
+  if (velocity_w.size()) { // 3d
+#pragma omp parallel for private(dxy)
+    for (int ii = 0; ii < pressure.size(); ii++) {
+      // dx, dy
+      dxy[0] = velocity_u[ptv[idx2(ii, 1, 6)]].coords[0] - velocity_u[ptv[idx2(ii, 0, 6)]].coords[0];
+      dxy[1] = velocity_v[ptv[idx2(ii, 3, 6)]].coords[1] - velocity_v[ptv[idx2(ii, 2, 6)]].coords[1];
+      dxy[2] = velocity_v[ptv[idx2(ii, 5, 6)]].coords[2] - velocity_v[ptv[idx2(ii, 4, 6)]].coords[2];
+      info[ii] = (solution[ptv[idx2(ii, 1, 6)]] - solution[ptv[idx2(ii,0,6)]]) / dxy[0] + \
+                 (solution[velocity_u.size() + ptv[idx2(ii, 3, 6)]] - solution[velocity_u.size() + ptv[idx2(ii, 2, 6)]]) / dxy[1] + \
+                 (solution[velocity_u.size() + velocity_v.size() + ptv[idx2(ii, 5, 6)]] - solution[velocity_u.size() + velocity_v.size() + ptv[idx2(ii, 4, 6)]]) / dxy[2];
+    }    
+    if (print == 1) {
+      int nNodes = (int)msh.gtlNode.size() / 8;
+      int nEls = (int)msh.els.size();
+      // build an exclusive nodes vector
+      std::vector<double> nodes(nNodes * 3);
+#pragma omp parallel for
+      for (int ii = 0; ii < nNodes; ii++) {
+        if (msh.gtlNode[idx2(ii, 0, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 0, 8)] - 1].vtx[5].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 0, 8)] - 1].vtx[5].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 0, 8)] - 1].vtx[5].coords[2];
+        }
+        else if (msh.gtlNode[idx2(ii, 1, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 1, 8)] - 1].vtx[4].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 1, 8)] - 1].vtx[4].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 1, 8)] - 1].vtx[4].coords[2];
+        }
+        else if (msh.gtlNode[idx2(ii, 2, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 2, 8)] - 1].vtx[7].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 2, 8)] - 1].vtx[7].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 2, 8)] - 1].vtx[7].coords[2];
+  
+        }
+        else if (msh.gtlNode[idx2(ii, 3, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 3, 8)] - 1].vtx[6].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 3, 8)] - 1].vtx[6].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 3, 8)] - 1].vtx[6].coords[2];
+  
+        }
+        else if (msh.gtlNode[idx2(ii, 4, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 4, 8)] - 1].vtx[1].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 4, 8)] - 1].vtx[1].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 4, 8)] - 1].vtx[1].coords[2];
+  
+        }
+        else if (msh.gtlNode[idx2(ii, 5, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 5, 8)] - 1].vtx[0].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 5, 8)] - 1].vtx[0].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 5, 8)] - 1].vtx[0].coords[2];
+  
+        }
+        else if (msh.gtlNode[idx2(ii, 6, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 6, 8)] - 1].vtx[3].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 6, 8)] - 1].vtx[3].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 6, 8)] - 1].vtx[3].coords[2];
+  
+        }
+        else if (msh.gtlNode[idx2(ii, 7, 8)]) {
+          nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 7, 8)] - 1].vtx[2].coords[0];
+          nodes[idx2(ii, 1, 3)] = msh.els[msh.gtlNode[idx2(ii, 7, 8)] - 1].vtx[2].coords[1];
+          nodes[idx2(ii, 2, 3)] = msh.els[msh.gtlNode[idx2(ii, 7, 8)] - 1].vtx[2].coords[2];
+  
+        }
+      }
+      // write to vtk file
+      bfs::path output_path(par.problem_path / file_name.c_str());
+      output_path += ".vtk";
+      std::ofstream outstream;
+      outstream.open(output_path.string());
+      outstream << "# vtk DataFile Version 3.0\n";
+      outstream << "vtk output\n";
+      outstream << "ASCII\n\n";
+      outstream << "DATASET UNSTRUCTURED_GRID\n";
+      outstream << "POINTS " << nNodes << " double\n";
+      for (int row = 0; row < nNodes; row++) {
+        outstream << nodes[idx2(row, 0, 3)] << "\t";
+        outstream << nodes[idx2(row, 1, 3)] << "\t";
+        outstream << nodes[idx2(row, 2, 3)] << "\n";
+      }
+      outstream << "\n";
+      outstream << "CELLS " << nEls << " " << 9 * nEls << "\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << 8 << "\t";
+        outstream << msh.els[row].vtx[0].gnum << "\t";
+        outstream << msh.els[row].vtx[1].gnum << "\t";
+        outstream << msh.els[row].vtx[2].gnum << "\t";
+        outstream << msh.els[row].vtx[3].gnum << "\t";
+        outstream << msh.els[row].vtx[7].gnum << "\t";
+        outstream << msh.els[row].vtx[6].gnum << "\t";
+        outstream << msh.els[row].vtx[5].gnum << "\t";
+        outstream << msh.els[row].vtx[4].gnum << "\t";
+      }
+      outstream << "\n";
+      outstream << "CELL_TYPES " << nEls << "\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << 12 << "\n";
+      }
+      outstream << "\n";
+      outstream << "CELL_DATA " << nEls << "\n";
+      outstream << "SCALARS divergence double\n";
+      outstream << "LOOKUP_TABLE default\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << info[row] << "\n";
+      }
+      outstream.close();
+    }
+  } else { // 2d
+#pragma omp parallel for private(dxy)
+    for (int ii = 0; ii < pressure.size(); ii++) {
+      // dx, dy
+      dxy[0] = velocity_u[ptv[idx2(ii, 1, 4)]].coords[0] - velocity_u[ptv[idx2(ii, 0, 4)]].coords[0];
+      dxy[1] = velocity_v[ptv[idx2(ii, 3, 4)]].coords[1] - velocity_v[ptv[idx2(ii, 2, 4)]].coords[1];
+      info[ii] = (solution[ptv[idx2(ii, 1, 4)]] - solution[ptv[idx2(ii,0,4)]]) / dxy[0] + \
+                 (solution[velocity_u.size() + ptv[idx2(ii, 3, 4)]] - solution[velocity_u.size() + ptv[idx2(ii, 2, 4)]]) / dxy[1];
+    }    
+    if (print == 1) {
+      int nNodes = (int)msh.gtlNode.size() / 4;
+      int nEls = (int)msh.els.size();
+      // build an exclusive nodes vector
+      std::vector<double> nodes(nNodes * 2);
+#pragma omp parallel for
+      for (int ii = 0; ii < nNodes; ii++) {
+        if (msh.gtlNode[idx2(ii, 0, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 0, 4)] - 1].vtx[2].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 0, 4)] - 1].vtx[2].coords[1];
+        }
+        else if (msh.gtlNode[idx2(ii, 1, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 1, 4)] - 1].vtx[3].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 1, 4)] - 1].vtx[3].coords[1];
+        }
+        else if (msh.gtlNode[idx2(ii, 2, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 2, 4)] - 1].vtx[1].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 2, 4)] - 1].vtx[1].coords[1];
+        }
+        else if (msh.gtlNode[idx2(ii, 3, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 3, 4)] - 1].vtx[0].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 3, 4)] - 1].vtx[0].coords[1];
+        }
+      }
+      // write solution vtk file
+      bfs::path output_path( par.problem_path / file_name.c_str() );
+      output_path += ".vtk";
+      std::ofstream outstream;
+      outstream.open(output_path.string());
+      outstream << "# vtk DataFile Version 3.0\n";
+      outstream << "vtk output\n";
+      outstream << "ASCII\n\n";
+      outstream << "DATASET UNSTRUCTURED_GRID\n";
+      outstream << "POINTS " << nNodes << " double\n";
+      for (int row = 0; row < nNodes; row++) {
+        outstream << nodes[idx2(row, 0, 2)] << "\t";
+        outstream << nodes[idx2(row, 1, 2)] << "\t";
+        outstream << 0.0 << "\n";
+      }
+      outstream << "\n";
+      outstream << "CELLS " << nEls << " " << 5 * nEls << "\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << 4 << "\t";
+        outstream << msh.els[row].vtx[0].gnum << "\t";
+        outstream << msh.els[row].vtx[1].gnum << "\t";
+        outstream << msh.els[row].vtx[2].gnum << "\t";
+        outstream << msh.els[row].vtx[3].gnum << "\t";
+      }
+      outstream << "\n";
+      outstream << "CELL_TYPES " << nEls << "\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << 9 << "\n";
+      }
+      outstream << "\n";
+      outstream << "CELL_DATA " << nEls << "\n";
+      outstream << "SCALARS divergence double\n";
+      outstream << "LOOKUP_TABLE default\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << info[row] << "\n";
+      }
+      outstream.close();
     }
   }
 }

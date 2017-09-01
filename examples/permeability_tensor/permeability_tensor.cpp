@@ -44,8 +44,11 @@ main( int argc, const char* argv[] )
 
   //--- example stokes solve ---//
   hgf::models::stokes x_stks;
-  // build the degrees of freedom and the array for interior cells
+  // build the degrees of freedom and the array for interior cells and initializes viscosity to 1.0
   x_stks.build(par, msh);
+  // if viscosity != 1, set after build
+  // x_stks.viscosity = 0.5;
+
   // add penalty for immersed boundary cells
   double eta = 1e-5;
   x_stks.immersed_boundary(par, eta);

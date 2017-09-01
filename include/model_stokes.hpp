@@ -41,8 +41,10 @@ namespace hgf
         std::vector< double > rhs;                                    /**< Right-hand side vector (force). */
         std::vector< double > solution;                               /**< Vector for storing full solution, including interior and boundary DOFs. */
         std::vector< double > solution_int;                           /**< Vector for storing solution for interior DOFs. Corresponds to produced coo_array and RHS, which are built with boundary DOFs eliminated. */
+        double viscosity;                                             /**< Viscosity of the fluid. */
         void build(const parameters& par, const hgf::mesh::voxel& msh);
         void solution_build(void);
+        void check_divergence(const parameters& par, const hgf::mesh::voxel& msh, int print, std::vector<double>& info, std::string& file_name);
         void output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
@@ -61,7 +63,7 @@ namespace hgf
         void build_degrees_of_freedom_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void dof_neighbors_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void build_array_2d(const parameters& par, const hgf::mesh::voxel& msh);
-        void momentum_2d(double visc);
+        void momentum_2d(void);
         void continuity_2d(void);
         void xflow_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void yflow_2d(const parameters& par, const hgf::mesh::voxel& msh);
@@ -69,7 +71,7 @@ namespace hgf
         void build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void dof_neighbors_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void build_array_3d(const parameters& par, const hgf::mesh::voxel& msh);
-        void momentum_3d(double visc);
+        void momentum_3d(void);
         void continuity_3d(void);
         void xflow_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void yflow_3d(const parameters& par, const hgf::mesh::voxel& msh);

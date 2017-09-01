@@ -17,7 +17,6 @@ hgf::models::stokes::immersed_boundary(const parameters& par, double eta)
   int dim_mult = 2 * par.dimension;
   int n_u = std::accumulate(interior_u.begin(), interior_u.end(), 0);
   int n_v = std::accumulate(interior_v.begin(), interior_v.end(), 0);
-  pressure_ib_list.assign(pressure.size(), 0);
 
   int void_node = -1;
   for (int ii = 0; ii < (int)par.voxel_geometry.size(); ii++) {
