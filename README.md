@@ -35,6 +35,12 @@ Publications making use of HybGe-Flow3D should cite this software package. An ex
 
 Timothy B. Costa, timothy.costa@numericalsolutions.org
 
+### Contributors ###
+ 
+- Timothy B. Costa
+- Anthony B. Costa
+- Joe Umhoefer
+
 ### Change Log ###
 
 Version 2.2.0 (under development)
