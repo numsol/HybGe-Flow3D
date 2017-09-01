@@ -44,6 +44,8 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 ### Change Log ###
 
 Version 2.2.0 (under development)
+- Add new function hgf::models::stokes::check_divergence.
+    - Calculates divergence of Stokes solution on each cell and places value in info input vector. If requested, prints divergence to vtk file for visualization.
 - Outflow boundary condition in Stokes model fixed in 2d.
 - Viscosity removed from parameters struct and placed as variable in Stokes class.
     - hgf::models::stokes::build initializes viscosity to 1.0.
