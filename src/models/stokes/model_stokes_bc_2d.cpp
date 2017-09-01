@@ -407,7 +407,7 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           if (velocity_v[ii].coords[1] - dy < ymin + eps) {
             double bvalue = (velocity_v[ii].coords[0] - xmin) * (xmax - velocity_v[ii].coords[0]);
             rhs[interior_v_nums[ii] + shift_v] += bvalue * viscosity * dx / dy;
-            boundary[nbrs[3] + velocity_u.size()].value += bvalue;
+            boundary[nbrs[0] + velocity_u.size()].value += bvalue;
           }
         }
 
@@ -486,8 +486,6 @@ hgf::models::stokes::yflow_2d(const parameters& par, const hgf::mesh::voxel& msh
 
             temp_p_arrays[kk].push_back(temp_coo_v);
             temp_p_arrays[kk].push_back(temp_coo_p);
- 
-
           }
         }
       }
