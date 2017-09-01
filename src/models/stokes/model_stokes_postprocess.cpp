@@ -114,7 +114,8 @@ hgf::models::stokes::solution_build(void)
           // else left, calculate value using prescribed flux and u value to left
           else {
             dx = velocity_u[ii].coords[0] - velocity_u[velocity_u[ii].neighbors[3]].coords[0];
-            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[3]]] + boundary[ii].value * dx;
+            solution[ii] = solution_int[interior_u_nums[velocity_u[ii].neighbors[3]]] + \
+              (boundary[ii].value + solution_int[nU + nV + velocity_u[ii].cell_numbers[0]]) * dx;
           }
         }
       }
@@ -143,6 +144,93 @@ hgf::models::stokes::solution_build(void)
       for (int ii = 0; ii < pressure.size(); ii++) {
         solution[velocity_u.size() + velocity_v.size() + ii] = solution_int[nVel + ii];
       }
+    }
+  }
+}
+
+/** \brief hgf::models::stokes::check_divergence checks that the velocity solution satisfies the divergence free condition. 
+ *
+ */
+void 
+hgf::models::stokes::check_divergence(const parameters& par, const hgf::mesh::voxel& msh, int print, std::vector<double>& info, std::string& file_name)
+{
+
+  double dxy[3];  
+  info.resize(pressure.size());
+
+  if (velocity_w.size()) { // 3d
+
+
+  } else { // 2d
+#pragma omp parallel for private(dxy)
+    for (int ii = 0; ii < pressure.size(); ii++) {
+      // dx, dy
+      dxy[0] = velocity_u[ptv[idx2(ii, 1, 4)]].coords[0] - velocity_u[ptv[idx2(ii, 0, 4)]].coords[0];
+      dxy[1] = velocity_v[ptv[idx2(ii, 3, 4)]].coords[1] - velocity_v[ptv[idx2(ii, 2, 4)]].coords[1];
+      info[ii] = (solution[ptv[idx2(ii, 1, 4)]] - solution[ptv[idx2(ii,0,4)]]) / dxy[0] + \
+                 (solution[velocity_u.size() + ptv[idx2(ii, 3, 4)]] - solution[velocity_u.size() + ptv[idx2(ii, 2, 4)]]) / dxy[1];
+    }    
+    if (print == 1) {
+      int nNodes = (int)msh.gtlNode.size() / 4;
+      int nEls = (int)msh.els.size();
+      // build an exclusive nodes vector
+      std::vector<double> nodes(nNodes * 2);
+  #pragma omp parallel for
+      for (int ii = 0; ii < nNodes; ii++) {
+        if (msh.gtlNode[idx2(ii, 0, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 0, 4)] - 1].vtx[2].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 0, 4)] - 1].vtx[2].coords[1];
+        }
+        else if (msh.gtlNode[idx2(ii, 1, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 1, 4)] - 1].vtx[3].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 1, 4)] - 1].vtx[3].coords[1];
+        }
+        else if (msh.gtlNode[idx2(ii, 2, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 2, 4)] - 1].vtx[1].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 2, 4)] - 1].vtx[1].coords[1];
+        }
+        else if (msh.gtlNode[idx2(ii, 3, 4)]) {
+          nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 3, 4)] - 1].vtx[0].coords[0];
+          nodes[idx2(ii, 1, 2)] = msh.els[msh.gtlNode[idx2(ii, 3, 4)] - 1].vtx[0].coords[1];
+        }
+      }
+      // write solution vtk file
+      bfs::path output_path( par.problem_path / file_name.c_str() );
+      output_path += ".vtk";
+      std::ofstream outstream;
+      outstream.open(output_path.string());
+      outstream << "# vtk DataFile Version 3.0\n";
+      outstream << "vtk output\n";
+      outstream << "ASCII\n\n";
+      outstream << "DATASET UNSTRUCTURED_GRID\n";
+      outstream << "POINTS " << nNodes << " double\n";
+      for (int row = 0; row < nNodes; row++) {
+        outstream << nodes[idx2(row, 0, 2)] << "\t";
+        outstream << nodes[idx2(row, 1, 2)] << "\t";
+        outstream << 0.0 << "\n";
+      }
+      outstream << "\n";
+      outstream << "CELLS " << nEls << " " << 5 * nEls << "\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << 4 << "\t";
+        outstream << msh.els[row].vtx[0].gnum << "\t";
+        outstream << msh.els[row].vtx[1].gnum << "\t";
+        outstream << msh.els[row].vtx[2].gnum << "\t";
+        outstream << msh.els[row].vtx[3].gnum << "\t";
+      }
+      outstream << "\n";
+      outstream << "CELL_TYPES " << nEls << "\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << 9 << "\n";
+      }
+      outstream << "\n";
+      outstream << "CELL_DATA " << nEls << "\n";
+      outstream << "SCALARS divergence double\n";
+      outstream << "LOOKUP_TABLE default\n";
+      for (int row = 0; row < nEls; row++) {
+        outstream << info[row] << "\n";
+      }
+      outstream.close();
     }
   }
 }

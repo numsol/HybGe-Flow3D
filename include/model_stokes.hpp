@@ -44,6 +44,7 @@ namespace hgf
         double viscosity;                                             /**< Viscosity of the fluid. */
         void build(const parameters& par, const hgf::mesh::voxel& msh);
         void solution_build(void);
+        void check_divergence(const parameters& par, const hgf::mesh::voxel& msh, int print, std::vector<double>& info, std::string& file_name);
         void output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
