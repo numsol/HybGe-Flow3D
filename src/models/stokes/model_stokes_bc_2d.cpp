@@ -168,8 +168,12 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
           // Type Dirichlet?
           if (velocity_v[ii].coords[0] + 0.5*dx <= xmax - eps) value += viscosity * dx / dy;
           // Type Neumann?
-          else;
-
+          else {
+            temp_p_coo.i_index = shift_v + interior_v_nums[ii];
+            temp_p_coo.j_index = shift_rows + ((velocity_v[ii].cell_numbers[1] != -1) ? velocity_v[ii].cell_numbers[1] : velocity_v[ii].cell_numbers[0]);
+            temp_p_coo.value = viscosity * dy;
+            temp_v_arrays[kk].push_back(temp_p_coo);
+	  } 
         }
 
         // N neighbor?
@@ -224,7 +228,7 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
             // U contribution
             i_index = shift_rows + ii;
             temp_coo_u.i_index = i_index;
-            temp_coo_u.j_index = ptv[idx2(ii, 0, 4)];
+            temp_coo_u.j_index = interior_u_nums[ptv[idx2(ii, 0, 4)]];
             temp_coo_u.value = -dxy[1];
 
             // P contribution
