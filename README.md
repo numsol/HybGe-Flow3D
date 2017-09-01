@@ -38,6 +38,7 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 ### Change Log ###
 
 Version 2.2.0 (under development)
+- Outflow boundary condition in Stokes model fixed in 2d.
 - Viscosity removed from parameters struct and placed as variable in Stokes class.
     - hgf::models::stokes::build initializes viscosity to 1.0.
     - Examples updated to reflect this change.
