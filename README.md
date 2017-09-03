@@ -28,7 +28,7 @@ can also be found at http://www.gnu.org/licenses/.
 
 Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:
 
-    Costa, T., "HybGe-Flow3D", Package Version 2.2.0,
+    Costa, T., "HybGe-Flow3D", Package Version 2.3.0,
     http://github.com/numsol/HybGe-Flow3D.
 
 ### Contact ###
@@ -42,6 +42,12 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 - Joe Umhoefer
 
 ### Change Log ###
+
+Version 2.3.0
+- Add new function hgf::mesh::refine_voxel_uniform.
+    - Performs a uniform mesh refinement of an input voxel geometry according to input refine length integer, refine_len.
+    - int refine_len = 2 subdivides each cell into 2x2 = 4 cells in 2d and 2x2x2 = 8 cells in 3d.
+    - Output is an updated voxel geometry vector in the parameters struct. This function should be used after reading a parameters file and before meshing. 
 
 Version 2.2.0
 - Add new function hgf::models::stokes::check_divergence.

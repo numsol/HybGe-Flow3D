@@ -47,6 +47,9 @@ namespace hgf
 
   namespace mesh
   {
+    void
+    refine_voxel_uniform(parameters& par, int refine_len);
+
     int
     geo_sanity(parameters& par);
 

@@ -83,7 +83,7 @@ hgf::models::stokes::solution_build(void)
           // check for a node in the z+ direction, if yes, calculate value using prescribed flux and z+ w value
           if (velocity_w[ii].neighbors[5] != -1) {
             dz = velocity_w[velocity_w[ii].neighbors[5]].coords[2] - velocity_w[ii].coords[2];
-            solution[ii + velocity_u.size() + velocity_v.size()] = solution_int[nU + nV + interior_w_nums[velocity_w[ii].neighbors[5]]] + \ 
+            solution[ii + velocity_u.size() + velocity_v.size()] = solution_int[nU + nV + interior_w_nums[velocity_w[ii].neighbors[5]]] + \
               (boundary[ii + velocity_u.size() + velocity_v.size()].value + solution_int[nU + nV + nW + velocity_w[ii].cell_numbers[1]]) * dz;
           }
           // else z-, calculate using prescribed flux and w value in z- direction
