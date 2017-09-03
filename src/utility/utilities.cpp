@@ -83,6 +83,10 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
   }
   std::istringstream ilength(line);
   ilength >> str >> par.length;
+  if (par.length == 0) {
+    std::cout << "\nLength parameter did not load. Check format of Parameters.dat. Exiting.\n";
+    exit(0);
+  }
 
   //--- width ---//
   if (ifs.good())
@@ -91,6 +95,10 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
   }
   std::istringstream iwidth(line);
   iwidth >> str >> par.width;
+  if (par.width == 0) {
+    std::cout << "\nWidth parameter did not load. Check format of Parameters.dat. Exiting.\n";
+    exit(0);
+  }
 
   //--- height ---//
   if (ifs.good())
@@ -107,6 +115,10 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
   }
   std::istringstream isolver_max_iterations(line);
   isolver_max_iterations >> str >> par.solver_max_iterations;
+  if (par.solver_max_iterations == 0) {
+    std::cout << "\nSolver max iteration parameter did not load. Check format of Parameters.dat. Exiting.\n";
+    exit(0);
+  }
 
   //--- solver_absolute_tolerance ---//
   if (ifs.good())
@@ -115,6 +127,10 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
   }
   std::istringstream isolver_absolute_tolerance(line);
   isolver_absolute_tolerance >> str >> par.solver_absolute_tolerance;
+  if (par.solver_absolute_tolerance == 0) {
+    std::cout << "\nSolver absolute tolerance parameter did not load. Check format of Parameters.dat. Exiting.\n";
+    exit(0);
+  }
 
    //--- solver_relative_tolerance ---//
   if (ifs.good())
@@ -123,6 +139,10 @@ hgf::utility::load_parameters(parameters& par, const bfs::path& problem_path)
   }
   std::istringstream isolver_relative_tolerance(line);
   isolver_relative_tolerance >> str >> par.solver_relative_tolerance;
+  if (par.solver_relative_tolerance == 0) {
+    std::cout << "\nSolver relative tolerance parameter did not load. Check format of Parameters.dat. Exiting.\n";
+    exit(0);
+  }
 
   //--- solver_verbose ---//
   if (ifs.good())
@@ -181,6 +201,10 @@ hgf::utility::import_voxel_geometry(parameters& par, const bfs::path& problem_pa
   }
   std::istringstream ix(line);
   ix >> str >> par.nx;
+  if (par.nx == 0) {
+    std::cout << "\nNX grid parameter did not load. Check format of Parameters.dat. Exiting.\n";
+    exit(0);
+  }
 
   // grab ny
   if (ifs.good())
@@ -189,6 +213,10 @@ hgf::utility::import_voxel_geometry(parameters& par, const bfs::path& problem_pa
   }
   std::istringstream iy(line);
   iy >> str >> par.ny;
+  if (par.ny == 0) {
+    std::cout << "\nNY grid parameter did not load. Check format of Parameters.dat. Exiting.\n";
+    exit(0);
+  }
 
   // grab nz
   if (ifs.good())
