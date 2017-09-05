@@ -44,6 +44,8 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 ### Change Log ###
 
 Version 2.3.0
+- Add new function hgf::models::stokes::write_geometry.
+    - Writes a geometry file to the problem folder. Useful for saving geometries with generated immersed boundaries.
 - Add new function hgf::mesh::refine_voxel_uniform.
     - Performs a uniform mesh refinement of an input voxel geometry according to input refine length integer, refine_len.
     - int refine_len = 2 subdivides each cell into 2x2 = 4 cells in 2d and 2x2x2 = 8 cells in 3d.

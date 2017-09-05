@@ -47,6 +47,7 @@ namespace hgf
         void check_divergence(const parameters& par, const hgf::mesh::voxel& msh, int print, std::vector<double>& info, std::string& file_name);
         void output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
+        void write_geometry(const parameters& par, std::string& file_name);
         void setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
         void setup_yflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
         void setup_zflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
