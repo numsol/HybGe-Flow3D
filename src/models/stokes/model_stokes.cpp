@@ -1,5 +1,6 @@
 /* stokes main source */
 
+#include <ctime>
 // hgf includes
 #include "model_stokes.hpp"
 
@@ -15,6 +16,8 @@
 void
 hgf::models::stokes::build(const parameters& par, const hgf::mesh::voxel& msh)
 {
+  // seed rand in case of IB generation
+  srand(time(NULL));
 
   // viscosity is initialized to 1.0
   viscosity = 1.0;
