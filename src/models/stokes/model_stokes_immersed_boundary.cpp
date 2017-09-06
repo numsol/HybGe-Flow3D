@@ -3,6 +3,9 @@
 // 1d->2d index
 #define idx2(i, j, ldi) ((i * ldi) + j)
 
+// 1d->3d index
+#define idx3(i, j, k, ldi1, ldi2) (k + (ldi2 * (j + ldi1 * i)))
+
 /** \brief hgf::models::stokes::immersed_boundary applies the immersed boundary given in the input geometry file to the Stokes linear system.
  *
  * @param[in] par - parameters struct containing problem information.
@@ -157,7 +160,6 @@ new_ib_cell:
 int
 hgf::models::stokes::random_immersed_boundary_clump(const parameters& par, double eta, double vol_frac, double likelihood)
 {
-
   std::vector< unsigned long > temp_list;
   int n_flow = (int)pressure.size();
   int FAIL_MAX = n_flow;
@@ -317,5 +319,59 @@ hgf::models::stokes::import_immersed_boundary(parameters& par, std::vector< int 
       }
     }
   }
+}
+
+/** \brief hgf::models::stokes::write_geometry saves the geometry from a flow simulation to a .dat file.
+ *
+ * @param[in] par - parameters struct containing problem information, including problem directory.
+ * @param[in,out] file_name - string used to name the output file, which is placed in the problem directory contained in parameters& par.
+ */
+void
+hgf::models::stokes::write_geometry(const parameters& par, std::string& file_name)
+{
+
+  bfs::path output_path( par.problem_path / file_name.c_str() );
+  output_path += ".dat";
+  std::ofstream outstream;
+  outstream.open(output_path.string());
+
+  outstream << "nx= " << par.nx;
+  outstream << "\nny= " << par.ny;
+  outstream << "\nnz= " << par.nz;
+  outstream << "\n";
+  int cell_count = -1;
+  if (par.dimension == 2) {
+    for (int yi = 0; yi < par.ny; yi++) {
+      for (int xi = 0; xi < par.nx; xi++) {
+        if (par.voxel_geometry[idx2( yi, xi, par.nx )] != 1) {
+          cell_count++;
+          outstream << (pressure_ib_list[cell_count] ? 2 : 0) << " ";
+        }
+        else {
+          outstream << par.voxel_geometry[idx2( yi, xi, par.nx )] << " ";
+        }
+      }
+      outstream << "\n";
+    }
+  }
+  else {
+    for (int zi = 0; zi < par.nz; zi++) {
+      for (int yi = 0; yi < par.ny; yi++) {
+        for (int xi = 0; xi < par.nx; xi++) {
+          if (par.voxel_geometry[idx3( zi, yi, xi, par.ny, par.nx )] != 1) {
+            cell_count++;
+            outstream << (pressure_ib_list[cell_count] ? 2 : 0) << " ";
+          }
+          else {
+            outstream << par.voxel_geometry[idx3( zi, yi, xi, par.ny, par.nx )] << " ";
+          }
+        }
+        outstream << "\n";
+      }
+      outstream << "\n";
+    }
+  }
+  outstream.close();
+ 
 }
 

@@ -166,7 +166,7 @@ hgf::models::stokes::xflow_2d(const parameters& par, const hgf::mesh::voxel& msh
         // E neighbor?
         if (bc_contributor[1]) {
           // Type Dirichlet?
-          if (velocity_v[ii].coords[0] + 0.5*dx <= xmax - eps) value += viscosity * dx / dy;
+          if (velocity_v[ii].coords[0] + 0.5*dx <= xmax - eps) value += viscosity * dy / (0.5*dx);
           // Type Neumann?
           else {
             temp_p_coo.i_index = shift_v + interior_v_nums[ii];
