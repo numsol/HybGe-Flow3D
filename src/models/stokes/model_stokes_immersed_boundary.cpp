@@ -1,4 +1,5 @@
 #include "model_stokes.hpp"
+#include <ctime>
 
 // 1d->2d index
 #define idx2(i, j, ldi) ((i * ldi) + j)
@@ -80,6 +81,7 @@ hgf::models::stokes::immersed_boundary(const parameters& par, double eta)
 void
 hgf::models::stokes::random_immersed_boundary(const parameters& par, double eta, double vol_frac)
 {
+  srand(time(NULL));
   std::vector< unsigned long > temp_list;
   int n_flow = (int)pressure.size();
 
@@ -160,7 +162,7 @@ new_ib_cell:
 int
 hgf::models::stokes::random_immersed_boundary_clump(const parameters& par, double eta, double vol_frac, double likelihood)
 {
-
+  srand(time(NULL));
   std::vector< unsigned long > temp_list;
   int n_flow = (int)pressure.size();
   int FAIL_MAX = n_flow;
