@@ -1,6 +1,7 @@
 var classhgf_1_1models_1_1stokes =
 [
     [ "build", "classhgf_1_1models_1_1stokes.html#a7472059337fc1166d5aa2941cca4cafe", null ],
+    [ "check_divergence", "classhgf_1_1models_1_1stokes.html#abe75b53da83f09b879eb9caee79a7f75", null ],
     [ "immersed_boundary", "classhgf_1_1models_1_1stokes.html#a2276aa59b08bb718867e3601fc17f255", null ],
     [ "import_immersed_boundary", "classhgf_1_1models_1_1stokes.html#a17f55458a341654b48cf7dfe25f8e325", null ],
     [ "output_vtk", "classhgf_1_1models_1_1stokes.html#a9e3d847e073936f4e3e151d2b2e41358", null ],
@@ -10,6 +11,7 @@ var classhgf_1_1models_1_1stokes =
     [ "setup_yflow_bc", "classhgf_1_1models_1_1stokes.html#a78d3d92fc1bbe6e41a6aecb11c877296", null ],
     [ "setup_zflow_bc", "classhgf_1_1models_1_1stokes.html#a1b608266d15452d1dc5567d51176e174", null ],
     [ "solution_build", "classhgf_1_1models_1_1stokes.html#aa65a0826d15ee2f8b3e13c4af4ff54b0", null ],
+    [ "write_geometry", "classhgf_1_1models_1_1stokes.html#ac12ccbdf5f3e5a1220a5c8524aae9392", null ],
     [ "write_state", "classhgf_1_1models_1_1stokes.html#a70924c8f4821872a0df17e268138520f", null ],
     [ "coo_array", "classhgf_1_1models_1_1stokes.html#a2d483349f879909dafa742096bc939d1", null ],
     [ "interior_u", "classhgf_1_1models_1_1stokes.html#af2aa6ca80c15fcb0d6d75125faba42eb", null ],
@@ -22,5 +24,6 @@ var classhgf_1_1models_1_1stokes =
     [ "solution_int", "classhgf_1_1models_1_1stokes.html#a3ec70fc6e118012ccc4bf3b71f143760", null ],
     [ "velocity_u", "classhgf_1_1models_1_1stokes.html#a8b37d6ddd06a3777dcf718500d27f479", null ],
     [ "velocity_v", "classhgf_1_1models_1_1stokes.html#a25963cd3882fa0f307b53d7425868449", null ],
-    [ "velocity_w", "classhgf_1_1models_1_1stokes.html#abcc265ad2702f4a4f16899319f5c61a0", null ]
+    [ "velocity_w", "classhgf_1_1models_1_1stokes.html#abcc265ad2702f4a4f16899319f5c61a0", null ],
+    [ "viscosity", "classhgf_1_1models_1_1stokes.html#a752c5118f366d1c7c26979b7e337da5e", null ]
 ];

@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">HybGe-Flow3D
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.3.0</span>
    </div>
   </td>
  </tr>
@@ -99,6 +99,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ae23be99c6726ea4a938bd857a569b378"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf_1_1mesh.html#ae23be99c6726ea4a938bd857a569b378">refine_voxel_uniform</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par, int refine_len)</td></tr>
+<tr class="memdesc:ae23be99c6726ea4a938bd857a569b378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uniformly refines a voxelated input.  <a href="#ae23be99c6726ea4a938bd857a569b378">More...</a><br /></td></tr>
+<tr class="separator:ae23be99c6726ea4a938bd857a569b378"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa322d02e2545e3574cc6ade2d4c4a38b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehgf_1_1mesh.html#aa322d02e2545e3574cc6ade2d4c4a38b">geo_sanity</a> (<a class="el" href="structparameters.html">parameters</a> &amp;par)</td></tr>
 <tr class="memdesc:aa322d02e2545e3574cc6ade2d4c4a38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function removes cells from a mesh that are boundaries in opposite directions. Returns number of cells removed.  <a href="#aa322d02e2545e3574cc6ade2d4c4a38b">More...</a><br /></td></tr>
 <tr class="separator:aa322d02e2545e3574cc6ade2d4c4a38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +132,43 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">par</td><td>- parameters file containing mesh information. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae23be99c6726ea4a938bd857a569b378"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae23be99c6726ea4a938bd857a569b378">&#9670;&nbsp;</a></span>refine_voxel_uniform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hgf::mesh::refine_voxel_uniform </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structparameters.html">parameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>par</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>refine_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uniformly refines a voxelated input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">par</td><td>- parameters file containing mesh information. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">refine_len</td><td>- integer controlling extent of geometry refinement. </td></tr>
   </table>
   </dd>
 </dl>

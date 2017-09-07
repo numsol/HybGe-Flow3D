@@ -6,15 +6,15 @@
  * \section Introduction
  *
  * This documents the project HybGe-Flo3D. HybGe-Flow3D is a library designed for
- * the solution of fluid flow problems in complex, uncertain and evolving geometries 
- * in 2D and 3D. 
+ * the solution of fluid flow problems in complex, uncertain and evolving geometries
+ * in 2D and 3D.
  *
  * This software is developed and maintained by Numerical Solutions, Inc.
  *
- * The first versions of this software were developed under the partial support of the 
- * National Science Foundation on the projects NSF DMS-1115827 
- * "Hybrid modeling in porous media" (PI: M. Peszynska) and 
- * NFS DMS-1522734 "Phase transitions in porous media 
+ * The first versions of this software were developed under the partial support of the
+ * National Science Foundation on the projects NSF DMS-1115827
+ * "Hybrid modeling in porous media" (PI: M. Peszynska) and
+ * NFS DMS-1522734 "Phase transitions in porous media
  * across multiple scales" (PI: M. Peszynska).
  *
  * \section License
@@ -22,7 +22,7 @@
  * HybGe-Flow3D Copyright (C) Numerical Solutions, Inc.
  *
  * This library is free software; you can redistribute and/or modify it under
- * the terms of the GNU General Public License as published by 
+ * the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or any
  * later version.
  *
@@ -32,10 +32,10 @@
  *
  * \section Citation
  *
- * Publications making use of HybGe-Flow3D should cite this software package. An 
+ * Publications making use of HybGe-Flow3D should cite this software package. An
  * example citation is given as:
- * 
- * Costa, T. "HybGe-Flow3D", Package Version 2.1.0,
+ *
+ * Costa, T. "HybGe-Flow3D", Package Version 2.3.0,
  * http://github.com/numsol/HybGe-Flow3D.
  *
  * \section Dependencies
@@ -49,10 +49,10 @@
  * \section Build
  *
  * Building HybGe-Flow3D is straighforward assuming the user
- * has installed the dependencies and included them in their path. The 
- * following describes the process in Linux. 
+ * has installed the dependencies and included them in their path. The
+ * following describes the process in Linux.
  *
- * In the following we assume HybGe-Flow3D source is located at 
+ * In the following we assume HybGe-Flow3D source is located at
  * ${HYBGE_SOURCE} and we want to install HybGe-FLow3D in ${HYBGE_ROOT}.
  * \code{.sh}
  * $ cd ${HYBGE_SOURCE}
@@ -60,7 +60,7 @@
  * $ cmake .. -DCMAKE_INSTALL_PREFIX=${HYBGE_ROOT}
  * $ make install
  * \endcode
- * Done! This installs the folders lib and include in the path ${HYBGE_INSTALL}. Be sure
+ * Done! This installs the folders lib and include in the path ${HYBGE_INSTALL}. Be sure to add
  * the install directories to the users path before building an example. A bash script
  * to set paths based on ${HYBGE_ROOT} is included in the utilities folder.
  *
