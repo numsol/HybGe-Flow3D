@@ -43,6 +43,11 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 ### Change Log ###
 
+Version 3.0.0
+- New model: Poisson equation.
+    - Model solves the Poisson equation with a full tensor alpha coefficient using a cell-centered Finite Volume discretiziation.
+    - Includes tools for setting force and alpha coefficient.
+    - Ships with function to set homogeneous Dirichlet conditions. For non-homogeneous conditions the force should be adjusted manually.
 
 Version 2.3.1
 - Stokes model unnecessary divides removed.
