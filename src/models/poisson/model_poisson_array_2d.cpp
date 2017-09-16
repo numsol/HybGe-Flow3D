@@ -13,11 +13,6 @@
 void
 hgf::models::poisson::build_array_2d(const parameters& par, const hgf::mesh::voxel& msh)
 {
-
-  // setup threading parameters
-  int NTHREADS = omp_get_max_threads();
-  int block_size = ((int)phi.size() % NTHREADS) ? (int)((phi.size() / NTHREADS) + 1) : (int)(phi.size() / NTHREADS);
-
   // define temp coo arrays to store results in parallel region
   std::vector< std::vector< array_coo > > temp_arrays;
   temp_arrays.resize(NTHREADS);
@@ -28,7 +23,7 @@ hgf::models::poisson::build_array_2d(const parameters& par, const hgf::mesh::vox
 
 #pragma omp parallel
   {
-#pragma omp for private(alpha_diag) schedule(dynamic) nowait
+#pragma omp for private(alpha_diag) schedule(dynamic) num_threads(NTHREADS)
     for (int kk = 0; kk < NTHREADS; kk++) {
       int entries = 0;
       array_coo temp_coo[5] = { 0 };
@@ -92,7 +87,7 @@ hgf::models::poisson::build_array_2d(const parameters& par, const hgf::mesh::vox
                                       mean_perm(alpha[ii][3], alpha[nbrs[jj]][3]) };
               entries++;
               //--- WIP ---//
-              std::cout << "Non-diagonal alpha tensors are not yet supported. Exiting.\n";
+              std::cout << "Non-diagonal alpha tensors are a work in progress, and are not yet supported. Exiting.\n";
               exit(0);
             }
           }

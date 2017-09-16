@@ -13,10 +13,6 @@ void
 hgf::models::poisson::homogeneous_dirichlet_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
   
-  // setup threading parameters
-  int NTHREADS = omp_get_max_threads();
-  int block_size = ((int)phi.size() % NTHREADS) ? (int)((phi.size() / NTHREADS) + 1) : (int)(phi.size() / NTHREADS);
-
   // define temp coo arays to store results in parallel region
   std::vector< std::vector< array_coo > > temp_arrays;
   temp_arrays.resize(NTHREADS);
@@ -28,7 +24,7 @@ hgf::models::poisson::homogeneous_dirichlet_3d(const parameters& par, const hgf:
 
   bool alpha_diag;
 
-#pragma omp for private(alpha_diag) schedule(dynamic)
+#pragma omp for private(alpha_diag) schedule(dynamic) num_threads(NTHREADS)
   for (int kk = 0; kk < NTHREADS; kk++) { // u section
       
     int nbrs[6];

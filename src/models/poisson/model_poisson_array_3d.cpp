@@ -13,11 +13,6 @@
 void
 hgf::models::poisson::build_array_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
-
-  // threading parameters
-  int NTHREADS = omp_get_max_threads();
-  int block_size = ((int)phi.size() % NTHREADS) ? (int)((phi.size() / NTHREADS) + 1) : (int)(phi.size() / NTHREADS);
-
   // define temp coo arrays to store results in parallel region
   std::vector< std::vector< array_coo > > temp_arrays;
   temp_arrays.resize(NTHREADS);
@@ -28,7 +23,7 @@ hgf::models::poisson::build_array_3d(const parameters& par, const hgf::mesh::vox
 
 #pragma omp parallel
   {
-#pragma omp for schedule(dynamic) nowait
+#pragma omp for schedule(dynamic) nowait num_threads(NTHREADS)
     for (int kk = 0; kk < NTHREADS; kk++) { 
       int entries = 0;
       array_coo temp_coo[9] = { 0 };
@@ -92,7 +87,8 @@ hgf::models::poisson::build_array_3d(const parameters& par, const hgf::mesh::vox
       
         }
         else { // nondiag permeability TODO
-
+          std::cout << "Non-diagonal alpha tensors are a work in progress, and are not yet supported. Exiting.\n";
+          exit(0);
         }
 
         // place values into temporoary coo array

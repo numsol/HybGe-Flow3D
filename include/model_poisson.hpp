@@ -44,6 +44,8 @@ namespace hgf
         void setup_homogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh);
     
       private:
+
+        int NTHREADS, block_size;
         
         void build_degrees_of_freedom_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void dof_neighbors_2d(const parameters& par, const hgf::mesh::voxel& msh);

@@ -6,10 +6,7 @@
 void
 hgf::models::poisson::build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
-
-  phi.resize(msh.els.size());
-
-#pragma omp parallel for
+#pragma omp parallel for num_threads(NTHREADS)
   for (int cell = 0; cell < msh.els.size(); cell++) {
     degree_of_freedom dof_temp;
     // coordinates

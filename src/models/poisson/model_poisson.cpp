@@ -15,10 +15,13 @@ void
 hgf::models::poisson::build(const parameters& par, const hgf::mesh::voxel& msh)
 {
 
+  phi.resize(msh.els.size());
+  NTHREADS = omp_get_max_threads();
+  block_size = ((int)phi.size() % NTHREADS) ? (int)((phi.size() / NTHREADS) + 1) : (int)(phi.size() / NTHREADS);
+
   if (par.dimension == 2) {
 
     if (alpha.size() != msh.els.size()) {
-      std::cout << "\nSetting alpha...\n";
       alpha.resize(msh.els.size());
       for (int cell = 0; cell < alpha.size(); cell++) {
         alpha[cell].assign(4, 0);

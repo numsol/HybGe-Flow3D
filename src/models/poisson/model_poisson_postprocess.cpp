@@ -22,7 +22,7 @@ hgf::models::poisson::output_vtk(const parameters& par, const hgf::mesh::voxel& 
     int nEls = (int)msh.els.size();
     // build an exclusive nodes vector
     std::vector<double> nodes(nNodes * 3);
-#pragma omp parallel for
+#pragma omp parallel for num_threads(NTHREADS)
     for (int ii = 0; ii < nNodes; ii++) {
       if (msh.gtlNode[idx2(ii, 0, 8)]) {
         nodes[idx2(ii, 0, 3)] = msh.els[msh.gtlNode[idx2(ii, 0, 8)] - 1].vtx[5].coords[0];
@@ -118,7 +118,7 @@ hgf::models::poisson::output_vtk(const parameters& par, const hgf::mesh::voxel& 
     int nEls = (int)msh.els.size();
     // build an exclusive nodes vector
     std::vector<double> nodes(nNodes * 2);
-#pragma omp parallel for
+#pragma omp parallel for num_threads(NTHREADS)
     for (int ii = 0; ii < nNodes; ii++) {
       if (msh.gtlNode[idx2(ii, 0, 4)]) {
         nodes[idx2(ii, 0, 2)] = msh.els[msh.gtlNode[idx2(ii, 0, 4)] - 1].vtx[2].coords[0];
