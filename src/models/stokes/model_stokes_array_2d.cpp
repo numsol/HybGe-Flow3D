@@ -106,10 +106,10 @@ hgf::models::stokes::momentum_2d(void)
         entries += 2;
         pres[0] = velocity_u[ii].cell_numbers[0];
         pres[1] = velocity_u[ii].cell_numbers[1];
-        temp_coo[entries - 2].value = -d_edges[0] * d_edges[1] / d_edges[0];
+        temp_coo[entries - 2].value = -0.5 * (d_edges[1] + d_edges[3]);
         temp_coo[entries - 2].i_index = interior_u_nums[ii];
         temp_coo[entries - 2].j_index = pres[0] + shift_p;
-        temp_coo[entries - 1].value = d_edges[0] * d_edges[1] / d_edges[0];
+        temp_coo[entries - 1].value = 0.5 * (d_edges[1] + d_edges[3]);
         temp_coo[entries - 1].i_index = interior_u_nums[ii];
         temp_coo[entries - 1].j_index = pres[1] + shift_p;
 
@@ -181,10 +181,10 @@ hgf::models::stokes::momentum_2d(void)
         entries += 2;
         pres[0] = velocity_v[ii].cell_numbers[0];
         pres[1] = velocity_v[ii].cell_numbers[1];
-        temp_coo[entries - 2].value = -d_edges[0] * d_edges[1] / d_edges[0];
+        temp_coo[entries - 2].value = -0.5 * (d_edges[0] + d_edges[2]);
         temp_coo[entries - 2].i_index = interior_v_nums[ii] + shift_v;
         temp_coo[entries - 2].j_index = pres[0] + shift_p;
-        temp_coo[entries - 1].value = d_edges[0] * d_edges[1] / d_edges[0];
+        temp_coo[entries - 1].value = 0.5 * (d_edges[0] + d_edges[2]);
         temp_coo[entries - 1].i_index = interior_v_nums[ii] + shift_v;
         temp_coo[entries - 1].j_index = pres[1] + shift_p;
 
@@ -251,20 +251,20 @@ hgf::models::stokes::continuity_2d(void)
         // ux
         temp_array[0].i_index = shift_rows + ii;
         temp_array[0].j_index = interior_u_nums[ptv[idx2(ii, 0, 4)]];
-        temp_array[0].value = dxy[0] * dxy[1] / dxy[0];
+        temp_array[0].value = dxy[1];
         
         temp_array[1].i_index = shift_rows + ii;
         temp_array[1].j_index = interior_u_nums[ptv[idx2(ii, 1, 4)]];
-        temp_array[1].value = -dxy[0] * dxy[1] / dxy[0];
+        temp_array[1].value = -dxy[1];
         
         // vy
         temp_array[2].i_index = shift_rows + ii;
         temp_array[2].j_index = (interior_v_nums[ptv[idx2(ii, 2, 4)]] != -1) ? (shift_v + interior_v_nums[ptv[idx2(ii, 2, 4)]]) : interior_v_nums[ptv[idx2(ii, 2, 4)]];
-        temp_array[2].value = dxy[0] * dxy[1] / dxy[1];
+        temp_array[2].value = dxy[0];
 
         temp_array[3].i_index = shift_rows + ii;
         temp_array[3].j_index = (interior_v_nums[ptv[idx2(ii, 3, 4)]] != -1) ? (shift_v + interior_v_nums[ptv[idx2(ii, 3, 4)]]) : interior_v_nums[ptv[idx2(ii, 3, 4)]];
-        temp_array[3].value = -dxy[0] * dxy[1] / dxy[1];
+        temp_array[3].value = -dxy[0];
 
         for (int jj = 0; jj < 4; jj++) {
           if (temp_array[jj].j_index != -1) temp_arrays[kk].push_back(temp_array[jj]);

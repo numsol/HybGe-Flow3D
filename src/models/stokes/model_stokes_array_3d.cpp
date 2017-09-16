@@ -10,6 +10,14 @@
 #define distance(x1,y1,z1,x2,y2,z2) \
   sqrt(pow((x1-x2),2) + pow((y1-y2),2) + pow((z1-z2),2))
 
+// dof distasnce
+static inline double dof_distance( const degree_of_freedom dof1, const degree_of_freedom dof2 )
+{
+   
+  return distance(dof1.coords[0], dof1.coords[1], dof1.coords[2], \
+                  dof2.coords[0], dof2.coords[1], dof2.coords[2]);
+}
+
 void
 hgf::models::stokes::build_array_3d(const parameters& par, const hgf::mesh::voxel& msh)
 {
@@ -55,7 +63,7 @@ hgf::models::stokes::momentum_3d(void)
       array_coo temp_coo[9] = { 0 };
       double d_dofs[6], d_faces[6];
       int nbrs[6], pres[2];
-      double length, height, width, volume;
+      double height, width;
 
       for (int ii = kk*block_size_u; ii < std::min((kk + 1)*block_size_u, (int)interior_u_nums.size()); ii++) {
 
@@ -86,13 +94,10 @@ hgf::models::stokes::momentum_3d(void)
           w[2] = ptv[idx2(velocity_u[ii].cell_numbers[1], 5, 6)];
         }
         else goto uexit;
-        // face 0
-        width = distance(velocity_v[v[0]].coords[0], velocity_v[v[0]].coords[1], velocity_v[v[0]].coords[2], \
-          velocity_v[v[1]].coords[0], velocity_v[v[1]].coords[1], velocity_v[v[1]].coords[2]);
-        height = distance(velocity_w[w[0]].coords[0], velocity_w[w[0]].coords[1], velocity_w[w[0]].coords[2], \
-            velocity_w[w[3]].coords[0], velocity_w[w[3]].coords[1], velocity_w[w[3]].coords[2]);
-        length = width;
-        volume = length * width * height;
+        width = 0.5 * (dof_distance(velocity_v[v[0]], velocity_v[v[3]]) + \
+                       dof_distance(velocity_v[v[1]], velocity_v[v[2]]));
+        height = 0.5 * (dof_distance(velocity_w[w[0]], velocity_w[w[3]]) + \
+                        dof_distance(velocity_w[w[1]], velocity_w[w[2]]));
         d_faces[0] = width*height;
         for (int jj = 0; jj < 5; jj++) d_faces[jj + 1] = d_faces[0];
       
@@ -119,10 +124,10 @@ hgf::models::stokes::momentum_3d(void)
         entries += 2;
         pres[0] = velocity_u[ii].cell_numbers[0];
         pres[1] = velocity_u[ii].cell_numbers[1];
-        temp_coo[entries - 2].value = -volume / length;
+        temp_coo[entries - 2].value = -height * width;
         temp_coo[entries - 2].i_index = interior_u_nums[ii];
         temp_coo[entries - 2].j_index = pres[0] + shift_p;
-        temp_coo[entries - 1].value = volume / length;
+        temp_coo[entries - 1].value = height * width;
         temp_coo[entries - 1].i_index = interior_u_nums[ii];
         temp_coo[entries - 1].j_index = pres[1] + shift_p;
 
@@ -144,7 +149,7 @@ hgf::models::stokes::momentum_3d(void)
       array_coo temp_coo[9] = { 0 };
       double d_dofs[6], d_faces[6];
       int nbrs[6], pres[2];
-      double length, height, width, volume;
+      double length, height;
 
       for (int ii = kk*block_size_v; ii < std::min((kk + 1)*block_size_v, (int)interior_v_nums.size()); ii++) {
 
@@ -175,14 +180,11 @@ hgf::models::stokes::momentum_3d(void)
           w[2] = ptv[idx2(velocity_v[ii].cell_numbers[1], 5, 6)];
         }
         else goto vexit;
-        // face 0
-        length = distance(velocity_u[u[0]].coords[0], velocity_u[u[0]].coords[1], velocity_u[u[0]].coords[2], \
-          velocity_u[u[3]].coords[0], velocity_u[u[3]].coords[1], velocity_u[u[3]].coords[2]);
-        height = distance(velocity_w[w[0]].coords[0], velocity_w[w[0]].coords[1], velocity_w[w[0]].coords[2], \
-          velocity_w[w[3]].coords[0], velocity_w[w[3]].coords[1], velocity_w[w[3]].coords[2]);
-        width = length;
-        volume = length * width * height;
-        d_faces[0] = width*height;
+        height = 0.5 * (dof_distance(velocity_w[w[0]], velocity_w[w[3]]) + \
+                        dof_distance(velocity_w[w[1]], velocity_w[w[2]]));
+        length = 0.5 * (dof_distance(velocity_u[u[0]], velocity_u[u[3]]) + \
+                        dof_distance(velocity_u[u[1]], velocity_u[u[2]]));
+        d_faces[0] = length*height;
         for (int jj = 0; jj < 5; jj++) d_faces[jj + 1] = d_faces[0];
 
         // off diagonal entries
@@ -208,10 +210,10 @@ hgf::models::stokes::momentum_3d(void)
         entries += 2;
         pres[0] = velocity_v[ii].cell_numbers[0];
         pres[1] = velocity_v[ii].cell_numbers[1];
-        temp_coo[entries - 2].value = -volume / width;
+        temp_coo[entries - 2].value = -length * height;
         temp_coo[entries - 2].i_index = interior_v_nums[ii] + shift_v;
         temp_coo[entries - 2].j_index = pres[0] + shift_p;
-        temp_coo[entries - 1].value = volume / width;
+        temp_coo[entries - 1].value = length * height;
         temp_coo[entries - 1].i_index = interior_v_nums[ii] + shift_v;
         temp_coo[entries - 1].j_index = pres[1] + shift_p;
 
@@ -232,7 +234,7 @@ hgf::models::stokes::momentum_3d(void)
       array_coo temp_coo[9] = { 0 };
       double d_dofs[6], d_faces[6];
       int nbrs[6], pres[2];
-      double length, height, width, volume;
+      double length, width;
 
       for (int ii = kk*block_size_w; ii < std::min((kk + 1)*block_size_w, (int)interior_w_nums.size()); ii++) {
 
@@ -263,14 +265,11 @@ hgf::models::stokes::momentum_3d(void)
           v[2] = ptv[idx2(velocity_w[ii].cell_numbers[1], 3, 6)];
         }
         else goto wexit;
-        // face 0
-        length = distance(velocity_u[u[0]].coords[0], velocity_u[u[0]].coords[1], velocity_u[u[0]].coords[2], \
-          velocity_u[u[3]].coords[0], velocity_u[u[3]].coords[1], velocity_u[u[3]].coords[2]);
-        width = distance(velocity_v[v[0]].coords[0], velocity_v[v[0]].coords[1], velocity_v[v[0]].coords[2], \
-          velocity_v[v[3]].coords[0], velocity_v[v[3]].coords[1], velocity_v[v[3]].coords[2]);
-        height = length;
-        volume = length * width * height;
-        d_faces[0] = width*height;
+        length = 0.5 * (dof_distance(velocity_u[u[0]], velocity_u[u[3]]) + \
+                        dof_distance(velocity_u[u[1]], velocity_u[u[2]]));
+        width = 0.5 * (dof_distance(velocity_v[v[0]], velocity_v[v[3]]) + \
+                       dof_distance(velocity_v[v[1]], velocity_v[v[2]]));
+        d_faces[0] = length*width;
         for (int jj = 0; jj < 5; jj++) d_faces[jj + 1] = d_faces[0];
 
         // off diagonal entries
@@ -296,10 +295,10 @@ hgf::models::stokes::momentum_3d(void)
         entries += 2;
         pres[0] = velocity_w[ii].cell_numbers[0];
         pres[1] = velocity_w[ii].cell_numbers[1];
-        temp_coo[entries - 2].value = -volume / width;
+        temp_coo[entries - 2].value = -length * width;
         temp_coo[entries - 2].i_index = interior_w_nums[ii] + shift_w;
         temp_coo[entries - 2].j_index = pres[0] + shift_p;
-        temp_coo[entries - 1].value = volume / width;
+        temp_coo[entries - 1].value = length * width;
         temp_coo[entries - 1].i_index = interior_w_nums[ii] + shift_w;
         temp_coo[entries - 1].j_index = pres[1] + shift_p;
 
@@ -368,29 +367,29 @@ hgf::models::stokes::continuity_3d(void)
         // ux
         temp_array[0].i_index = shift_rows + ii;
         temp_array[0].j_index = interior_u_nums[ptv[idx2(ii, 0, 6)]];
-        temp_array[0].value = dxyz[0] * dxyz[1] * dxyz[2] / dxyz[0];
+        temp_array[0].value = dxyz[1] * dxyz[2];
 
         temp_array[1].i_index = shift_rows + ii;
         temp_array[1].j_index = interior_u_nums[ptv[idx2(ii, 1, 6)]];
-        temp_array[1].value = -dxyz[0] * dxyz[1] * dxyz[2] / dxyz[0];
+        temp_array[1].value = -dxyz[1] * dxyz[2];
 
         // vy
         temp_array[2].i_index = shift_rows + ii;
         temp_array[2].j_index = (interior_v_nums[ptv[idx2(ii, 2, 6)]] != -1) ? (shift_v + interior_v_nums[ptv[idx2(ii, 2, 6)]]) : interior_v_nums[ptv[idx2(ii, 2, 6)]];
-        temp_array[2].value = dxyz[0] * dxyz[1] * dxyz[2] / dxyz[1];
+        temp_array[2].value = dxyz[0] * dxyz[2];
 
         temp_array[3].i_index = shift_rows + ii;
         temp_array[3].j_index = (interior_v_nums[ptv[idx2(ii, 3, 6)]] != -1) ? (shift_v + interior_v_nums[ptv[idx2(ii, 3, 6)]]) : interior_v_nums[ptv[idx2(ii, 3, 6)]];
-        temp_array[3].value = -dxyz[0] * dxyz[1] * dxyz[2] / dxyz[1];
+        temp_array[3].value = -dxyz[0] * dxyz[2];
 
         // wz
         temp_array[4].i_index = shift_rows + ii;
         temp_array[4].j_index = (interior_w_nums[ptv[idx2(ii, 4, 6)]] != -1) ? (shift_w + interior_w_nums[ptv[idx2(ii, 4, 6)]]) : interior_w_nums[ptv[idx2(ii, 4, 6)]];
-        temp_array[4].value = dxyz[0] * dxyz[1] * dxyz[2] / dxyz[2];
+        temp_array[4].value = dxyz[0] * dxyz[1];
 
         temp_array[5].i_index = shift_rows + ii;
         temp_array[5].j_index = (interior_w_nums[ptv[idx2(ii, 5, 6)]] != -1) ? (shift_w + interior_w_nums[ptv[idx2(ii, 5, 6)]]) : interior_w_nums[ptv[idx2(ii, 5, 6)]];
-        temp_array[5].value = -dxyz[0] * dxyz[1] * dxyz[2] / dxyz[2];
+        temp_array[5].value = -dxyz[0] * dxyz[1];
 
         for (int jj = 0; jj < 6; jj++) {
           if (temp_array[jj].j_index != -1) temp_arrays[kk].push_back(temp_array[jj]);

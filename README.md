@@ -28,7 +28,7 @@ can also be found at http://www.gnu.org/licenses/.
 
 Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:
 
-    Costa, T., "HybGe-Flow3D", Package Version 2.3.0,
+    Costa, T., "HybGe-Flow3D", Package Version 2.3.1,
     http://github.com/numsol/HybGe-Flow3D.
 
 ### Contact ###
@@ -42,6 +42,11 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 - Joe Umhoefer
 
 ### Change Log ###
+
+
+Version 2.3.1
+- Stokes model unnecessary divides removed.
+- 2D Mesh bug fixed. Bug only affected visualization for some geometries.
 
 Version 2.3.0
 - Add new function hgf::models::stokes::write_geometry.
