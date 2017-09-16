@@ -43,6 +43,7 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 ### Change Log ###
 
+
 Version 2.3.1
 - Stokes model unnecessary divides removed.
 - 2D Mesh bug fixed. Bug only affected visualization for some geometries.

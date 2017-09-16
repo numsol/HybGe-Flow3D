@@ -11,7 +11,6 @@ var structparameters =
     [ "solver_max_iterations", "structparameters.html#a9c9384ec01d04fc81ebdfff981860b4c", null ],
     [ "solver_relative_tolerance", "structparameters.html#a465c3bb307b023699f3f11aee345c9b0", null ],
     [ "solver_verbose", "structparameters.html#a5a9a1693a9fdbfb73cf90efb21b04c4e", null ],
-    [ "viscosity", "structparameters.html#ae8459dfc2caa744af1c76bddd867c86c", null ],
     [ "voxel_geometry", "structparameters.html#a8d8197c5b3852ca26f16aae8a70c51f8", null ],
     [ "width", "structparameters.html#a3175e43379c93b9b09c4739bf2631d5b", null ]
 ];

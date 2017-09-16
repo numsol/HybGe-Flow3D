@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">HybGe-Flow3D
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.3.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 Introduction</h1>
 <p>This documents the project HybGe-Flo3D. HybGe-Flow3D is a library designed for the solution of fluid flow problems in complex, uncertain and evolving geometries in 2D and 3D.</p>
 <p>This software is developed and maintained by Numerical Solutions, Inc.</p>
-<p>The first versions of this software were developed under the partial support of the National Science Foundation on the projects NSF DMS-1115827 "Hybrid modeling in porous media" (PI: M. Peszynska) and NFS DMS-1522734 "Phase transitions in porous media 
+<p>The first versions of this software were developed under the partial support of the National Science Foundation on the projects NSF DMS-1115827 "Hybrid modeling in porous media" (PI: M. Peszynska) and NFS DMS-1522734 "Phase transitions in porous media
 across multiple scales" (PI: M. Peszynska).</p>
 <h1><a class="anchor" id="License"></a>
 License</h1>
@@ -99,7 +99,7 @@ License</h1>
 <h1><a class="anchor" id="Citation"></a>
 Citation</h1>
 <p>Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:</p>
-<p>Costa, T. "HybGe-Flow3D", Package Version 2.1.0, <a href="http://github.com/numsol/HybGe-Flow3D">http://github.com/numsol/HybGe-Flow3D</a>.</p>
+<p>Costa, T. "HybGe-Flow3D", Package Version 2.3.0, <a href="http://github.com/numsol/HybGe-Flow3D">http://github.com/numsol/HybGe-Flow3D</a>.</p>
 <h1><a class="anchor" id="Dependencies"></a>
 Dependencies</h1>
 <p>Building and using HybGe-Flow3D has the following dependencies:</p><ul>
@@ -113,7 +113,7 @@ Dependencies</h1>
 <h1><a class="anchor" id="Build"></a>
 Build</h1>
 <p>Building HybGe-Flow3D is straighforward assuming the user has installed the dependencies and included them in their path. The following describes the process in Linux.</p>
-<p>In the following we assume HybGe-Flow3D source is located at ${HYBGE_SOURCE} and we want to install HybGe-FLow3D in ${HYBGE_ROOT}. </p><div class="fragment"><div class="line">$ cd ${HYBGE_SOURCE}</div><div class="line">$ mkdir build &amp;&amp; cd build</div><div class="line">$ cmake .. -DCMAKE_INSTALL_PREFIX=${HYBGE_ROOT}</div><div class="line">$ make install</div></div><!-- fragment --><p> Done! This installs the folders lib and include in the path ${HYBGE_INSTALL}. Be sure the install directories to the users path before building an example. A bash script to set paths based on ${HYBGE_ROOT} is included in the utilities folder.</p>
+<p>In the following we assume HybGe-Flow3D source is located at ${HYBGE_SOURCE} and we want to install HybGe-FLow3D in ${HYBGE_ROOT}. </p><div class="fragment"><div class="line">$ cd ${HYBGE_SOURCE}</div><div class="line">$ mkdir build &amp;&amp; cd build</div><div class="line">$ cmake .. -DCMAKE_INSTALL_PREFIX=${HYBGE_ROOT}</div><div class="line">$ make install</div></div><!-- fragment --><p> Done! This installs the folders lib and include in the path ${HYBGE_INSTALL}. Be sure to add the install directories to the users path before building an example. A bash script to set paths based on ${HYBGE_ROOT} is included in the utilities folder.</p>
 <h1><a class="anchor" id="Usage"></a>
 Usage</h1>
 <p>HybGe-Flow3D contains several usage examples in the examples directory which illustrate how to go from problem geometry to problem solution for various multiscale flow investigations. </p>
