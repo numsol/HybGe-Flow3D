@@ -353,11 +353,9 @@ else {
                 }
               }
               else { // live, xi != 0
-                // condition under which we have 2 nodes to add
                 if (!yi && cell_numbers[idx2(yi, (xi - 1), par.nx)] == -1) { // no cells below or left
                   cell_number = cell_numbers[idx2(yi, xi, par.nx)];
-                  node_number += 2;
-                  els[cell_number].vtx[0].gnum = node_number - 1;
+                  node_number++;
                   els[cell_number].vtx[1].gnum = node_number;
                   // cell to right if applicable
                   if (xi < par.nx - 1 && cell_numbers[idx2(yi, (xi + 1), par.nx)] != -1) {
