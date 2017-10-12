@@ -42,7 +42,10 @@ namespace hgf
         void set_constant_scalar_alpha(const parameters& par, const hgf::mesh::voxel& msh, const double& alpha_in);
         void set_constant_tensor_alpha(const parameters& par, const hgf::mesh::voxel& msh, const std::vector< double >& alpha_in);
         void setup_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh);
-        void add_nonhomogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( int dof_num, double coords[3] ) );
+        void setup_neumann_bc(const parameters& par, const hgf::mesh::voxel& msh);
+        void setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*is_dirichlet)( int dof_num, double coords[3] ));
+        void add_nonhomogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( int dof_num, double coords[3] ));
+        void add_nonhomogeneous_neumann_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( int dof_num, double coords[3] ));
     
       private:
 
