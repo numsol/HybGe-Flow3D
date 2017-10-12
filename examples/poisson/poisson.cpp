@@ -56,8 +56,8 @@ main( int argc, const char* argv[] )
   poiss.set_constant_force(par, 0.0);
 
   // set up boundary conditions
-  poiss.setup_homogeneous_dirichlet_bc(par, msh);
-  poiss.set_nonhomogeneous_dirichlet_bc(par, msh, dirichlet_bc_heuristic);
+  poiss.setup_dirichlet_bc(par, msh);
+  poiss.add_nonhomogeneous_dirichlet_bc(par, msh, dirichlet_bc_heuristic);
 
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();

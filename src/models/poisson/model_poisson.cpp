@@ -77,20 +77,21 @@ hgf::models::poisson::build(const parameters& par, const hgf::mesh::voxel& msh)
   }
 }
 
-/** \brief hgf::models::poisson::setup_homogeneous_dirichlet_bc setups up the boundary conditions for ... 
+/** \brief hgf::models::poisson::setup_dirichlet_bc setups up the boundary conditions for Dirichlet boundary conditions. If nothing is added to the force,
+ * the results is homogeneous Dirichlet BCs on the entire boundary. For nonhomogeneous conditions, add_nonhomogeneous_dirichlet_bc should be called subsequently.
  *
  * Contributions to the linear system coo_array and the rhs vector are set by this function.
  * @param[in] par - parameters struct containing problem information.
  * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
  */
 void
-hgf::models::poisson::setup_homogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh)
+hgf::models::poisson::setup_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh)
 {
   if (par.dimension == 2) homogeneous_dirichlet_2d(par, msh);
   else homogeneous_dirichlet_3d(par, msh);
 }
 
-/** \brief hgf::models::poisson::set_nonhomogeneous_dirichlet_bc sets the force vector for a nonhomogeneous Dirichlet condition.
+/** \brief hgf::models::poisson::add_nonhomogeneous_dirichlet_bc sets the force vector for a nonhomogeneous Dirichlet condition.
  * 
  * This function uses a user-defined heurstic function taken as a function pointer argument to assign dirichlet values in the force vector.
  * This should be called after setup_homogeneous_dirichlet_bc, which sets the array entries for Dirichlet conditions. 
@@ -102,7 +103,7 @@ hgf::models::poisson::setup_homogeneous_dirichlet_bc(const parameters& par, cons
  * 
  */
 void 
-hgf::models::poisson::set_nonhomogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( int dof_num, double coords[3] ) )
+hgf::models::poisson::add_nonhomogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( int dof_num, double coords[3] ) )
 {
 
   if (par.dimension == 2) {
