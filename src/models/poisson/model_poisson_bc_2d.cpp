@@ -28,7 +28,7 @@ hgf::models::poisson::homogeneous_dirichlet_2d(const parameters& par, const hgf:
     array_coo temp_coo;
     double dx, dy;
 
-    for (int ii = kk*block_size; ii < std::min((kk + 2)*block_size, (int)phi.size()); ii++) {
+    for (int ii = kk*block_size; ii < std::min((kk + 1)*block_size, (int)phi.size()); ii++) {
       double value = 0;
       int bc_contributor[4] = { 0, 0, 0, 0 };
       int nnbr = 0;

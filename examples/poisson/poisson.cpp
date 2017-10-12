@@ -1,6 +1,7 @@
-/* Example solves the homogeneous Poisson equation. The solution is saved for visualization. Build with included
+/* Example solves the Poisson equation with Dirichlet BCs: phi == 1 on left boundary, phi == 0 on right, linear decrease from left to right on boundary. 
+   The solution is saved for visualization. Build with included
    CMakeLists.txt, and use:
-     poisson_homogeneous <path/to/problemfolder>
+     poisson <path/to/problemfolder>
    Some example problem folders are included at examples/geometries.
 */
 
@@ -39,8 +40,6 @@ main( int argc, const char* argv[] )
 
   //--- poisson model ---//
   hgf::models::poisson poiss;
-  // set alpha before build
-  poiss.set_constant_scalar_alpha(par, 1.0);
   // build the degrees of freedom and the array -- if alpha is not already set, initializes to identity on each cell.
   poiss.build(par, msh);
 

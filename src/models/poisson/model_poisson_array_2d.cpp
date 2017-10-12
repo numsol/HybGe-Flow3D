@@ -23,7 +23,7 @@ hgf::models::poisson::build_array_2d(const parameters& par, const hgf::mesh::vox
 
 #pragma omp parallel
   {
-#pragma omp for private(alpha_diag) schedule(dynamic) num_threads(NTHREADS)
+#pragma omp for private(alpha_diag) schedule(dynamic)
     for (int kk = 0; kk < NTHREADS; kk++) {
       int entries = 0;
       array_coo temp_coo[5] = { 0 };
