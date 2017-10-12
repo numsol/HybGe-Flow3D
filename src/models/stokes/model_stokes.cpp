@@ -78,11 +78,11 @@ hgf::models::stokes::build(const parameters& par, const hgf::mesh::voxel& msh)
  * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
  */
 void
-hgf::models::stokes::setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh)
+hgf::models::stokes::setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type)
 {
 
-  if (par.dimension == 2) xflow_2d(par, msh);
-  else xflow_3d(par, msh);
+  if (par.dimension == 2) xflow_2d(par, msh, inflow_type);
+  else xflow_3d(par, msh, inflow_type);
 
 }
 
@@ -93,11 +93,11 @@ hgf::models::stokes::setup_xflow_bc(const parameters& par, const hgf::mesh::voxe
  * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
  */
 void
-hgf::models::stokes::setup_yflow_bc(const parameters& par, const hgf::mesh::voxel& msh)
+hgf::models::stokes::setup_yflow_bc(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type)
 {
 
-  if (par.dimension == 2) yflow_2d(par, msh);
-  else yflow_3d(par, msh);
+  if (par.dimension == 2) yflow_2d(par, msh, inflow_type);
+  else yflow_3d(par, msh, inflow_type);
 
 }
 
@@ -108,10 +108,10 @@ hgf::models::stokes::setup_yflow_bc(const parameters& par, const hgf::mesh::voxe
  * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
  */
 void
-hgf::models::stokes::setup_zflow_bc(const parameters& par, const hgf::mesh::voxel& msh)
+hgf::models::stokes::setup_zflow_bc(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type)
 {
 
-  zflow_3d(par, msh);
+  zflow_3d(par, msh, inflow_type);
 
 }
 

@@ -48,9 +48,9 @@ namespace hgf
         void output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void write_state(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void write_geometry(const parameters& par, std::string& file_name);
-        void setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
-        void setup_yflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
-        void setup_zflow_bc(const parameters& par, const hgf::mesh::voxel& msh);
+        void setup_xflow_bc(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
+        void setup_yflow_bc(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
+        void setup_zflow_bc(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
         void random_immersed_boundary(const parameters& par, double eta, double vol_frac);
         int random_immersed_boundary_clump(const parameters& par, double eta, double vol_frac, double likelihood);
         void immersed_boundary(const parameters& par, double eta);
@@ -66,17 +66,17 @@ namespace hgf
         void build_array_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void momentum_2d(void);
         void continuity_2d(void);
-        void xflow_2d(const parameters& par, const hgf::mesh::voxel& msh);
-        void yflow_2d(const parameters& par, const hgf::mesh::voxel& msh);
+        void xflow_2d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
+        void yflow_2d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
 
         void build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void dof_neighbors_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void build_array_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void momentum_3d(void);
         void continuity_3d(void);
-        void xflow_3d(const parameters& par, const hgf::mesh::voxel& msh);
-        void yflow_3d(const parameters& par, const hgf::mesh::voxel& msh);
-        void zflow_3d(const parameters& par, const hgf::mesh::voxel& msh);
+        void xflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
+        void yflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
+        void zflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow_type);
 
     };
   }
