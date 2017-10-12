@@ -196,7 +196,7 @@ struct boundary_nodes
 /** \brief Enum for selecting inflow boundary condition.
  *
  */
-enum hgf_inflow
+enum HGF_INFLOW
 {
   HGF_INFLOW_PARABOLIC,
   HGF_INFLOW_CONSTANT

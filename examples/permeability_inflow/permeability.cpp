@@ -53,8 +53,8 @@ main( int argc, const char* argv[] )
   x_stks.immersed_boundary(par, eta);
 
   // set up boundary conditions
-  hgf_inflow inflow = HGF_INFLOW_CONSTANT;
-  x_stks.setup_xflow_bc(par, msh, inflow);
+  HGF_INFLOW INFLOW = HGF_INFLOW_CONSTANT;
+  x_stks.setup_xflow_bc(par, msh, INFLOW);
 
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();

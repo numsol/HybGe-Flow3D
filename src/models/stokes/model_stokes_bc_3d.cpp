@@ -10,7 +10,7 @@
 #define idx2(i, j, ldi) ((i * ldi) + j)
 
 void
-hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow)
+hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const HGF_INFLOW& INFLOW)
 {
   
   boundary.resize(velocity_u.size() + velocity_v.size() + velocity_w.size());
@@ -131,12 +131,12 @@ hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh::voxel& msh
           // is it an inflow boundary?
           if (velocity_u[ii].coords[0] - dx < xmin + eps) {
             double bvalue; 
-            switch (inflow) {
+            switch (INFLOW) {
               case HGF_INFLOW_PARABOLIC : bvalue = inflow_max/(pow((ymin-ymax)/2,2)*pow((zmin-zmax)/2,2)) \
                 * (velocity_u[ii].coords[1] - ymin) * (ymax - velocity_u[ii].coords[1]) \
                 * (velocity_u[ii].coords[2] - zmin) * (zmax - velocity_u[ii].coords[2]); break;
               case HGF_INFLOW_CONSTANT : bvalue = inflow_max; break;
-              default : std::cout << inflow << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
+              default : std::cout << INFLOW << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
             }
             rhs[interior_u_nums[ii]] += bvalue * viscosity * dz * dy / dx;
             boundary[nbrs[3]].value += bvalue;
@@ -363,13 +363,13 @@ hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh::voxel& msh
         if (interior_u_nums[ptv[idx2(ii, 0, 6)]] == -1) {
           if (pressure[ii].coords[0] - 0.5*dxyz[0] < xmin + eps) {
             i_index = shift_rows + ii;
-            switch (inflow) {
+            switch (INFLOW) {
               case HGF_INFLOW_PARABOLIC : uval = inflow_max/(pow((zmin-zmax)/2,2)*pow((ymin-ymax)/2,2)) \
                  * (velocity_u[ptv[idx2(ii, 0, 6)]].coords[1] - ymin) * (ymax - velocity_u[ptv[idx2(ii, 0, 6)]].coords[1]) \
                  * (velocity_u[ptv[idx2(ii, 0, 6)]].coords[2] - zmin) * (zmax - velocity_u[ptv[idx2(ii, 0, 6)]].coords[2]); 
                  break;
               case HGF_INFLOW_CONSTANT : uval = inflow_max; break;
-              default : std::cout << inflow << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
+              default : std::cout << INFLOW << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
             }
             rhs[i_index] -= (dxyz[0] * dxyz[1] * dxyz[2] / dxyz[0]) * uval;
           }
@@ -421,7 +421,7 @@ hgf::models::stokes::xflow_3d(const parameters& par, const hgf::mesh::voxel& msh
 }
 
 void
-hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow)
+hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const HGF_INFLOW& INFLOW)
 {
   boundary.resize(velocity_u.size() + velocity_v.size() + velocity_w.size());
 
@@ -597,12 +597,12 @@ hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh::voxel& msh
           // is an inflow?
           if (velocity_v[ii].coords[1] - dy <= ymin + eps) {
             double bvalue;
-            switch (inflow) {
+            switch (INFLOW) {
               case HGF_INFLOW_PARABOLIC : bvalue = inflow_max/(pow((xmin-xmax)/2,2)*pow((zmin-zmax)/2,2)) \
                 * (velocity_v[ii].coords[0] - xmin) * (xmax - velocity_v[ii].coords[0]) \
                 * (velocity_v[ii].coords[2] - zmin) * (zmax - velocity_v[ii].coords[2]); break;
               case HGF_INFLOW_CONSTANT : bvalue = inflow_max; break;
-              default : std::cout << inflow << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
+              default : std::cout << INFLOW << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
             }
             rhs[interior_v_nums[ii] + shift_v] += bvalue * viscosity * dz * dx / dy;
             boundary[nbrs[0] + velocity_u.size()].value += bvalue;
@@ -770,13 +770,13 @@ hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh::voxel& msh
         if (interior_v_nums[ptv[idx2(ii, 2, 6)]] == -1) {
           if (pressure[ii].coords[1] - 0.5*dxyz[1] < ymin + eps) {
             i_index = shift_rows + ii;
-            switch (inflow) {
+            switch (INFLOW) {
               case HGF_INFLOW_PARABOLIC : vval = inflow_max/(pow((zmin-zmax)/2,2)*pow((xmin-xmax)/2,2)) \
                 * (velocity_v[ptv[idx2(ii, 2, 6)]].coords[0] - xmin) * (xmax - velocity_v[ptv[idx2(ii, 2, 6)]].coords[0]) \
                 * (velocity_v[ptv[idx2(ii, 2, 6)]].coords[2] - zmin) * (zmax - velocity_v[ptv[idx2(ii, 2, 6)]].coords[2]); 
                 break;
               case HGF_INFLOW_CONSTANT : vval = inflow_max; break;
-              default : std::cout << inflow << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
+              default : std::cout << INFLOW << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
             }
             rhs[i_index] -= (dxyz[0] * dxyz[1] * dxyz[2] / dxyz[1]) * vval;
           }
@@ -827,7 +827,7 @@ hgf::models::stokes::yflow_3d(const parameters& par, const hgf::mesh::voxel& msh
 }
 
 void
-hgf::models::stokes::zflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const hgf_inflow& inflow)
+hgf::models::stokes::zflow_3d(const parameters& par, const hgf::mesh::voxel& msh, const HGF_INFLOW& INFLOW)
 {
   boundary.resize(velocity_u.size() + velocity_v.size() + velocity_w.size());
 
@@ -1114,12 +1114,12 @@ hgf::models::stokes::zflow_3d(const parameters& par, const hgf::mesh::voxel& msh
           // inflow?
           if (velocity_w[ii].coords[2] - dz < zmin + eps) {
             double bvalue;
-            switch (inflow) {
+            switch (INFLOW) {
               case HGF_INFLOW_PARABOLIC : bvalue = inflow_max/(pow((xmin-xmax)/2,2)*pow((ymin-ymax)/2,2)) \
                 * (velocity_w[ii].coords[0] - xmin) * (xmax - velocity_w[ii].coords[0]) \
                 * (velocity_w[ii].coords[1] - ymin) * (ymax - velocity_w[ii].coords[1]); break;
               case HGF_INFLOW_CONSTANT : bvalue = inflow_max; break;
-              default : std::cout << inflow << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
+              default : std::cout << INFLOW << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
             }
             rhs[interior_w_nums[ii] + shift_w] += bvalue * viscosity * dy * dx / dz;
             boundary[nbrs[4] + velocity_u.size() + velocity_v.size()].value += bvalue;
@@ -1175,13 +1175,13 @@ hgf::models::stokes::zflow_3d(const parameters& par, const hgf::mesh::voxel& msh
         if (interior_w_nums[ptv[idx2(ii, 4, 6)]] == -1) {
           if (pressure[ii].coords[2] - 0.5*dxyz[2] < zmin + eps) {
             i_index = shift_rows + ii;
-            switch (inflow) {
+            switch (INFLOW) {
               case HGF_INFLOW_PARABOLIC : wval = inflow_max/(pow((ymin-ymax)/2,2)*pow((xmin-xmax)/2,2)) \
                 * (velocity_w[ptv[idx2(ii, 4, 6)]].coords[0] - xmin) * (xmax - velocity_w[ptv[idx2(ii, 4, 6)]].coords[0]) \
                 * (velocity_w[ptv[idx2(ii, 4, 6)]].coords[1] - ymin) * (ymax - velocity_w[ptv[idx2(ii, 4, 6)]].coords[1]); 
                 break;
               case HGF_INFLOW_CONSTANT : wval  = inflow_max; break;
-              default : std::cout << inflow << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
+              default : std::cout << INFLOW << " is not a valid inflow BC.  See inlcude/types.hpp." << std::endl;
             }
             rhs[i_index] -= (dxyz[0] * dxyz[1] * dxyz[2] / dxyz[2]) * wval;
           }

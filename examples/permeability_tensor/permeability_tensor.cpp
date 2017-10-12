@@ -58,10 +58,10 @@ main( int argc, const char* argv[] )
   y_stks = x_stks;
   z_stks = x_stks;
   // set up boundary conditions
-  hgf_inflow inflow = HGF_INFLOW_PARABOLIC;
-  x_stks.setup_xflow_bc(par, msh, inflow);
-  y_stks.setup_yflow_bc(par, msh, inflow);
-  if (par.dimension == 3) z_stks.setup_zflow_bc(par, msh, inflow);
+  HGF_INFLOW INFLOW = HGF_INFLOW_PARABOLIC;
+  x_stks.setup_xflow_bc(par, msh, INFLOW);
+  y_stks.setup_yflow_bc(par, msh, INFLOW);
+  if (par.dimension == 3) z_stks.setup_zflow_bc(par, msh, INFLOW);
 
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
