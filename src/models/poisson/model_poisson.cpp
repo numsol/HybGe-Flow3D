@@ -131,25 +131,25 @@ hgf::models::poisson::set_nonhomogeneous_dirichlet_bc(const parameters& par, con
         // S neighbor?
         if (bc_contributor[0]) {
           midpoint_2d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords);
-          value += f( cell, coords ) * dx / dy;
+          value += 2 * f( cell, coords ) * dx / dy;
         } 
       
         // E neighbor?
         if (bc_contributor[1]) {
           midpoint_2d(coords, msh.els[cell].vtx[1].coords, msh.els[cell].vtx[2].coords);
-          value += f( cell, coords ) * dy / dx;
+          value += 2 * f( cell, coords ) * dy / dx;
         }
       
         // N neighbor?
         if (bc_contributor[2]) {
           midpoint_2d(coords, msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords);
-          value += f( cell, coords ) * dx / dy;
+          value += 2 * f( cell, coords ) * dx / dy;
         }
       
         // W neighbor?
         if (bc_contributor[3]) {
           midpoint_2d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[3].coords);
-          value += f( cell, coords ) * dy / dx;
+          value += 2 * f( cell, coords ) * dy / dx;
         }
 
         rhs[cell] += value;
@@ -186,42 +186,42 @@ hgf::models::poisson::set_nonhomogeneous_dirichlet_bc(const parameters& par, con
         if (bc_contributor[0]) {
           midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords, \
                               msh.els[cell].vtx[6].coords, msh.els[cell].vtx[7].coords);
-          value += f( cell, coords ) * dx * dz / dy;
+          value += 2 * f( cell, coords ) * dx * dz / dy;
         }
   
         // x+ neighbor?
         if (bc_contributor[1]) {
           midpoint_3d(coords, msh.els[cell].vtx[1].coords, msh.els[cell].vtx[2].coords, \
                               msh.els[cell].vtx[5].coords, msh.els[cell].vtx[6].coords);
-          value += f( cell, coords ) * dy * dz / dx;
+          value += 2 * f( cell, coords ) * dy * dz / dx;
         }
   
         // y+ neighbor?
         if (bc_contributor[2]) {
           midpoint_3d(coords, msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords, \
                               msh.els[cell].vtx[4].coords, msh.els[cell].vtx[5].coords);
-          value += f( cell, coords ) * dx * dz / dy;
+          value += 2 * f( cell, coords ) * dx * dz / dy;
         }
   
         // x- neighbor?
         if (bc_contributor[3]) {
           midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[3].coords, \
                               msh.els[cell].vtx[4].coords, msh.els[cell].vtx[7].coords);
-          value += f( cell, coords ) * dy * dz / dx;
+          value += 2 * f( cell, coords ) * dy * dz / dx;
         }
   
         // z- neighbor?
         if (bc_contributor[4]) {
           midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords, \
                               msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords);
-          value += f( cell, coords ) * dx * dy / dz;
+          value += 2 * f( cell, coords ) * dx * dy / dz;
         }
   
         // z+ neighbor?
         if (bc_contributor[5]) {
           midpoint_3d(coords, msh.els[cell].vtx[4].coords, msh.els[cell].vtx[5].coords, \
                               msh.els[cell].vtx[6].coords, msh.els[cell].vtx[7].coords);
-          value += f( cell, coords ) * dx * dy / dz;
+          value += 2 * f( cell, coords ) * dx * dy / dz;
         }
 
       bcexit3:;

@@ -12,6 +12,15 @@
 
 #include "hgflow.hpp"
 
+#define DOMAIN_LENGTH 1.0
+
+/* Defines a heuristic function to set dirichlet BC values. phi == 1 on "inflow" boundary
+   and phi == 0 on "outflow" boundary. */
+double 
+dirichlet_bc_heuristic( int dof_num, double coords[3] ) {
+  return ((DOMAIN_LENGTH - coords[0]) / DOMAIN_LENGTH);
+}
+
 int
 main( int argc, const char* argv[] )
 {
@@ -43,11 +52,12 @@ main( int argc, const char* argv[] )
   // build the degrees of freedom and the array -- if alpha is not already set, initializes to identity on each cell.
   poiss.build(par, msh);
 
+  // force term set to a constant
+  poiss.set_constant_force(par, 0.0);
+
   // set up boundary conditions
   poiss.setup_homogeneous_dirichlet_bc(par, msh);
-
-  // force term set to a constant
-  poiss.set_constant_force(par, 1);
+  poiss.set_nonhomogeneous_dirichlet_bc(par, msh, dirichlet_bc_heuristic);
 
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
