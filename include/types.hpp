@@ -15,6 +15,7 @@ struct parameters
   int nx;					                               /**< Specifies the x mesh dimension. */
   int ny;					                               /**< Specifies the y mesh dimension. */
   int nz;					                               /**< Specifies the z mesh dimension. */
+  double inflow_max = 1.0;                       /**< Specifies the maximum inflow velocity. Defaults to 1 */
   int solver_max_iterations;                     /**< Specifies the maximum iterations allowed in iterative solvers. */
   double solver_absolute_tolerance;              /**< Specifies the absolute error tolerance for iterative solvers. */
   double solver_relative_tolerance;              /**< Specifies the relative error tolerance for iterative solvers. */

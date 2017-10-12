@@ -1,11 +1,10 @@
-/* Example computes the upscaled permeability tensor from the solution to Stokes and prints
-   the tensor to console. The x-flow solution is saved for visualization. Build with included
+/* Example computes the upscaled permeability in the x-direction from the solution to Stokes and prints
+   the result to console. The x-flow solution is saved for visualization. Build with included
    CMakeLists.txt, and use:
      permeability <path/to/problemfolder>
    Some example problem folders are included at examples/geometries.
 */
 
-// system includes
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
@@ -30,7 +29,7 @@ main( int argc, const char* argv[] )
   rebegin = omp_get_wtime();
 
   //--- mesh ---//
-  // First we check mesh sanity, and remove dead pores
+  // check mesh sanity and remove dead pores
   hgf::mesh::geo_sanity(par);
   int pores_removed = 0;
   pores_removed = hgf::mesh::remove_dead_pores(par);
@@ -42,9 +41,9 @@ main( int argc, const char* argv[] )
   mesh_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
 
-  //--- example stokes solve ---//
+  //--- stokes model ---//
   hgf::models::stokes x_stks;
-  // build the degrees of freedom and the array for interior cells and initializes viscosity to 1.0
+  // build the degrees of freedom and the array for interior cells, initializes viscosity to 1.0
   x_stks.build(par, msh);
   // if viscosity != 1, set after build
   // x_stks.viscosity = 0.5;
@@ -53,69 +52,47 @@ main( int argc, const char* argv[] )
   double eta = 1e-5;
   x_stks.immersed_boundary(par, eta);
 
-  // create copies for y and z flows
-  hgf::models::stokes y_stks, z_stks;
-  y_stks = x_stks;
-  z_stks = x_stks;
   // set up boundary conditions
-  hgf_inflow inflow = HGF_INFLOW_PARABOLIC;
+  hgf_inflow inflow = HGF_INFLOW_CONSTANT;
   x_stks.setup_xflow_bc(par, msh, inflow);
-  y_stks.setup_yflow_bc(par, msh, inflow);
-  if (par.dimension == 3) z_stks.setup_zflow_bc(par, msh, inflow);
 
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
 
-  // Solve with Paralution
+  // solve with Paralution
   hgf::solve::paralution::init_solver();
-  if (par.dimension == 3) { // block diagonal preconditioner for 3d problem
+  // block diagonal preconditioner for 3d problem
+  if (par.dimension == 3) { 
     hgf::solve::paralution::solve_ps_flow(par, x_stks.coo_array, x_stks.rhs, x_stks.solution_int, \
       (int)std::accumulate(x_stks.interior_u.begin(), x_stks.interior_u.end(), 0), \
       (int)std::accumulate(x_stks.interior_v.begin(), x_stks.interior_v.end(), 0), \
       (int)std::accumulate(x_stks.interior_w.begin(), x_stks.interior_w.end(), 0), \
       (int)x_stks.pressure.size());
-    hgf::solve::paralution::solve_ps_flow(par, y_stks.coo_array, y_stks.rhs, y_stks.solution_int, \
-      (int)std::accumulate(y_stks.interior_u.begin(), y_stks.interior_u.end(), 0), \
-      (int)std::accumulate(y_stks.interior_v.begin(), y_stks.interior_v.end(), 0), \
-      (int)std::accumulate(y_stks.interior_w.begin(), y_stks.interior_w.end(), 0), \
-      (int)y_stks.pressure.size());
-    hgf::solve::paralution::solve_ps_flow(par, z_stks.coo_array, z_stks.rhs, z_stks.solution_int, \
-      (int)std::accumulate(z_stks.interior_u.begin(), z_stks.interior_u.end(), 0), \
-      (int)std::accumulate(z_stks.interior_v.begin(), z_stks.interior_v.end(), 0), \
-      (int)std::accumulate(z_stks.interior_w.begin(), z_stks.interior_w.end(), 0), \
-      (int)x_stks.pressure.size());
   }
-  else { // simple GMRES + ILU for 2d
+  // simple GMRES + ILU for 2d
+  else { 
     hgf::solve::paralution::solve(par, x_stks.coo_array, x_stks.rhs, x_stks.solution_int);
-    hgf::solve::paralution::solve(par, y_stks.coo_array, y_stks.rhs, y_stks.solution_int);
   }
   hgf::solve::paralution::finalize_solver();
 
   solve_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
 
-  x_stks.solution_build();  // fills in solution vector with solution of linear system + boundary values
-  y_stks.solution_build();
-  if (par.dimension == 3) z_stks.solution_build();
+  // fill in solution vector with solution of linear system + boundary values
+  x_stks.solution_build();  
 
   // compute permeability and print to console
-  std::vector< double > permeability;
-  hgf::multiscale::flow::compute_permeability_tensor( par, \
-    x_stks.pressure_ib_list, x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, \
-    x_stks.solution, y_stks.solution, z_stks.solution, permeability);
-  std::cout << "Permeability Tensor=\n";
-  for (int jj = 0; jj < par.dimension; jj++) {
-    for (int ii = 0; ii < par.dimension; ii++)
-    {
-      std::cout << permeability[ii*par.dimension + jj] << "\t";
-    }
-    std::cout << "\n";
-  }
-  std::cout << "\n";
+  double permeability = hgf::multiscale::flow::compute_permeability_x( par, \
+    x_stks.pressure_ib_list, x_stks.velocity_u, x_stks.velocity_v, x_stks.velocity_w, x_stks.solution );
+  std::cout << "\nX permeability = " << permeability << "\n";
 
-  // save the x-flow solution for visualization
-  std::string file_name = "Solution_x_tensor";
+  // save the x-flow solution for visualization with paraview
+  std::string file_name = "Solution_x_inflow";
   x_stks.output_vtk(par, msh, file_name);
+
+  // save the full state of the flow simulation to .dat file
+  std::string state_name = "Stokes_State";
+  x_stks.write_state(par, msh, state_name);
 
   postp_time = omp_get_wtime() - rebegin;
   total_time = omp_get_wtime() - begin;
