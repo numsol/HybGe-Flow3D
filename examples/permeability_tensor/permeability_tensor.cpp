@@ -58,9 +58,10 @@ main( int argc, const char* argv[] )
   y_stks = x_stks;
   z_stks = x_stks;
   // set up boundary conditions
-  x_stks.setup_xflow_bc(par, msh);
-  y_stks.setup_yflow_bc(par, msh);
-  if (par.dimension == 3) z_stks.setup_zflow_bc(par, msh);
+  HGF_INFLOW INFLOW = HGF_INFLOW_PARABOLIC;
+  x_stks.setup_xflow_bc(par, msh, INFLOW);
+  y_stks.setup_yflow_bc(par, msh, INFLOW);
+  if (par.dimension == 3) z_stks.setup_zflow_bc(par, msh, INFLOW);
 
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();
@@ -113,7 +114,7 @@ main( int argc, const char* argv[] )
   std::cout << "\n";
 
   // save the x-flow solution for visualization
-  std::string file_name = "Solution_x";
+  std::string file_name = "Solution_x_tensor";
   x_stks.output_vtk(par, msh, file_name);
 
   postp_time = omp_get_wtime() - rebegin;

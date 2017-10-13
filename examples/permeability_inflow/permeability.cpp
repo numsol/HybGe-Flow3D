@@ -53,7 +53,7 @@ main( int argc, const char* argv[] )
   x_stks.immersed_boundary(par, eta);
 
   // set up boundary conditions
-  HGF_INFLOW INFLOW = HGF_INFLOW_PARABOLIC;
+  HGF_INFLOW INFLOW = HGF_INFLOW_CONSTANT;
   x_stks.setup_xflow_bc(par, msh, INFLOW);
 
   build_time = omp_get_wtime() - rebegin;
@@ -87,7 +87,7 @@ main( int argc, const char* argv[] )
   std::cout << "\nX permeability = " << permeability << "\n";
 
   // save the x-flow solution for visualization with paraview
-  std::string file_name = "Solution_x";
+  std::string file_name = "Solution_x_inflow";
   x_stks.output_vtk(par, msh, file_name);
 
   // save the full state of the flow simulation to .dat file
