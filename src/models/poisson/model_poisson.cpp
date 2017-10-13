@@ -91,3 +91,20 @@ hgf::models::poisson::setup_dirichlet_bc(const parameters& par, const hgf::mesh:
   else homogeneous_dirichlet_3d(par, msh);
 }
 
+/** \brief hgf::models::poisson::setup_mixed_bc setups up the boundary conditions for mixed Dirichlet and Neumann boundary conditions. If nothing is added to the force,
+ * the results is homogeneous BCs on the entire boundary. For nonhomogeneous conditions, add_nonhomogeneous_dirichlet_bc and add_nonhomogeneous_neumann_bc 
+ * should be called subsequently.
+ *
+ * Contributions to the linear system coo_array and the rhs vector are set by this function.
+ * @param[in] par - parameters struct containing problem information.
+ * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
+ * @param[in] f - pointer to heuristic function. Heuristic should take a cell index and coordinates as inputs, 
+ *                and return true if the location has a dirichlet bc or false if the location has a neumann bc.
+ * 
+ */
+void
+hgf::models::poisson::setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( int dof_num, double coords[3] ))
+{
+  if (par.dimension == 2) homogeneous_mixed_2d(par, msh, f);
+  else homogeneous_mixed_3d(par, msh, f);
+}
