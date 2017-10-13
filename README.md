@@ -16,7 +16,7 @@ Please find detailed documentation at www.numericalsolutions.org/doc/hybge-flow3
 
 HybGe-Flow3D Copyright (C) Numerical Solutions, Inc.
 
-This problem is free software; you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+This program is free software; you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 
 This software is distributed AS IS and
 WITHOUT ANY WARRANTY.
