@@ -43,6 +43,8 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 ### Change Log ###
 
+Version 2.4.0
+ - Added controls to inflow boundary conditions in Stokes Model. Allows user to control constant or parabolic inflow, as well as the value of the inflow condition. Requires API change in directional flow boundary condition functions.
 
 Version 2.3.1
 - Stokes model unnecessary divides removed.
