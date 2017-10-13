@@ -28,7 +28,7 @@ can also be found at http://www.gnu.org/licenses/.
 
 Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:
 
-    Costa, T., "HybGe-Flow3D", Package Version 2.4.0,
+    Costa, T., "HybGe-Flow3D", Package Version 3.0.0,
     http://github.com/numsol/HybGe-Flow3D.
 
 ### Contact ###
@@ -43,7 +43,7 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 ### Change Log ###
 
-Version 2.4.0
+Version 3.0.0 (Beta)
  - Added controls to inflow boundary conditions in Stokes Model. Allows user to control constant or parabolic inflow, as well as the value of the inflow condition. Requires API change in directional flow boundary condition functions.
 
 Version 2.3.1
