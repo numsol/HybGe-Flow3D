@@ -16,7 +16,7 @@ Please find detailed documentation at www.numericalsolutions.org/doc/hybge-flow3
 
 HybGe-Flow3D Copyright (C) Numerical Solutions, Inc.
 
-This problem is free software; you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+This program is free software; you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 
 This software is distributed AS IS and
 WITHOUT ANY WARRANTY.
@@ -28,7 +28,7 @@ can also be found at http://www.gnu.org/licenses/.
 
 Publications making use of HybGe-Flow3D should cite this software package. An example citation is given as:
 
-    Costa, T., "HybGe-Flow3D", Package Version 2.3.1,
+    Costa, T., "HybGe-Flow3D", Package Version 3.0.0,
     http://github.com/numsol/HybGe-Flow3D.
 
 ### Contact ###
@@ -43,6 +43,16 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 ### Change Log ###
 
+Version 3.0.0 (Beta)
+- New model: Poisson equation.
+    - Model solves the Poisson equation with a tensor alpha coefficient using a cell-centered Finite Volume discretiziation.
+        - Beta version requires a diagonal tensor. This will be extended prior to release of 3.0.0.
+    - Includes tools for setting force and alpha coefficient.
+    - Ships with tools to set Dirichlet or mixed Dirichlet/Neumann boundary conditions.
+        - Beta version has tools for setting a mixture of Dirichlet and Homogeneous Neumann conditions. Tools to set nonhomogeneous Neumann conditions will be added prior to release of 3.0.0.
+- Added controls to inflow boundary conditions in Stokes Model. 
+    - Allows user to control constant or parabolic inflow, as well as the value of the inflow condition. 
+    - Requires API change in directional flow boundary condition functions.
 
 Version 2.3.1
 - Stokes model unnecessary divides removed.
