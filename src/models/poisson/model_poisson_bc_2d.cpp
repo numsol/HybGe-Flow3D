@@ -130,7 +130,7 @@ hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mes
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1] - 0.5*dy;
           if (f( par, ii, coords )) value += alpha[ii][3] * dx / (0.5*dy);
-          else ; // NOTHING FOR NEUMANN?
+          else ;
         } 
 
         // E neighbor?
@@ -158,7 +158,7 @@ hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mes
         }
 
       }
-      else { // Nondiag or non constant alpha, TODO
+      else { // Nondiag alpha, TODO
 
       }
 

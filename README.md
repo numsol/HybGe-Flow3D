@@ -45,9 +45,10 @@ Timothy B. Costa, timothy.costa@numericalsolutions.org
 
 Version 3.0.0 (Beta)
 - New model: Poisson equation.
-    - Model solves the Poisson equation with a full tensor alpha coefficient using a cell-centered Finite Volume discretiziation.
+    - Model solves the Poisson equation with a tensor alpha coefficient using a cell-centered Finite Volume discretiziation.
+        - Beta version requires a diagonal tensor. This will be extended prior to release of 3.0.0.
     - Includes tools for setting force and alpha coefficient.
-    - Ships with function to set Dirichlet or mixed boundary conditions.
+    - Ships with tools to set Dirichlet or mixed Dirichlet/Neumann boundary conditions.
 - Added controls to inflow boundary conditions in Stokes Model. 
     - Allows user to control constant or parabolic inflow, as well as the value of the inflow condition. 
     - Requires API change in directional flow boundary condition functions.
