@@ -89,7 +89,7 @@ hgf::models::poisson::homogeneous_dirichlet_2d(const parameters& par, const hgf:
 }
 
 void 
-hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( int dof_num, double coords[3] ))
+hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ))
 {
   // define temp coo array to store results in parallel region
   std::vector< std::vector< array_coo > > temp_arrays;
@@ -129,7 +129,7 @@ hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mes
         if (bc_contributor[0]) {
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1] - 0.5*dy;
-          if (f( ii, coords )) value += alpha[ii][3] * dx / (0.5*dy);
+          if (f( par, ii, coords )) value += alpha[ii][3] * dx / (0.5*dy);
           else ; // NOTHING FOR NEUMANN?
         } 
 
@@ -137,7 +137,7 @@ hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mes
         if (bc_contributor[1]) {
           coords[0] = phi[ii].coords[0] + 0.5*dx;
           coords[1] = phi[ii].coords[1]; 
-          if (f( ii, coords )) value += alpha[ii][0] * dy / (0.5*dx); 
+          if (f( par, ii, coords )) value += alpha[ii][0] * dy / (0.5*dx); 
           else ;
         }
 
@@ -145,7 +145,7 @@ hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mes
         if (bc_contributor[2]) {
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1] + 0.5*dy;
-          if (f( ii, coords )) value += alpha[ii][3] * dx / (0.5*dy); 
+          if (f( par, ii, coords )) value += alpha[ii][3] * dx / (0.5*dy); 
           else ;
         }
 
@@ -153,7 +153,7 @@ hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mes
         if (bc_contributor[3]) {
           coords[0] = phi[ii].coords[0] - 0.5*dx;
           coords[1] = phi[ii].coords[1];
-          if (f( ii, coords )) value += alpha[ii][0] * dy / (0.5*dx);
+          if (f( par, ii, coords )) value += alpha[ii][0] * dy / (0.5*dx);
           else ;
         }
 

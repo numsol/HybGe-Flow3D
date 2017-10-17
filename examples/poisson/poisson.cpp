@@ -12,13 +12,24 @@
 
 #include "hgflow.hpp"
 
-#define DOMAIN_LENGTH 1.0
+#define EPS 1e-10
+
+/* Defines a heuristic function to define mixed Dirichlet/Neumann BC locations.
+   Returns true for a Dirichlet location. */
+bool
+mixed_bc_heuristic( const parameters& par, int dof_num, double coords[3] ) {
+  if ((coords[0] <= 0.0 + EPS) || (coords[0] >= par.length - EPS)) return true;
+  else return false;
+}
 
 /* Defines a heuristic function to set dirichlet BC values. phi == 1 on "inflow" boundary
-   and phi == 0 on "outflow" boundary. */
+   and phi == 0 on "outflow" boundary. Note this function must return 
+   0 for non-dirichlet boundary locations. */
 double 
-dirichlet_bc_heuristic( int dof_num, double coords[3] ) {
-  return ((DOMAIN_LENGTH - coords[0]) / DOMAIN_LENGTH);
+dirichlet_bc_value( const parameters& par, int dof_num, double coords[3] ) {
+  //return ((par.length - coords[0]) / par.length);
+  if (coords[0] <= 0.0 + EPS) return 1.0;
+  else return 0.0;
 }
 
 int
@@ -56,7 +67,7 @@ main( int argc, const char* argv[] )
   poiss.set_constant_force(par, 0.0);
 
   // set up boundary conditions
-  poiss.setup_dirichlet_bc(par, msh);
+  poiss.setup_mixed_bc(par, msh, mixed_bc_heuristic);
   poiss.add_nonhomogeneous_dirichlet_bc(par, msh, dirichlet_bc_heuristic);
 
   build_time = omp_get_wtime() - rebegin;

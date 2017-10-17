@@ -95,7 +95,7 @@ hgf::models::poisson::homogeneous_dirichlet_3d(const parameters& par, const hgf:
 }
 
 void 
-hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( int dof_num, double coords[3] ))
+hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ))
 {
 
 }

@@ -103,7 +103,7 @@ hgf::models::poisson::setup_dirichlet_bc(const parameters& par, const hgf::mesh:
  * 
  */
 void
-hgf::models::poisson::setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( int dof_num, double coords[3] ))
+hgf::models::poisson::setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ))
 {
   if (par.dimension == 2) homogeneous_mixed_2d(par, msh, f);
   else homogeneous_mixed_3d(par, msh, f);
