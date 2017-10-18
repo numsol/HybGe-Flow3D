@@ -580,6 +580,8 @@ hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& 
     output_path += ".dat";
     std::ofstream outstream;
     outstream.open(output_path.string());
+    outstream.precision(17);
+    outstream.setf( std::ios::fixed, std::ios::floatfield );
 
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
@@ -634,6 +636,8 @@ hgf::models::stokes::write_state(const parameters& par, const hgf::mesh::voxel& 
     output_path += ".dat";
     std::ofstream outstream;
     outstream.open(output_path.string());
+    outstream.precision(17);
+    outstream.setf( std::ios::fixed, std::ios::floatfield );
 
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
