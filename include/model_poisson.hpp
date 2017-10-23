@@ -36,15 +36,15 @@ namespace hgf
         std::vector< double > rhs;                                    /**< Right-hand side vector (force). */
         std::vector< double > solution;                               /**< Vector for storing full solution. */
         std::vector< std::vector< double > > alpha;                   /**< Coefficient tensor. */
+        std::vector< std::vector< int > > bc_types;                   /**< Array of boundary types. */
         void build(const parameters& par, const hgf::mesh::voxel& msh);
         void output_vtk(const parameters& par, const hgf::mesh::voxel& msh, std::string& file_name);
         void set_constant_force(const parameters& par, const double& force_in);
         void set_constant_scalar_alpha(const parameters& par, const hgf::mesh::voxel& msh, const double& alpha_in);
         void set_constant_tensor_alpha(const parameters& par, const hgf::mesh::voxel& msh, const std::vector< double >& alpha_in);
         void setup_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh);
-        void setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ));
-        void add_nonhomogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( const parameters& par, int dof_num, double coords[3] ));
-        void add_nonhomogeneous_neumann_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( const parameters& par, int dof_num, double coords[3] ));
+        void setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*is_dirichlet)( const parameters& par, int dof_num, double coords[3] ));
+        void add_nonhomogeneous_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*bc_value)( const parameters& par, int dof_num, double coords[3] ));
     
       private:
 
@@ -54,13 +54,13 @@ namespace hgf
         void dof_neighbors_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void build_array_2d(const parameters& par, const hgf::mesh::voxel& msh);
         void homogeneous_dirichlet_2d(const parameters& par, const hgf::mesh::voxel& msh);
-        void homogeneous_mixed_2d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ));
+        void homogeneous_mixed_2d(const parameters& par, const hgf::mesh::voxel& msh, bool (*is_dirichlet)( const parameters& par, int dof_num, double coords[3] ));
 
         void build_degrees_of_freedom_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void dof_neighbors_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void build_array_3d(const parameters& par, const hgf::mesh::voxel& msh);
         void homogeneous_dirichlet_3d(const parameters& par, const hgf::mesh::voxel& msh);
-        void homogeneous_mixed_3d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ));
+        void homogeneous_mixed_3d(const parameters& par, const hgf::mesh::voxel& msh, bool (*is_dirichlet)( const parameters& par, int dof_num, double coords[3] ));
     };
   }
 }

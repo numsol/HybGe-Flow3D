@@ -17,19 +17,21 @@
   mid[2] = 0.25 * (first[2] + second[2] + third[2] + fourth[2]); \
 } while(0)
 
-/** \brief hgf::models::poisson::add_nonhomogeneous_dirichlet_bc sets the force vector for a nonhomogeneous Dirichlet condition.
+/** \brief hgf::models::poisson::add_nonhomogeneous_bc adds to the force vector the values corersponding to a nonhomogeneous Dirichlet and Neumann boundary conditions.
  * 
- * This function uses a user-defined heurstic function taken as a function pointer argument to assign dirichlet values in the force vector.
- * This should be called after setup_homogeneous_dirichlet_bc, which sets the array entries for Dirichlet conditions. 
+ * This function uses user-defined heurstic functions taken as a function pointers argument to assign dirichlet and neumann values in the force vector.
+ * This should be called after setup_homogeneous_bc, which sets the array entries for mixed Dirichlet and Neumann boundary conditions. 
  * The function adds values to the force vector according to the heuristic. It does not over-write existing values. 
  * @param[in] par - parameters struct containing problem information.
  * @param[in] msh - mesh object containing a quadrilateral or hexagonal representation of geometry from problem folder addressed in parameters& par.
- * @param[in] f - pointer to heuristic function. Heuristic should take a cell index and coordinates as inputs, 
- *                and return a Dirichlet BC value based on one or both of those inputs.
+ * @param[in] is_dirichlet - pointer to function that returns true for a dirichlet boundary location and false for a neumann boundary location.
+ * @param[in] bc_value - pointer to heuristic function. Heuristic must take parameters struct, cell index, coordinates, and a bool which can be used to specific Dirichlet or Neuamnn outputs.
+ *                       The function then returns the BC value based on one or more of these inputs.
  * 
  */
 void 
-hgf::models::poisson::add_nonhomogeneous_dirichlet_bc(const parameters& par, const hgf::mesh::voxel& msh, double (*f)( const parameters& par, int dof_num, double coords[3] ) )
+hgf::models::poisson::add_nonhomogeneous_bc(const parameters& par, const hgf::mesh::voxel& msh, \
+                                            double (*bc_value)( const parameters& par, int dof_num, double coords[3] ) )
 {
 
   if (par.dimension == 2) {
@@ -58,25 +60,29 @@ hgf::models::poisson::add_nonhomogeneous_dirichlet_bc(const parameters& par, con
         // S neighbor?
         if (bc_contributor[0]) {
           midpoint_2d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords);
-          value += 2 * f( par, cell, coords ) * dx / dy;
+          if (bc_types[cell][0] == 1) value += 2 * bc_value( par, cell, coords ) * dx / dy;
+          else value += bc_value( par, cell, coords );
         } 
       
         // E neighbor?
         if (bc_contributor[1]) {
           midpoint_2d(coords, msh.els[cell].vtx[1].coords, msh.els[cell].vtx[2].coords);
-          value += 2 * f( par, cell, coords ) * dy / dx;
+          if (bc_types[cell][1] == 1) value += 2 * bc_value( par, cell, coords ) * dy / dx;
+          else value += bc_value( par, cell, coords );
         }
       
         // N neighbor?
         if (bc_contributor[2]) {
           midpoint_2d(coords, msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords);
-          value += 2 * f( par, cell, coords ) * dx / dy;
+          if (bc_types[cell][2] == 1) value += 2 * bc_value( par, cell, coords ) * dx / dy;
+          else value += bc_value( par, cell, coords );
         }
       
         // W neighbor?
         if (bc_contributor[3]) {
           midpoint_2d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[3].coords);
-          value += 2 * f( par, cell, coords ) * dy / dx;
+          if (bc_types[cell][3] == 1) value += 2 * bc_value( par, cell, coords ) * dy / dx;
+          else value += bc_value( par, cell, coords );
         }
 
         rhs[cell] += value;
@@ -113,42 +119,48 @@ hgf::models::poisson::add_nonhomogeneous_dirichlet_bc(const parameters& par, con
         if (bc_contributor[0]) {
           midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords, \
                               msh.els[cell].vtx[6].coords, msh.els[cell].vtx[7].coords);
-          value += 2 * f( par, cell, coords ) * dx * dz / dy;
+          if (bc_types[cell][0] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dz / dy;
+          else value += bc_value( par, cell, coords );
         }
   
         // x+ neighbor?
         if (bc_contributor[1]) {
           midpoint_3d(coords, msh.els[cell].vtx[1].coords, msh.els[cell].vtx[2].coords, \
                               msh.els[cell].vtx[5].coords, msh.els[cell].vtx[6].coords);
-          value += 2 * f( par, cell, coords ) * dy * dz / dx;
+          if (bc_types[cell][1] == 1) value += 2 * bc_value( par, cell, coords ) * dy * dz / dx;
+          else value += bc_value( par, cell, coords );
         }
   
         // y+ neighbor?
         if (bc_contributor[2]) {
           midpoint_3d(coords, msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords, \
                               msh.els[cell].vtx[4].coords, msh.els[cell].vtx[5].coords);
-          value += 2 * f( par, cell, coords ) * dx * dz / dy;
+          if (bc_types[cell][2] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dz / dy;
+          else value += bc_value( par, cell, coords );
         }
   
         // x- neighbor?
         if (bc_contributor[3]) {
           midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[3].coords, \
                               msh.els[cell].vtx[4].coords, msh.els[cell].vtx[7].coords);
-          value += 2 * f( par, cell, coords ) * dy * dz / dx;
+          if (bc_types[cell][3] == 1) value += 2 * bc_value( par, cell, coords ) * dy * dz / dx;
+          else value += bc_value( par, cell, coords );
         }
   
         // z- neighbor?
         if (bc_contributor[4]) {
           midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords, \
                               msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords);
-          value += 2 * f( par, cell, coords ) * dx * dy / dz;
+          if (bc_types[cell][4] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dy / dz;
+          else value += bc_value( par, cell, coords );
         }
   
         // z+ neighbor?
         if (bc_contributor[5]) {
           midpoint_3d(coords, msh.els[cell].vtx[4].coords, msh.els[cell].vtx[5].coords, \
                               msh.els[cell].vtx[6].coords, msh.els[cell].vtx[7].coords);
-          value += 2 * f( par, cell, coords ) * dx * dy / dz;
+          if (bc_types[cell][5] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dy / dz;
+          else value += bc_value( par, cell, coords );
         }
 
         rhs[cell] += value;
@@ -159,7 +171,6 @@ hgf::models::poisson::add_nonhomogeneous_dirichlet_bc(const parameters& par, con
   }
    
 }
-
 
 /** \brief hgf::models::poisson::set_constant_force sets a constant value to the force (right hand side) in the Poisson model.
 *

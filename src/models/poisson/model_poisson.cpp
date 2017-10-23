@@ -27,6 +27,8 @@ hgf::models::poisson::build(const parameters& par, const hgf::mesh::voxel& msh)
 {
 
   phi.resize(msh.els.size());
+  bc_types.resize(phi.size());
+  for (int cell = 0; cell < bc_types.size(); cell++) bc_types[cell].resize(par.dimension*2);
   NTHREADS = omp_get_max_threads();
   block_size = ((int)phi.size() % NTHREADS) ? (int)((phi.size() / NTHREADS) + 1) : (int)(phi.size() / NTHREADS);
 
@@ -103,8 +105,8 @@ hgf::models::poisson::setup_dirichlet_bc(const parameters& par, const hgf::mesh:
  * 
  */
 void
-hgf::models::poisson::setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ))
+hgf::models::poisson::setup_mixed_bc(const parameters& par, const hgf::mesh::voxel& msh, bool (*is_dirichlet)( const parameters& par, int dof_num, double coords[3] ))
 {
-  if (par.dimension == 2) homogeneous_mixed_2d(par, msh, f);
-  else homogeneous_mixed_3d(par, msh, f);
+  if (par.dimension == 2) homogeneous_mixed_2d(par, msh, is_dirichlet);
+  else homogeneous_mixed_3d(par, msh, is_dirichlet);
 }

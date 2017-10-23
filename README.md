@@ -49,7 +49,6 @@ Version 3.0.0 (Beta)
         - Beta version requires a diagonal tensor. This will be extended prior to release of 3.0.0.
     - Includes tools for setting force and alpha coefficient.
     - Ships with tools to set Dirichlet or mixed Dirichlet/Neumann boundary conditions.
-        - Beta version has tools for setting a mixture of Dirichlet and Homogeneous Neumann conditions. Tools to set nonhomogeneous Neumann conditions will be added prior to release of 3.0.0.
 - Added controls to inflow boundary conditions in Stokes Model. 
     - Allows user to control constant or parabolic inflow, as well as the value of the inflow condition. 
     - Requires API change in directional flow boundary condition functions.
