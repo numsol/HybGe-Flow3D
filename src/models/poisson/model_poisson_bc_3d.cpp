@@ -38,7 +38,10 @@ hgf::models::poisson::homogeneous_dirichlet_3d(const parameters& par, const hgf:
       for (int jj = 0; jj < 6; jj++) {
         nbrs[jj] = phi[ii].neighbors[jj];
         if (nbrs[jj] != -1) nnbr++;
-        else bc_contributor[jj] = 1;
+        else {
+          bc_types[ii][jj] = 1;
+          bc_contributor[jj] = 1;
+        }
       }
       if (nnbr == 6) goto phiexit;
 
@@ -109,7 +112,8 @@ hgf::models::poisson::homogeneous_dirichlet_3d(const parameters& par, const hgf:
 }
 
 void 
-hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ))
+hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mesh::voxel& msh, \
+                                           bool (*is_dirichlet)( const parameters& par, int dof_num, double coords[3] ))
 {
   // define temp coo arays to store results in parallel region
   std::vector< std::vector< array_coo > > temp_arrays;
@@ -156,8 +160,11 @@ hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mes
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1] - 0.5 * dy;
           coords[2] = phi[ii].coords[2];
-          if (f( par, ii, coords )) value += alpha[ii][4] * dx * dz / (0.5 * dy);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][0] = 1;
+            value += alpha[ii][4] * dx * dz / (0.5 * dy);
+          }
+          else bc_types[ii][0] = 2;
         }
 
         // x+ neighbor?
@@ -165,8 +172,11 @@ hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mes
           coords[0] = phi[ii].coords[0] + 0.5 * dx;
           coords[1] = phi[ii].coords[1];
           coords[2] = phi[ii].coords[2];
-          if (f( par, ii, coords )) value += alpha[ii][0] * dz * dy / (0.5 * dx);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][1] = 1;
+            value += alpha[ii][0] * dz * dy / (0.5 * dx);
+          }
+          else bc_types[ii][1] = 2;
         }
 
         // y+ neighbor?
@@ -174,8 +184,11 @@ hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mes
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1] + 0.5 * dy;
           coords[2] = phi[ii].coords[2];
-          if (f( par, ii, coords )) value += alpha[ii][4] * dx * dz / (0.5 * dy);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][2] = 1;
+            value += alpha[ii][4] * dx * dz / (0.5 * dy);
+          }
+          else bc_types[ii][2] = 2;
         }
 
         // x- neighbor?
@@ -183,8 +196,11 @@ hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mes
           coords[0] = phi[ii].coords[0] - 0.5 * dx;
           coords[1] = phi[ii].coords[1];
           coords[2] = phi[ii].coords[2];
-          if (f( par, ii, coords )) value += alpha[ii][0] * dy * dz / (0.5 * dx);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][3] = 1;
+            value += alpha[ii][0] * dy * dz / (0.5 * dx);
+          }
+          else bc_types[ii][3] = 2;
         }
 
         // z- neighbor?
@@ -192,8 +208,11 @@ hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mes
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1];
           coords[2] = phi[ii].coords[2] - 0.5 * dz;
-          if (f( par, ii, coords )) value += alpha[ii][8] * dx * dy / (0.5 * dz);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][4] = 1;
+            value += alpha[ii][8] * dx * dy / (0.5 * dz);
+          }
+          else bc_types[ii][4] = 2;
         }
 
         // z+ neighbor?
@@ -201,8 +220,11 @@ hgf::models::poisson::homogeneous_mixed_3d(const parameters& par, const hgf::mes
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1];
           coords[2] = phi[ii].coords[2] + 0.5 * dz;
-          if (f( par, ii, coords )) value += alpha[ii][8] * dx * dy / (0.5 * dz);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][5] = 1;
+            value += alpha[ii][8] * dx * dy / (0.5 * dz);
+          }
+          else bc_types[ii][5] = 2;
         }
 
       }

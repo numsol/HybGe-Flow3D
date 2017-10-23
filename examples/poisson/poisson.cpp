@@ -68,7 +68,7 @@ main( int argc, const char* argv[] )
 
   // set up boundary conditions
   poiss.setup_mixed_bc(par, msh, mixed_bc_heuristic);
-  poiss.add_nonhomogeneous_dirichlet_bc(par, msh, dirichlet_bc_value);
+  poiss.add_nonhomogeneous_bc(par, msh, dirichlet_bc_value);
 
   build_time = omp_get_wtime() - rebegin;
   rebegin = omp_get_wtime();

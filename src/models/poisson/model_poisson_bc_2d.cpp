@@ -35,7 +35,10 @@ hgf::models::poisson::homogeneous_dirichlet_2d(const parameters& par, const hgf:
       for (int jj = 0; jj < 4; jj++) {
         nbrs[jj] = phi[ii].neighbors[jj];
         if (nbrs[jj] != -1) nnbr++;
-        else bc_contributor[jj] = 1;
+        else {
+          bc_types[ii][jj] = 1;
+          bc_contributor[jj] = 1;
+        }
       }
       if (nnbr == 4) goto phiexit;
 
@@ -89,7 +92,8 @@ hgf::models::poisson::homogeneous_dirichlet_2d(const parameters& par, const hgf:
 }
 
 void 
-hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mesh::voxel& msh, bool (*f)( const parameters& par, int dof_num, double coords[3] ))
+hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mesh::voxel& msh, \
+                                           bool (*is_dirichlet)( const parameters& par, int dof_num, double coords[3] ))
 {
   // define temp coo array to store results in parallel region
   std::vector< std::vector< array_coo > > temp_arrays;
@@ -129,32 +133,44 @@ hgf::models::poisson::homogeneous_mixed_2d(const parameters& par, const hgf::mes
         if (bc_contributor[0]) {
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1] - 0.5*dy;
-          if (f( par, ii, coords )) value += alpha[ii][3] * dx / (0.5*dy);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][0] = 1;
+            value += alpha[ii][3] * dx / (0.5*dy);
+          }
+          else bc_types[ii][0] = 2;
         } 
 
         // E neighbor?
         if (bc_contributor[1]) {
           coords[0] = phi[ii].coords[0] + 0.5*dx;
           coords[1] = phi[ii].coords[1]; 
-          if (f( par, ii, coords )) value += alpha[ii][0] * dy / (0.5*dx); 
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][1] = 1;
+            value += alpha[ii][0] * dy / (0.5*dx); 
+          }
+          else bc_types[ii][1] = 2;
         }
 
         // N neighbor?
         if (bc_contributor[2]) {
           coords[0] = phi[ii].coords[0];
           coords[1] = phi[ii].coords[1] + 0.5*dy;
-          if (f( par, ii, coords )) value += alpha[ii][3] * dx / (0.5*dy); 
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][2] = 1;
+            value += alpha[ii][3] * dx / (0.5*dy); 
+          }
+          else bc_types[ii][2] = 2;
         }
 
         // W neighbor?
         if (bc_contributor[3]) {
           coords[0] = phi[ii].coords[0] - 0.5*dx;
           coords[1] = phi[ii].coords[1];
-          if (f( par, ii, coords )) value += alpha[ii][0] * dy / (0.5*dx);
-          else ;
+          if (is_dirichlet( par, ii, coords )) {
+            bc_types[ii][3] = 1;
+            value += alpha[ii][0] * dy / (0.5*dx);
+          }
+          else bc_types[ii][3] = 2;
         }
 
       }
