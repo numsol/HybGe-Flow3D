@@ -79,19 +79,6 @@ struct degree_of_freedom
   int neighbors[6];              /**< Array listing the global number of neighboring degrees of freedom, i.e. DOFs which interact with this DOF in the model. */
 };
 
-/** \brief Struct describing a degree of freedom in an unstructured model. 
- *
- * To account for the lack of structure std::vectors are used in place of static arrays. Structure models should use degree_of_freedom instead.
- */
-struct dof_unstructured
-{
-  int doftype;                     /**< Integer specifiying the type of degree of freedom: 0 for interior, 1 for edge, 2 for face. */
-  double coords[3];                /**< Array of coordinates of the degree of freedom. coords[0] gives the x coordinate, coords[1] gives the y coordinate, and coords[2] gives the z coordinate. */
-  std::vector<double> normals;     /**< Array containing normal direction vectors for faces (3d) or edges (2d). */
-  std::vector<int> cell_numbers;   /**< Array of mesh cell numbers containing the degree of freedom. */
-  std::vector<int> neighbors;      /**< Array listing the global number of neighboring degrees of freedom, i.e. DOFs which interact with this DOF in the model. */
-};
-
 /** \brief Struct for coordinate sparse data format.
  *
  */
