@@ -140,7 +140,7 @@ hgf::models::poisson::add_nonhomogeneous_bc(const parameters& par, const hgf::me
           if (bc_contributor[0]) {
             midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords, \
                                 msh.els[cell].vtx[6].coords, msh.els[cell].vtx[7].coords);
-            if (bc_types[cell][0] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dz / dy;
+            if (bc_types[cell][0] == 1) value += 2 * alpha[cell][4] * bc_value( par, cell, coords ) * dx * dz / dy;
             else value += bc_value( par, cell, coords );
           }
   
@@ -148,7 +148,7 @@ hgf::models::poisson::add_nonhomogeneous_bc(const parameters& par, const hgf::me
           if (bc_contributor[1]) {
             midpoint_3d(coords, msh.els[cell].vtx[1].coords, msh.els[cell].vtx[2].coords, \
                                 msh.els[cell].vtx[5].coords, msh.els[cell].vtx[6].coords);
-            if (bc_types[cell][1] == 1) value += 2 * bc_value( par, cell, coords ) * dy * dz / dx;
+            if (bc_types[cell][1] == 1) value += 2 * alpha[cell][0] * bc_value( par, cell, coords ) * dy * dz / dx;
             else value += bc_value( par, cell, coords );
           }
   
@@ -156,7 +156,7 @@ hgf::models::poisson::add_nonhomogeneous_bc(const parameters& par, const hgf::me
           if (bc_contributor[2]) {
             midpoint_3d(coords, msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords, \
                                 msh.els[cell].vtx[4].coords, msh.els[cell].vtx[5].coords);
-            if (bc_types[cell][2] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dz / dy;
+            if (bc_types[cell][2] == 1) value += 2 * alpha[cell][4] * bc_value( par, cell, coords ) * dx * dz / dy;
             else value += bc_value( par, cell, coords );
           }
   
@@ -164,7 +164,7 @@ hgf::models::poisson::add_nonhomogeneous_bc(const parameters& par, const hgf::me
           if (bc_contributor[3]) {
             midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[3].coords, \
                                 msh.els[cell].vtx[4].coords, msh.els[cell].vtx[7].coords);
-            if (bc_types[cell][3] == 1) value += 2 * bc_value( par, cell, coords ) * dy * dz / dx;
+            if (bc_types[cell][3] == 1) value += 2 * alpha[cell][0] * bc_value( par, cell, coords ) * dy * dz / dx;
             else value += bc_value( par, cell, coords );
           }
   
@@ -172,7 +172,7 @@ hgf::models::poisson::add_nonhomogeneous_bc(const parameters& par, const hgf::me
           if (bc_contributor[4]) {
             midpoint_3d(coords, msh.els[cell].vtx[0].coords, msh.els[cell].vtx[1].coords, \
                                 msh.els[cell].vtx[2].coords, msh.els[cell].vtx[3].coords);
-            if (bc_types[cell][4] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dy / dz;
+            if (bc_types[cell][4] == 1) value += 2 * alpha[cell][8] * bc_value( par, cell, coords ) * dx * dy / dz;
             else value += bc_value( par, cell, coords );
           }
   
@@ -180,7 +180,7 @@ hgf::models::poisson::add_nonhomogeneous_bc(const parameters& par, const hgf::me
           if (bc_contributor[5]) {
             midpoint_3d(coords, msh.els[cell].vtx[4].coords, msh.els[cell].vtx[5].coords, \
                                 msh.els[cell].vtx[6].coords, msh.els[cell].vtx[7].coords);
-            if (bc_types[cell][5] == 1) value += 2 * bc_value( par, cell, coords ) * dx * dy / dz;
+            if (bc_types[cell][5] == 1) value += 2 * alpha[cell][8] * bc_value( par, cell, coords ) * dx * dy / dz;
             else value += bc_value( par, cell, coords );
           }
 
